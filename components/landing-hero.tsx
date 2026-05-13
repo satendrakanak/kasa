@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { LeadCaptureModalTrigger } from "@/components/lead-capture-form";
 import { stats } from "@/lib/landing";
 
 const floatingCards = [
@@ -33,6 +34,9 @@ const floatingCards = [
 ];
 
 export default function LandingHero() {
+  const leadsEndpoint =
+    process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
+
   return (
     <section className="relative min-h-screen overflow-x-hidden bg-surface-strong text-foreground">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_52%,rgba(255,255,255,0.16),transparent_14rem),linear-gradient(180deg,rgba(30,64,175,0.45),rgba(2,6,23,0.96)_68%)]" />
@@ -59,42 +63,8 @@ export default function LandingHero() {
         <div className="absolute bottom-0 left-1/2 h-48 w-[58%] -translate-x-1/2 bg-primary/20 blur-2xl" />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center px-4 pb-8 pt-5 text-center sm:px-6 lg:px-8">
-        <header className="fixed left-1/2 top-3 z-50 flex h-12 w-[min(92vw,46rem)] -translate-x-1/2 items-center justify-between rounded-full border border-white/15 bg-white/10 p-1.5 text-xs text-white/80 shadow-2xl shadow-black/20 backdrop-blur-xl sm:top-4">
-          <a
-            href="#"
-            className="relative ml-3 block h-6 w-24 sm:w-28"
-            aria-label="KASA home"
-          >
-            <Image
-              src="/kasa-logo-dark.png"
-              alt="KASA"
-              width={760}
-              height={260}
-              priority
-              className="h-full w-full object-contain object-left"
-            />
-          </a>
-          <div className="hidden items-center gap-6 sm:flex">
-            <a href="#features" className="transition hover:text-white">
-              Features
-            </a>
-            <a href="#pricing" className="transition hover:text-white">
-              Pricing
-            </a>
-            <a href="#faq" className="transition hover:text-white">
-              FAQ
-            </a>
-          </div>
-          <a
-            href="#pricing"
-            className="rounded-full bg-primary px-4 py-2 font-medium text-primary-foreground"
-          >
-            Sign up
-          </a>
-        </header>
-
-        <div className="mx-auto flex flex-1 flex-col items-center justify-center pt-16 sm:pt-32">
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center px-4 pb-8 text-center sm:px-6 lg:px-8">
+        <div className="mx-auto flex flex-1 flex-col items-center justify-center pt-24 sm:pt-32">
           <p className="font-heading text-xs font-medium uppercase tracking-[0.22em] text-white/68 sm:text-sm">
             Premium LMS software for coaching institutes and online academies
           </p>
@@ -110,18 +80,24 @@ export default function LandingHero() {
           </p>
 
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
-            <a
-              href="mailto:hello@getkasa.in?subject=KASA LMS demo"
-              className="flex h-12 items-center justify-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition hover:bg-primary-hover"
-            >
-              Book Free Demo
-            </a>
-            <a
-              href="#features"
-              className="flex h-12 items-center justify-center rounded-full border border-white/25 bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/15"
-            >
-              Explore Features
-            </a>
+            <LeadCaptureModalTrigger
+              endpoint={leadsEndpoint}
+              source="hero-tour-modal"
+              buttonLabel="Take a Tour"
+              modalTitle="Take a guided KASA tour"
+              modalEyebrow="Tour access"
+              icon={<PlayWindowIcon className="size-4" />}
+              buttonClassName="inline-flex h-12 min-w-[12.25rem] cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition hover:bg-primary-hover"
+            />
+            <LeadCaptureModalTrigger
+              endpoint={leadsEndpoint}
+              source="hero-enquiry-modal"
+              buttonLabel="Enquire Now"
+              modalTitle="Tell us about your academy"
+              modalEyebrow="Enquiry request"
+              icon={<ChatBubbleIcon className="size-4" />}
+              buttonClassName="inline-flex h-12 min-w-[12.25rem] cursor-pointer items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/15"
+            />
           </div>
 
           <p className="mt-4 text-sm text-white/55">
@@ -200,5 +176,52 @@ export default function LandingHero() {
         </div>
       </div>
     </section>
+  );
+}
+
+function ChatBubbleIcon({ className = "size-4" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+    >
+      <path
+        d="M5.833 14.167 3.333 16.25V5.833A2.5 2.5 0 0 1 5.833 3.333h8.334a2.5 2.5 0 0 1 2.5 2.5v5.834a2.5 2.5 0 0 1-2.5 2.5H5.833Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M6.667 7.5h6.666M6.667 10.417h4.166"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function PlayWindowIcon({ className = "size-4" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+    >
+      <rect
+        x="2.5"
+        y="3.333"
+        width="15"
+        height="13.334"
+        rx="2.5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <path d="M8.4 7.25v5.5L13 10 8.4 7.25Z" fill="currentColor" />
+    </svg>
   );
 }

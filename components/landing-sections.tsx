@@ -1,5 +1,12 @@
 import Image from "next/image";
-import { faqs, features, pricing, replacedTools } from "@/lib/landing";
+import { LeadCaptureModalTrigger } from "@/components/lead-capture-form";
+import {
+  faqs,
+  features,
+  pricing,
+  replacedTools,
+  testimonials,
+} from "@/lib/landing";
 
 const planetMotion = [
   "animate-[planet-orbit-0_155s_linear_infinite]",
@@ -164,6 +171,9 @@ export function FeaturesSection() {
 }
 
 export function PricingSection() {
+  const leadsEndpoint =
+    process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
+
   return (
     <section
       id="pricing"
@@ -174,12 +184,11 @@ export function PricingSection() {
           Pricing
         </p>
         <h2 className="mt-3 font-heading text-3xl font-semibold leading-[1.2] tracking-normal sm:text-5xl sm:leading-tight">
-          Choose the rollout stage that matches your institute right now.
+          Pricing that makes sense for where your academy is right now.
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-muted sm:text-base">
-          These plans are structured around the actual product layers we
-          reviewed: storefront, learner workspace, faculty workflows, class
-          scheduling, assessments, reminders, and operations.
+          Start with the branded essentials, move into live and hybrid delivery,
+          then scale operations when your team and admissions volume grow.
         </p>
       </div>
 
@@ -188,61 +197,124 @@ export function PricingSection() {
           <article
             key={plan.name}
             className={[
-              "rounded-3xl border p-5 shadow-sm sm:p-6",
+              "relative overflow-hidden rounded-[2rem] border p-6 shadow-sm transition duration-500 sm:p-7",
               plan.highlighted
-                ? "border-primary bg-primary text-primary-foreground shadow-2xl shadow-primary/15 hover:shadow-[0_0_46px_rgba(88,201,138,0.24)]"
-                : "border-border bg-surface/80 hover:border-primary hover:shadow-[0_0_42px_rgba(88,201,138,0.2)]",
+                ? "border-primary/55 bg-[linear-gradient(180deg,rgba(88,201,138,0.08),rgba(88,201,138,0.03)_16%,#0d1932_16%,#0b1833_100%)] text-white shadow-2xl shadow-primary/10 hover:shadow-[0_0_46px_rgba(88,201,138,0.18)]"
+                : "border-border bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] hover:border-primary hover:shadow-[0_0_42px_rgba(88,201,138,0.2)]",
             ].join(" ")}
           >
+            <div
+              className={[
+                "pointer-events-none absolute inset-x-0 top-0 h-28",
+                plan.highlighted
+                  ? "bg-[linear-gradient(180deg,rgba(255,255,255,0.08),transparent)]"
+                  : "bg-[linear-gradient(180deg,rgba(88,201,138,0.08),transparent)]",
+              ].join(" ")}
+            />
             <div className="flex items-start justify-between gap-3">
-              <div>
-                <h3 className="font-heading text-2xl font-semibold">
-                  {plan.name}
-                </h3>
-                <p
+              <div className="relative z-10">
+                <div
                   className={
                     plan.highlighted
-                      ? "mt-1 text-sm opacity-75"
-                      : "mt-1 text-sm text-muted"
+                      ? "text-xs font-semibold uppercase tracking-[0.18em] text-white/70"
+                      : "text-xs font-semibold uppercase tracking-[0.18em] text-primary"
                   }
                 >
-                  {plan.note}
-                </p>
+                  {plan.name} plan
+                </div>
+                <h3 className="mt-2 font-heading text-[1.8rem] font-semibold">
+                  {plan.name}
+                </h3>
               </div>
               {plan.highlighted ? (
-                <span className="rounded-full bg-surface-strong px-3 py-1 text-xs font-semibold text-foreground">
-                  Best
+                <span className="relative z-10 rounded-full bg-surface-strong px-3 py-1 text-xs font-semibold text-foreground">
+                  Best suitable for you
                 </span>
               ) : null}
             </div>
 
-            <div className="mt-8 font-heading text-4xl font-semibold">
-              {plan.price}
-            </div>
-            <ul className="mt-8 space-y-3 text-sm font-medium">
-              {plan.features.map((feature) => (
-                <li key={feature} className="flex gap-3">
-                  <span
-                    className={[
-                      "mt-1 size-2 shrink-0 rounded-full",
-                      plan.highlighted ? "bg-primary-foreground" : "bg-primary",
-                    ].join(" ")}
-                  />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-            <a
-              href="mailto:hello@getkasa.in?subject=KASA LMS demo"
+            <div
               className={[
-                "mt-8 flex h-12 items-center justify-center rounded-full text-sm font-semibold transition",
+                "relative z-10 mt-8 rounded-[1.4rem] border p-5",
                 plan.highlighted
-                  ? "bg-surface-strong text-foreground hover:bg-surface"
-                  : "bg-primary text-primary-foreground hover:bg-primary-hover",
+                  ? "border-white/12 bg-slate-950/18 backdrop-blur"
+                  : "border-white/8 bg-white/[0.03]",
               ].join(" ")}
             >
-              Book demo
-            </a>
+              <div className="font-heading text-4xl font-semibold tracking-tight">
+                {plan.price}
+              </div>
+              <div
+                className={
+                  plan.highlighted
+                    ? "mt-3 text-sm leading-6 text-white/78"
+                    : "mt-3 text-sm leading-6 text-muted"
+                }
+              >
+                {plan.note}
+              </div>
+            </div>
+
+            <div
+              className={[
+                "relative z-10 mt-6 rounded-[1.4rem] border p-5",
+                plan.highlighted
+                  ? "border-white/10 bg-slate-950/14"
+                  : "border-white/8 bg-white/[0.02]",
+              ].join(" ")}
+            >
+              <div
+                className={
+                  plan.highlighted
+                    ? "text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white/62"
+                    : "text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-primary/90"
+                }
+              >
+                Included
+              </div>
+              <ul className="mt-4 space-y-3.5 text-left text-sm font-medium">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex gap-3">
+                    <span
+                      className={[
+                        "mt-[0.42rem] size-2 shrink-0 rounded-full",
+                        plan.highlighted ? "bg-primary" : "bg-primary",
+                      ].join(" ")}
+                    />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div
+              className={
+                plan.highlighted
+                  ? "relative z-10 mt-6 text-sm text-white/74"
+                  : "relative z-10 mt-6 text-sm text-muted"
+              }
+            >
+              {plan.highlighted
+                ? "Best for institutes already selling, teaching, and managing active cohorts."
+                : plan.name === "Starter"
+                  ? "Best for small teams launching their first serious academy setup."
+                  : "Best for multi-team institutes that need custom rollout depth."}
+            </div>
+            <div className="relative z-10 mt-8">
+              <LeadCaptureModalTrigger
+                endpoint={leadsEndpoint}
+                source={`pricing-${plan.name.toLowerCase()}-modal`}
+                buttonLabel={plan.highlighted ? "Enquire Now" : "Talk to sales"}
+                modalTitle="Tell us about your academy"
+                modalEyebrow={`${plan.name} plan enquiry`}
+                buttonClassName={[
+                  "inline-flex h-12 w-full cursor-pointer items-center justify-center rounded-full text-sm font-semibold transition",
+                  plan.highlighted
+                    ? "bg-white text-slate-950 hover:bg-slate-100"
+                    : "bg-primary text-primary-foreground hover:bg-primary-hover",
+                ].join(" ")}
+              />
+            </div>
           </article>
         ))}
       </div>
@@ -253,50 +325,33 @@ export function PricingSection() {
 export function FaqSection() {
   return (
     <section id="faq" className="border-t border-border bg-background py-20">
-      <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
-        <div>
+      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
-            06. FAQ / Demo CTA
+            FAQ
           </p>
           <h2 className="mt-3 font-heading text-3xl font-semibold leading-[1.2] tracking-normal sm:text-4xl sm:leading-tight">
-            See the real flow, then decide the rollout.
+            Common questions before you move your academy to KASA.
           </h2>
-          <p className="mt-4 max-w-md text-sm leading-7 text-muted">
-            Best next step is a guided product demo around your institute model:
-            self-learning, live batches, hybrid delivery, or a mix of all three.
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-muted">
+            Short answers to the things institute teams usually want clarity on
+            before they commit to a full rollout.
           </p>
-          <div className="mt-6 rounded-3xl border border-border bg-surface/80 p-6">
-            <div className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
-              Book Demo
-            </div>
-            <p className="mt-3 text-sm leading-7 text-slate-300">
-              Walk through storefront, learner dashboard, faculty panel,
-              classes, calendar, batches, exams, reminders, and certificates.
-            </p>
-            <div className="mt-6 flex flex-col gap-3">
-              <a
-                href="mailto:hello@getkasa.in?subject=KASA LMS demo"
-                className="flex h-12 items-center justify-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground"
-              >
-                Book live walkthrough
-              </a>
-              <a
-                href="https://cwk.getkasa.in"
-                className="flex h-12 items-center justify-center rounded-full border border-border px-5 text-sm font-semibold text-foreground"
-              >
-                Open live academy
-              </a>
-            </div>
-          </div>
         </div>
-        <div className="space-y-4">
-          {faqs.map((faq) => (
+
+        <div className="mt-10 space-y-4">
+          {faqs.map((faq, index) => (
             <details
               key={faq.question}
+              open={index === 0}
               className="group rounded-3xl border border-border bg-surface/80 p-5 transition duration-500 open:shadow-sm hover:border-primary hover:shadow-[0_0_42px_rgba(88,201,138,0.18)] sm:p-6"
             >
-              <summary className="cursor-pointer list-none font-heading text-lg font-semibold">
-                {faq.question}
+              <summary className="flex cursor-pointer list-none items-start justify-between gap-4 font-heading text-left text-lg font-semibold">
+                <span>{faq.question}</span>
+                <span className="mt-1 shrink-0 text-primary">
+                  <span className="group-open:hidden">+</span>
+                  <span className="hidden group-open:inline">−</span>
+                </span>
               </summary>
               <p className="mt-4 text-sm leading-7 text-muted">{faq.answer}</p>
             </details>
@@ -307,31 +362,90 @@ export function FaqSection() {
   );
 }
 
+export function TestimonialsSection() {
+  return (
+    <section
+      id="customers"
+      className="mx-auto w-full max-w-7xl bg-background px-4 py-20 sm:px-6 lg:px-8"
+    >
+      <div className="mx-auto max-w-3xl text-center">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+          Client testimonials
+        </p>
+        <h2 className="mt-3 font-heading text-3xl font-semibold leading-[1.2] tracking-normal sm:text-5xl sm:leading-tight">
+          Teams choose KASA when they want the full learner journey to feel
+          cleaner and easier to run.
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-muted sm:text-base">
+          These are the kinds of outcomes serious institutes expect when their
+          website, delivery flow, payments, and learner support finally start
+          working together.
+        </p>
+      </div>
+
+      <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {testimonials.map((testimonial) => (
+          <article
+            key={testimonial.name}
+            className="rounded-[2rem] border border-border bg-surface/80 p-6 shadow-sm shadow-black/15 transition duration-500 hover:border-primary hover:shadow-[0_0_42px_rgba(88,201,138,0.18)]"
+          >
+            <div className="flex items-center gap-4">
+              <div className="relative size-14 overflow-hidden rounded-full border border-white/10">
+                <Image
+                  src={testimonial.image}
+                  alt={testimonial.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div>
+                <div className="font-heading text-lg font-semibold text-white">
+                  {testimonial.name}
+                </div>
+                <div className="text-sm text-muted">{testimonial.role}</div>
+              </div>
+            </div>
+            <p className="mt-5 text-sm leading-7 text-slate-300">
+              “{testimonial.quote}”
+            </p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export function SiteFooter() {
+  const leadsEndpoint =
+    process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
+
   return (
     <footer className="border-t border-border bg-background px-4 py-10 text-foreground sm:px-6 lg:px-8">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <div className="text-xl font-semibold tracking-[0.18em]">KASA</div>
-          <p className="mt-2 max-w-md text-sm leading-6 text-slate-400">
-            Software products for educators, institutes, and training
-            businesses.
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 text-center sm:text-left lg:flex-row lg:items-center lg:justify-between">
+        <div className="mx-auto lg:mx-0">
+          <div className="relative mx-auto h-10 w-28 lg:mx-0">
+            <Image
+              src="/kasa-logo-dark.png"
+              alt="KASA"
+              width={760}
+              height={260}
+              className="h-full w-full object-contain"
+            />
+          </div>
+          <p className="mt-3 max-w-md text-sm leading-6 text-slate-400">
+            Software for institutes that want their website, learner
+            experience, classes, payments, and operations to finally feel
+            connected.
           </p>
         </div>
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <a
-            href="https://cwk.getkasa.in"
-            className="flex h-11 items-center justify-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground"
-          >
-            Live demo
-          </a>
-          <a
-            href="mailto:hello@getkasa.in"
-            className="flex h-11 items-center justify-center rounded-full border border-border px-5 text-sm font-semibold text-foreground"
-          >
-            Contact sales
-          </a>
-        </div>
+        <LeadCaptureModalTrigger
+          endpoint={leadsEndpoint}
+          source="footer-enquiry-modal"
+          buttonLabel="Enquire Now"
+          modalTitle="Tell us about your academy"
+          modalEyebrow="Footer enquiry"
+          buttonClassName="inline-flex h-12 min-w-44 cursor-pointer items-center justify-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition hover:bg-primary-hover"
+        />
       </div>
     </footer>
   );

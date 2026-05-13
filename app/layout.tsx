@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
+import SiteHeader from "@/components/site-header";
 import "./globals.css";
 
 const inter = Inter({
@@ -30,15 +31,10 @@ export default function RootLayout({
       className={`${inter.variable} ${poppins.variable} h-full scroll-smooth antialiased`}
       suppressHydrationWarning
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{const t=localStorage.getItem('theme');const d=t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.toggle('dark',d)}catch(e){}",
-          }}
-        />
-      </head>
-      <body className="flex min-h-full flex-col font-sans">{children}</body>
+      <body className="flex min-h-full flex-col font-sans">
+        <SiteHeader />
+        {children}
+      </body>
     </html>
   );
 }

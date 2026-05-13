@@ -221,65 +221,124 @@ export const howItWorks = [
 
 export const pricing = [
   {
-    name: "Launch",
-    price: "₹4,999",
-    note: "for first academy launch",
+    name: "Starter",
+    price: "$49/mo",
+    note: "For new academies getting their first branded setup live.",
     features: [
-      "Branded storefront with course pages",
-      "Learner dashboard with my courses and progress",
-      "Orders, checkout, and account access",
-      "Initial setup and guided onboarding",
+      "Branded academy storefront",
+      "Course pages and checkout flow",
+      "Learner dashboard and progress view",
+      "Recorded course delivery",
+      "Basic lead capture and contact forms",
+      "Launch setup support",
     ],
   },
   {
-    name: "Growth",
-    price: "₹9,999",
-    note: "most popular for active institutes",
+    name: "Plus",
+    price: "$129/mo",
+    note: "The best fit for active institutes running live and hybrid delivery.",
     features: [
-      "Everything in Launch",
-      "Live classes, batches, and class calendar",
-      "Assignments, exams, and certificates",
-      "Faculty dashboard, reminders, and student tracking",
+      "Everything in Starter",
+      "Live classes, batches, and calendar",
+      "Assignments, tests, and certificates",
+      "Faculty workflows and reminders",
+      "Payments, invoices, and access control",
+      "Lead pipeline and student tracking",
+      "Priority onboarding help",
     ],
     highlighted: true,
   },
   {
-    name: "Scale",
+    name: "Enterprise",
     price: "Custom",
-    note: "for multi-team operations",
+    note: "For larger teams, multi-brand operations, and custom rollout needs.",
     features: [
-      "Everything in Growth",
-      "Migration help and custom workflows",
-      "Advanced delivery and admin structure",
-      "Priority support with rollout planning",
+      "Everything in Plus",
+      "Multi-team and role-based operations",
+      "Migration and data mapping support",
+      "Custom delivery workflows",
+      "Advanced reporting and admin controls",
+      "Dedicated rollout planning",
+      "Priority support and success check-ins",
     ],
   },
 ];
 
 export const faqs = [
   {
-    question: "KASA me kaun kaun se learning models run kar sakte hain?",
+    question: "What kind of academies can run on KASA?",
     answer:
-      "CodeWithKasa product structure ke basis par KASA self-learning, live faculty-led, aur hybrid tino models support kar sakta hai. Storefront, learner dashboard, live classes, batches, and reminders same system me connected rehte hain.",
+      "KASA works for self-paced academies, live teaching institutes, and hybrid delivery models. Your storefront, learner dashboard, batches, reminders, tests, and operations stay connected in one system.",
   },
   {
-    question: "Learner ko purchase ke baad kya milta hai?",
+    question: "What does a learner get after enrolment?",
     answer:
-      "Learner dashboard me my courses, live classes, exams, assignments, certificates, notifications, settings, aur course progress jaise sections milte hain. Isse delivery aur support dono structured feel dete hain.",
+      "Learners get a clean dashboard with course access, live class links, assignments, tests, certificates, notices, and progress tracking so the learning experience feels structured from day one.",
   },
   {
-    question: "Faculty ya trainers ke liye alag dashboard hota hai?",
+    question: "Do trainers and faculty get their own workflows?",
     answer:
-      "Haan. Faculty dashboard me assigned courses, class sessions, calendar, exam management, batches, students, aur reminder queue jaise dedicated workflows hote hain, jo teaching operations ko centralize karte hain.",
+      "Yes. Faculty teams can manage assigned courses, class sessions, schedule views, exams, batches, students, and reminder actions from a dedicated workflow layer.",
   },
   {
-    question: "Setup ke liye humein kya kya dena hota hai?",
+    question: "What do we need to provide during setup?",
     answer:
-      "Usually logo, brand colors, domain preference, course list, pricing, faculty details, aur delivery model. Uske baad storefront, learner flow, aur operations panels ko launch-ready shape diya ja sakta hai.",
+      "Usually your logo, colors, domain preference, course list, pricing structure, faculty details, and delivery model. From there the storefront, learner flow, and operations setup can be shaped around your academy.",
   },
   {
-    question: "Demo me exactly kya dikhaya jayega?",
+    question: "What will the demo actually cover?",
     answer:
-      "Demo me storefront, learner dashboard, live class flow, assignments, exam/certificate setup, aur faculty/admin operations ka real walkthrough dikhaya ja sakta hai, based on your institute model.",
+      "The walkthrough can cover the storefront, learner dashboard, live class flow, tests, certificates, payments, faculty workflows, and admin operations based on how your institute runs today.",
+  },
+];
+
+export const testimonials = [
+  {
+    name: "Aarav Mehta",
+    role: "Director, GrowthBridge Academy",
+    quote:
+      "The biggest win was clarity. Our website, course sales, live classes, and learner support finally started feeling like one system instead of four separate tools.",
+    image:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80",
+  },
+  {
+    name: "Ritika Saini",
+    role: "Founder, SkillOrbit Institute",
+    quote:
+      "We stopped sending students across random apps. KASA gave us a cleaner learner journey and our team stopped wasting time explaining where everything lives.",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=240&q=80",
+  },
+  {
+    name: "Nitin Verma",
+    role: "Operations Lead, PrimeEdge Classes",
+    quote:
+      "For our team, the CRM and payments layer mattered as much as the LMS. Admissions follow-up, fee status, and batch operations now feel much more controlled.",
+    image:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=240&q=80",
+  },
+  {
+    name: "Sana Kapoor",
+    role: "Academic Head, CodeSprint Academy",
+    quote:
+      "The faculty side is what sold us. Sessions, reminders, assignments, and learners are no longer spread across spreadsheets and chat threads.",
+    image:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=240&q=80",
+  },
+  {
+    name: "Harsh Rajput",
+    role: "Co-founder, MentorLoop Learning",
+    quote:
+      "We needed a product that looked premium before login and stayed practical after login. KASA handled both sides better than we expected.",
+    image:
+      "https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=240&q=80",
+  },
+  {
+    name: "Devika Malhotra",
+    role: "Program Lead, NorthStar Academy",
+    quote:
+      "Our launch went live faster because we were not building everything from scratch. That alone saved us weeks of back and forth.",
+    image:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=240&q=80",
   },
 ];
