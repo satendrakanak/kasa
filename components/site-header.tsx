@@ -60,16 +60,28 @@ export default function SiteHeader() {
     process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
 
   return (
-    <div className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-surface-strong/82 px-4 py-3 backdrop-blur-xl sm:px-6 lg:px-8">
+    <div className="fixed inset-x-0 top-0 z-50 border-b border-emerald-950/10 bg-white/82 px-4 py-3 shadow-[0_12px_40px_rgba(16,185,129,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-surface-strong/82 dark:shadow-none sm:px-6 lg:px-8">
       <header className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between">
-        <Link href="/" className="relative block h-8 w-32" aria-label="KASA home">
+        <Link
+          href="/"
+          className="relative block h-9 w-[8.5rem] overflow-hidden"
+          aria-label="KASA home"
+        >
+          <Image
+            src="/kasa-logo-light.png"
+            alt="KASA"
+            width={760}
+            height={260}
+            priority
+            className="h-full w-full object-contain object-left dark:hidden"
+          />
           <Image
             src="/kasa-logo-dark.png"
             alt="KASA"
             width={760}
             height={260}
             priority
-            className="h-full w-full object-contain object-left"
+            className="hidden h-full w-full object-contain object-left dark:block"
           />
         </Link>
 
@@ -79,23 +91,23 @@ export default function SiteHeader() {
               <div key={item.label} className="group relative">
                 <Link
                   href={item.href}
-                  className="inline-flex h-10 cursor-pointer items-center gap-1 rounded-full px-4 text-sm font-medium text-white/76 transition hover:bg-white/8 hover:text-white"
+                  className="inline-flex h-10 cursor-pointer items-center gap-1 rounded-full px-4 text-sm font-semibold text-slate-700 transition hover:bg-emerald-50 hover:text-primary dark:font-medium dark:text-white/76 dark:hover:bg-white/8 dark:hover:text-white"
                 >
                   {item.label}
                   <ChevronDown className="size-3.5" aria-hidden="true" />
                 </Link>
-                <div className="invisible absolute left-0 top-full w-[28rem] translate-y-3 rounded-[1.4rem] border border-white/10 bg-surface p-3 opacity-0 shadow-2xl shadow-black/30 transition group-hover:visible group-hover:translate-y-2 group-hover:opacity-100">
+                <div className="invisible absolute left-0 top-full w-[28rem] translate-y-3 rounded-[1.4rem] border border-emerald-950/10 bg-white/96 p-3 opacity-0 shadow-2xl shadow-emerald-950/10 transition group-hover:visible group-hover:translate-y-2 group-hover:opacity-100 dark:border-white/10 dark:bg-surface dark:shadow-black/30">
                   <div className="grid gap-2">
                     {item.items.map((child) => (
                       <Link
                         key={child.href}
                         href={child.href}
-                        className="rounded-2xl px-4 py-3 transition hover:bg-white/7"
+                        className="rounded-2xl px-4 py-3 transition hover:bg-emerald-50 dark:hover:bg-white/7"
                       >
-                        <div className="text-sm font-semibold text-white">
+                        <div className="text-sm font-semibold text-slate-950 dark:text-white">
                           {child.label}
                         </div>
-                        <div className="mt-1 text-xs leading-5 text-muted">
+                        <div className="mt-1 text-xs leading-5 text-slate-500 dark:text-muted">
                           {child.description}
                         </div>
                       </Link>
@@ -107,7 +119,7 @@ export default function SiteHeader() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="inline-flex h-10 cursor-pointer items-center rounded-full px-4 text-sm font-medium text-white/76 transition hover:bg-white/8 hover:text-white"
+                className="inline-flex h-10 cursor-pointer items-center rounded-full px-4 text-sm font-semibold text-slate-700 transition hover:bg-emerald-50 hover:text-primary dark:font-medium dark:text-white/76 dark:hover:bg-white/8 dark:hover:text-white"
               >
                 {item.label}
               </Link>
@@ -131,7 +143,7 @@ export default function SiteHeader() {
         <button
           type="button"
           onClick={() => setOpen((current) => !current)}
-          className="grid size-10 cursor-pointer place-items-center rounded-full border border-white/10 bg-white/8 text-white lg:hidden"
+          className="grid size-10 cursor-pointer place-items-center rounded-full border border-emerald-950/10 bg-white text-slate-900 shadow-sm shadow-emerald-950/8 dark:border-white/10 dark:bg-white/8 dark:text-white dark:shadow-none lg:hidden"
           aria-label="Toggle navigation"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -139,25 +151,25 @@ export default function SiteHeader() {
       </header>
 
       {open ? (
-        <div className="mx-auto mt-3 max-w-7xl rounded-[1.4rem] border border-white/10 bg-surface p-3 shadow-2xl shadow-black/30 lg:hidden">
+        <div className="mx-auto mt-3 max-w-7xl rounded-[1.4rem] border border-emerald-950/10 bg-white/96 p-3 shadow-2xl shadow-emerald-950/10 dark:border-white/10 dark:bg-surface dark:shadow-black/30 lg:hidden">
           <div className="grid gap-1">
             {primaryNav.map((item) => (
               <div key={item.label}>
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-2xl px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/7"
+                  className="block rounded-2xl px-4 py-3 text-sm font-semibold text-slate-900 transition hover:bg-emerald-50 dark:text-white dark:hover:bg-white/7"
                 >
                   {item.label}
                 </Link>
                 {hasChildren(item) ? (
-                  <div className="ml-4 grid gap-1 border-l border-white/10 pl-3">
+                  <div className="ml-4 grid gap-1 border-l border-emerald-950/10 pl-3 dark:border-white/10">
                     {item.items.slice(0, 4).map((child) => (
                       <Link
                         key={child.href}
                         href={child.href}
                         onClick={() => setOpen(false)}
-                        className="rounded-xl px-3 py-2 text-sm text-muted transition hover:bg-white/7 hover:text-white"
+                        className="rounded-xl px-3 py-2 text-sm text-slate-500 transition hover:bg-emerald-50 hover:text-slate-950 dark:text-muted dark:hover:bg-white/7 dark:hover:text-white"
                       >
                         {child.label}
                       </Link>
@@ -167,7 +179,7 @@ export default function SiteHeader() {
               </div>
             ))}
           </div>
-          <div className="mt-3 border-t border-white/10 pt-3">
+          <div className="mt-3 border-t border-emerald-950/10 pt-3 dark:border-white/10">
             <ThemeToggle />
           </div>
         </div>
