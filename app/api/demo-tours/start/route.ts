@@ -11,6 +11,14 @@ type DemoTourPayload = {
   phoneNumber?: string;
   businessName?: string;
   useCase?: string;
+  leadType?: string;
+  ctaLabel?: string;
+  pageUrl?: string;
+};
+
+type DemoLeadContext = {
+  demoUrl?: string;
+  demoExpiresAt?: string;
 };
 
 function getSetCookieHeaders(headers: Headers) {
@@ -37,7 +45,21 @@ function parseDemoPayload(requestBody: string): DemoTourPayload | null {
   }
 }
 
-async function captureDemoLead(payload: DemoTourPayload | null) {
+function extractDemoRedirect(responseBody: string) {
+  try {
+    const payload = JSON.parse(responseBody) as {
+      data?: { defaultRedirect?: string; data?: { defaultRedirect?: string } };
+    };
+    return payload.data?.defaultRedirect || payload.data?.data?.defaultRedirect || null;
+  } catch {
+    return null;
+  }
+}
+
+async function captureDemoLead(
+  payload: DemoTourPayload | null,
+  context: DemoLeadContext = {},
+) {
   if (!payload?.email) return;
 
   const leadsUrl =
@@ -66,6 +88,11 @@ async function captureDemoLead(payload: DemoTourPayload | null) {
       phone: payload.phoneNumber || undefined,
       message,
       source: "demo-tour",
+      leadType: "demo",
+      ctaLabel: payload.ctaLabel || "Take a Tour",
+      pageUrl: payload.pageUrl || undefined,
+      demoUrl: context.demoUrl,
+      demoExpiresAt: context.demoExpiresAt,
     }),
     cache: "no-store",
   });
@@ -90,10 +117,6 @@ export async function POST(request: NextRequest) {
   let upstreamResponse: Response;
 
   try {
-    await captureDemoLead(payload).catch((error) => {
-      console.warn("[demo-tour] lead capture request failed", error);
-    });
-
     upstreamResponse = await fetch(endpoint, {
       method: "POST",
       headers: {
@@ -115,6 +138,16 @@ export async function POST(request: NextRequest) {
   }
 
   const responseBody = await upstreamResponse.text();
+  if (upstreamResponse.ok) {
+    const redirect = extractDemoRedirect(responseBody);
+    const demoUrl = redirect ? new URL(redirect, appUrl).toString() : undefined;
+    const demoExpiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString();
+
+    await captureDemoLead(payload, { demoUrl, demoExpiresAt }).catch((error) => {
+      console.warn("[demo-tour] lead capture request failed", error);
+    });
+  }
+
   const response = new NextResponse(responseBody, {
     status: upstreamResponse.status,
     headers: {

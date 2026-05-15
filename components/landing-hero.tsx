@@ -92,6 +92,7 @@ export default function LandingHero() {
             <LeadCaptureModalTrigger
               endpoint={leadsEndpoint}
               source="hero-enquiry-modal"
+              leadType="enquiry"
               buttonLabel="Enquire Now"
               modalTitle="Tell us about your academy"
               modalEyebrow="Enquiry request"

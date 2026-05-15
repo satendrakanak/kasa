@@ -304,7 +304,9 @@ export function PricingSection() {
               <LeadCaptureModalTrigger
                 endpoint={leadsEndpoint}
                 source={`pricing-${plan.name.toLowerCase()}-modal`}
+                leadType="pricing"
                 buttonLabel={plan.highlighted ? "Enquire Now" : "Talk to sales"}
+                ctaLabel={`${plan.highlighted ? "Enquire Now" : "Talk to sales"} - ${plan.name} plan`}
                 modalTitle="Tell us about your academy"
                 modalEyebrow={`${plan.name} plan enquiry`}
                 buttonClassName={[
@@ -441,6 +443,7 @@ export function SiteFooter() {
         <LeadCaptureModalTrigger
           endpoint={leadsEndpoint}
           source="footer-enquiry-modal"
+          leadType="enquiry"
           buttonLabel="Enquire Now"
           modalTitle="Tell us about your academy"
           modalEyebrow="Footer enquiry"

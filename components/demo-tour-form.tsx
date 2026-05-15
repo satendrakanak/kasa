@@ -209,6 +209,9 @@ export function DemoTourTrigger({
                       phoneNumber: form.phone,
                       businessName: form.institute,
                       useCase: form.message,
+                      leadType: "demo",
+                      ctaLabel: buttonLabel,
+                      pageUrl: window.location.href,
                     }),
                   });
 
@@ -335,7 +338,7 @@ export function DemoTourTrigger({
       </div>,
       document.body,
     );
-  }, [appUrl, errors, form, isPreparing, open, progress, activeStep, submitting]);
+  }, [appUrl, buttonLabel, errors, form, isPreparing, open, progress, activeStep, submitting]);
 
   return (
     <>
