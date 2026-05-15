@@ -14,7 +14,9 @@ type LeadFormData = {
 type LeadCaptureModalTriggerProps = {
   endpoint: string;
   source: string;
+  leadType?: "enquiry" | "demo" | "pricing" | "support";
   buttonLabel: string;
+  ctaLabel?: string;
   buttonClassName?: string;
   modalTitle: string;
   modalEyebrow?: string;
@@ -56,7 +58,9 @@ function validateForm(data: LeadFormData) {
 export function LeadCaptureModalTrigger({
   endpoint,
   source,
+  leadType = "enquiry",
   buttonLabel,
+  ctaLabel,
   buttonClassName,
   modalTitle,
   modalEyebrow,
@@ -144,6 +148,9 @@ export function LeadCaptureModalTrigger({
                     phone: form.phone,
                     message: form.message,
                     source,
+                    leadType,
+                    ctaLabel: ctaLabel || buttonLabel,
+                    pageUrl: window.location.href,
                   }),
                 });
 
@@ -255,7 +262,7 @@ export function LeadCaptureModalTrigger({
       </div>,
       document.body,
     );
-  }, [endpoint, errors, form, modalEyebrow, modalTitle, open, source, submitting]);
+  }, [buttonLabel, ctaLabel, endpoint, errors, form, leadType, modalEyebrow, modalTitle, open, source, submitting]);
 
   return (
     <>

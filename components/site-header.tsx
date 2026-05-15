@@ -37,6 +37,7 @@ export default function SiteHeader() {
         <LeadCaptureModalTrigger
           endpoint={leadsEndpoint}
           source="header-enquiry-modal"
+          leadType="enquiry"
           buttonLabel="Enquire Now"
           modalTitle="Tell us about your academy"
           modalEyebrow="Enquiry request"
