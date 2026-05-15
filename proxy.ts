@@ -13,6 +13,7 @@ export function proxy(request: NextRequest) {
   const redirectUrl = request.nextUrl.clone();
   redirectUrl.hostname = WWW_HOST;
   redirectUrl.protocol = "https:";
+  redirectUrl.port = "";
 
   return NextResponse.redirect(redirectUrl, 308);
 }
