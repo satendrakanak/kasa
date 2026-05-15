@@ -56,6 +56,22 @@ function getCookieDomain(url: string) {
   return undefined;
 }
 
+function splitSetCookieHeaders(cookieHeaders: string[]) {
+  return cookieHeaders.flatMap((header) =>
+    header.split(/,(?=\s*[^;,]+=)/).map((part) => part.trim()),
+  );
+}
+
+function extractCookieValue(cookieHeaders: string[], cookieName: string) {
+  for (const cookie of splitSetCookieHeaders(cookieHeaders)) {
+    if (!cookie.startsWith(`${cookieName}=`)) continue;
+
+    return cookie.slice(cookieName.length + 1).split(";")[0];
+  }
+
+  return undefined;
+}
+
 function parseDemoPayload(requestBody: string): DemoTourPayload | null {
   try {
     const payload = JSON.parse(requestBody) as unknown;
@@ -205,12 +221,18 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  for (const cookie of getSetCookieHeaders(upstreamResponse.headers)) {
+  const upstreamCookies = getSetCookieHeaders(upstreamResponse.headers);
+
+  for (const cookie of upstreamCookies) {
     response.headers.append("set-cookie", cookie);
   }
 
   if (upstreamResponse.ok) {
-    const { accessToken, refreshToken } = extractDemoTokens(responseBody);
+    const bodyTokens = extractDemoTokens(responseBody);
+    const accessToken =
+      bodyTokens.accessToken || extractCookieValue(upstreamCookies, "accessToken");
+    const refreshToken =
+      bodyTokens.refreshToken || extractCookieValue(upstreamCookies, "refreshToken");
     const cookieDomain = getCookieDomain(appUrl);
     const cookieOptions = {
       httpOnly: true,
