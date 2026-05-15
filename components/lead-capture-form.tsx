@@ -55,6 +55,26 @@ function validateForm(data: LeadFormData) {
   return errors;
 }
 
+function buildLeadMessage({
+  message,
+  leadType,
+  ctaLabel,
+  pageUrl,
+}: {
+  message: string;
+  leadType: LeadCaptureModalTriggerProps["leadType"];
+  ctaLabel: string;
+  pageUrl: string;
+}) {
+  return [
+    message.trim(),
+    "",
+    `Lead type: ${leadType}`,
+    `CTA: ${ctaLabel}`,
+    `Page: ${pageUrl}`,
+  ].join("\n");
+}
+
 export function LeadCaptureModalTrigger({
   endpoint,
   source,
@@ -146,11 +166,13 @@ export function LeadCaptureModalTrigger({
                     email: form.email,
                     institute: form.institute,
                     phone: form.phone,
-                    message: form.message,
+                    message: buildLeadMessage({
+                      message: form.message,
+                      leadType,
+                      ctaLabel: ctaLabel || buttonLabel,
+                      pageUrl: window.location.href,
+                    }),
                     source,
-                    leadType,
-                    ctaLabel: ctaLabel || buttonLabel,
-                    pageUrl: window.location.href,
                   }),
                 });
 

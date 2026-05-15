@@ -134,14 +134,20 @@ async function captureDemoLead(
   const name = [payload.firstName, payload.lastName].filter(Boolean).join(" ").trim();
   const useCase = payload.useCase?.trim();
   const message =
-    useCase && useCase.length >= 10
-      ? useCase
-      : [
-          "Requested a guided KASA demo tour from the marketing site.",
-          useCase ? `Entered note: ${useCase}` : null,
-        ]
-          .filter(Boolean)
-          .join(" ");
+    [
+      useCase && useCase.length >= 10
+        ? useCase
+        : "Requested a guided KASA demo tour from the marketing site.",
+      useCase && useCase.length < 10 ? `Entered note: ${useCase}` : null,
+      "",
+      "Lead type: demo",
+      `CTA: ${payload.ctaLabel || "Take a Tour"}`,
+      payload.pageUrl ? `Page: ${payload.pageUrl}` : null,
+      context.demoUrl ? `Demo URL: ${context.demoUrl}` : null,
+      context.demoExpiresAt ? `Demo expires at: ${context.demoExpiresAt}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n");
 
   const response = await fetch(leadsUrl, {
     method: "POST",
@@ -153,11 +159,6 @@ async function captureDemoLead(
       phone: payload.phoneNumber || undefined,
       message,
       source: "demo-tour",
-      leadType: "demo",
-      ctaLabel: payload.ctaLabel || "Take a Tour",
-      pageUrl: payload.pageUrl || undefined,
-      demoUrl: context.demoUrl,
-      demoExpiresAt: context.demoExpiresAt,
     }),
     cache: "no-store",
   });
