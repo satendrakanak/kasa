@@ -95,12 +95,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const themeScript = `
+    (() => {
+      try {
+        const theme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+      } catch {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  `;
+
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${poppins.variable} h-full scroll-smooth antialiased`}
+      className={`${inter.variable} ${poppins.variable} dark h-full scroll-smooth antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="flex min-h-full flex-col font-sans">
         <SiteHeader />
         <main className="flex-1">{children}</main>

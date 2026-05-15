@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { LeadCaptureModalTrigger } from "@/components/lead-capture-form";
+import ThemeToggle from "@/components/theme-toggle";
 import { featurePages, solutionPages } from "@/lib/site-content";
 
 type NavChild = {
@@ -115,6 +116,7 @@ export default function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
+          <ThemeToggle />
           <LeadCaptureModalTrigger
             endpoint={leadsEndpoint}
             source="header-enquiry-modal"
@@ -164,6 +166,9 @@ export default function SiteHeader() {
                 ) : null}
               </div>
             ))}
+          </div>
+          <div className="mt-3 border-t border-white/10 pt-3">
+            <ThemeToggle />
           </div>
         </div>
       ) : null}

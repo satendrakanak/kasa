@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Moon, Sun } from "lucide-react";
 
 type Theme = "light" | "dark";
 
 function getInitialTheme(): Theme {
   if (typeof window === "undefined") {
-    return "light";
+    return "dark";
   }
 
   const savedTheme = window.localStorage.getItem("theme") as Theme | null;
@@ -15,11 +16,15 @@ function getInitialTheme(): Theme {
     return savedTheme;
   }
 
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  return "dark";
 }
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
 
   function toggleTheme() {
     const nextTheme = theme === "dark" ? "light" : "dark";
@@ -33,26 +38,15 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="flex h-10 w-[6.25rem] items-center rounded-full border border-border bg-surface p-1 text-xs font-medium text-muted shadow-sm transition hover:border-primary"
+      className="grid size-10 cursor-pointer place-items-center rounded-full border border-border bg-surface text-foreground shadow-sm transition hover:border-primary hover:text-primary"
       aria-label="Toggle color theme"
       suppressHydrationWarning
     >
-      <span
-        className={[
-          "flex h-8 w-11 items-center justify-center rounded-full transition",
-          theme === "light" ? "bg-primary text-primary-foreground" : "",
-        ].join(" ")}
-      >
-        Light
-      </span>
-      <span
-        className={[
-          "flex h-8 w-11 items-center justify-center rounded-full transition",
-          theme === "dark" ? "bg-primary text-primary-foreground" : "",
-        ].join(" ")}
-      >
-        Dark
-      </span>
+      {theme === "light" ? (
+        <Sun className="size-4" aria-hidden="true" />
+      ) : (
+        <Moon className="size-4" aria-hidden="true" />
+      )}
     </button>
   );
 }
