@@ -24,7 +24,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
 
       - name: Install dependencies
         run: npm ci || npm install
@@ -48,7 +47,7 @@ jobs:
       DEPLOY_USER: ${{ secrets.DEPLOY_USER || vars.DEPLOY_USER || 'ubuntu' }}
       DEPLOY_PORT: ${{ secrets.DEPLOY_PORT || vars.DEPLOY_PORT || '22' }}
       DEPLOY_PATH: ${{ secrets.DEPLOY_PATH || vars.DEPLOY_PATH || '/opt/kasa/kasa-site' }}
-      DEPLOY_BRANCH: ${{ secrets.DEPLOY_BRANCH || vars.DEPLOY_BRANCH || 'codex/demo-tour-entry' }}
+      DEPLOY_BRANCH: ${{ secrets.DEPLOY_BRANCH || vars.DEPLOY_BRANCH || 'master' }}
       DEPLOY_SSH_KEY_PRESENT: ${{ secrets.DEPLOY_SSH_KEY != '' }}
     permissions:
       contents: read
