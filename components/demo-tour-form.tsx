@@ -12,7 +12,6 @@ type DemoFormData = {
 };
 
 type DemoTourTriggerProps = {
-  endpoint: string;
   appUrl: string;
   buttonLabel: string;
   buttonClassName?: string;
@@ -76,7 +75,6 @@ function unwrapDemoResponse(payload: unknown) {
 }
 
 export function DemoTourTrigger({
-  endpoint,
   appUrl,
   buttonLabel,
   buttonClassName,
@@ -200,7 +198,7 @@ export function DemoTourTrigger({
 
                 try {
                   const { firstName, lastName } = splitName(form.name);
-                  const response = await fetch(endpoint, {
+                  const response = await fetch("/api/demo-tours/start", {
                     method: "POST",
                     credentials: "include",
                     headers: { "Content-Type": "application/json" },
@@ -337,7 +335,7 @@ export function DemoTourTrigger({
       </div>,
       document.body,
     );
-  }, [appUrl, endpoint, errors, form, isPreparing, open, progress, activeStep, submitting]);
+  }, [appUrl, errors, form, isPreparing, open, progress, activeStep, submitting]);
 
   return (
     <>

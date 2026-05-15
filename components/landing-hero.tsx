@@ -37,9 +37,6 @@ const floatingCards = [
 export default function LandingHero() {
   const leadsEndpoint =
     process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
-  const demoTourEndpoint =
-    process.env.NEXT_PUBLIC_DEMO_TOUR_API_URL ??
-    "/api/demo-tours/start";
   const demoAppUrl =
     process.env.NEXT_PUBLIC_DEMO_APP_URL ?? "http://localhost:3000";
 
@@ -87,7 +84,6 @@ export default function LandingHero() {
 
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
             <DemoTourTrigger
-              endpoint={demoTourEndpoint}
               appUrl={demoAppUrl}
               buttonLabel="Take a Tour"
               icon={<PlayWindowIcon className="size-4" />}

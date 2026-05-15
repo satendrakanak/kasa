@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const DEFAULT_DEMO_TOUR_API_URL =
-  "http://localhost:3000/api/demo-tours/start";
+const DEFAULT_DEMO_APP_URL = "http://localhost:3000";
+const DEMO_TOUR_START_PATH = "/api/demo-tours/start";
 
 function getSetCookieHeaders(headers: Headers) {
   const withGetSetCookie = headers as Headers & {
@@ -17,8 +17,9 @@ function getSetCookieHeaders(headers: Headers) {
 }
 
 export async function POST(request: NextRequest) {
-  const endpoint =
-    process.env.DEMO_TOUR_API_URL?.trim() || DEFAULT_DEMO_TOUR_API_URL;
+  const appUrl =
+    process.env.NEXT_PUBLIC_DEMO_APP_URL?.trim() || DEFAULT_DEMO_APP_URL;
+  const endpoint = new URL(DEMO_TOUR_START_PATH, appUrl).toString();
   const requestBody = await request.text();
 
   let upstreamResponse: Response;
