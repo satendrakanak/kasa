@@ -5,7 +5,6 @@ on:
     branches:
       - master
       - main
-      - codex/demo-tour-entry
   workflow_dispatch:
 
 concurrency:
