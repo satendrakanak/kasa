@@ -45,8 +45,18 @@ async function captureDemoLead(payload: DemoTourPayload | null) {
     process.env.NEXT_PUBLIC_LEADS_API_URL?.trim() ||
     DEFAULT_LEADS_API_URL;
   const name = [payload.firstName, payload.lastName].filter(Boolean).join(" ").trim();
+  const useCase = payload.useCase?.trim();
+  const message =
+    useCase && useCase.length >= 10
+      ? useCase
+      : [
+          "Requested a guided KASA demo tour from the marketing site.",
+          useCase ? `Entered note: ${useCase}` : null,
+        ]
+          .filter(Boolean)
+          .join(" ");
 
-  await fetch(leadsUrl, {
+  const response = await fetch(leadsUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -54,13 +64,20 @@ async function captureDemoLead(payload: DemoTourPayload | null) {
       email: payload.email,
       institute: payload.businessName || undefined,
       phone: payload.phoneNumber || undefined,
-      message:
-        payload.useCase?.trim() ||
-        "Requested a guided KASA demo tour from the marketing site.",
+      message,
       source: "demo-tour",
     }),
     cache: "no-store",
   });
+
+  if (!response.ok) {
+    const body = await response.text().catch(() => "");
+    console.warn("[demo-tour] lead capture failed", {
+      status: response.status,
+      leadsUrl,
+      body,
+    });
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -73,7 +90,9 @@ export async function POST(request: NextRequest) {
   let upstreamResponse: Response;
 
   try {
-    await captureDemoLead(payload).catch(() => undefined);
+    await captureDemoLead(payload).catch((error) => {
+      console.warn("[demo-tour] lead capture request failed", error);
+    });
 
     upstreamResponse = await fetch(endpoint, {
       method: "POST",
