@@ -39,7 +39,7 @@ export default function LandingHero() {
     process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
   const demoTourEndpoint =
     process.env.NEXT_PUBLIC_DEMO_TOUR_API_URL ??
-    "http://localhost:3000/api/demo-tours/start";
+    "/api/demo-tours/start";
   const demoAppUrl =
     process.env.NEXT_PUBLIC_DEMO_APP_URL ?? "http://localhost:3000";
 
