@@ -1,13 +1,5 @@
-import LandingHero from "@/components/landing-hero";
-import ProductFeaturesSection from "@/components/product-features";
-import {
-  FaqSection,
-  PlatformSection,
-  PricingSection,
-  SiteFooter,
-  TestimonialsSection,
-} from "@/components/landing-sections";
-import { HowItWorksSection } from "@/components/home-sections/how-it-works-section";
+import { HomePage } from "@/components/site/home-page";
+import { primaryKeywords } from "@/lib/site-content";
 
 export default function Home() {
   const softwareJsonLd = {
@@ -22,18 +14,9 @@ export default function Home() {
     offers: {
       "@type": "AggregateOffer",
       priceCurrency: "USD",
-      lowPrice: "49",
       offerCount: "3",
     },
-    featureList: [
-      "Branded academy website",
-      "Online course selling platform",
-      "Live class management",
-      "Student and faculty dashboards",
-      "Payments, coupons, invoices, and orders",
-      "Exams, assignments, certificates, and learner progress",
-      "Education CRM and lead management",
-    ],
+    featureList: primaryKeywords,
     brand: {
       "@type": "Brand",
       name: "KASA",
@@ -57,7 +40,7 @@ export default function Home() {
   };
 
   return (
-    <div className="relative z-10">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
@@ -66,14 +49,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
       />
-      <LandingHero />
-      <PlatformSection />
-      <ProductFeaturesSection />
-      <TestimonialsSection />
-      <HowItWorksSection />
-      <PricingSection />
-      <FaqSection />
-      <SiteFooter />
-    </div>
+      <HomePage />
+    </>
   );
 }

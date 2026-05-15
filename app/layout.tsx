@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import SiteHeader from "@/components/site-header";
+import { SiteFooter } from "@/components/site/site-footer";
 import "./globals.css";
 
 const inter = Inter({
@@ -102,7 +103,8 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col font-sans">
         <SiteHeader />
-        {children}
+        <main className="flex-1">{children}</main>
+        <SiteFooter />
       </body>
     </html>
   );
