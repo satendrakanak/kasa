@@ -21,6 +21,17 @@ type DemoLeadContext = {
   demoExpiresAt?: string;
 };
 
+type DemoStartResponseBody = {
+  data?: {
+    accessToken?: string;
+    refreshToken?: string;
+    data?: {
+      accessToken?: string;
+      refreshToken?: string;
+    };
+  };
+};
+
 function getSetCookieHeaders(headers: Headers) {
   const withGetSetCookie = headers as Headers & {
     getSetCookie?: () => string[];
@@ -32,6 +43,17 @@ function getSetCookieHeaders(headers: Headers) {
 
   const cookieHeader = headers.get("set-cookie");
   return cookieHeader ? [cookieHeader] : [];
+}
+
+function getCookieDomain(url: string) {
+  const hostname = new URL(url).hostname;
+
+  if (hostname === "localhost" || hostname === "127.0.0.1") return undefined;
+  if (hostname === "getkasa.in" || hostname.endsWith(".getkasa.in")) {
+    return ".getkasa.in";
+  }
+
+  return undefined;
 }
 
 function parseDemoPayload(requestBody: string): DemoTourPayload | null {
@@ -53,6 +75,20 @@ function extractDemoRedirect(responseBody: string) {
     return payload.data?.defaultRedirect || payload.data?.data?.defaultRedirect || null;
   } catch {
     return null;
+  }
+}
+
+function extractDemoTokens(responseBody: string) {
+  try {
+    const payload = JSON.parse(responseBody) as DemoStartResponseBody;
+    const data = payload.data?.data || payload.data;
+
+    return {
+      accessToken: data?.accessToken,
+      refreshToken: data?.refreshToken,
+    };
+  } catch {
+    return {};
   }
 }
 
@@ -171,6 +207,27 @@ export async function POST(request: NextRequest) {
 
   for (const cookie of getSetCookieHeaders(upstreamResponse.headers)) {
     response.headers.append("set-cookie", cookie);
+  }
+
+  if (upstreamResponse.ok) {
+    const { accessToken, refreshToken } = extractDemoTokens(responseBody);
+    const cookieDomain = getCookieDomain(appUrl);
+    const cookieOptions = {
+      httpOnly: true,
+      secure: appUrl.startsWith("https://"),
+      sameSite: "lax" as const,
+      path: "/",
+      maxAge: 60 * 60,
+      ...(cookieDomain ? { domain: cookieDomain } : {}),
+    };
+
+    if (accessToken) {
+      response.cookies.set("accessToken", accessToken, cookieOptions);
+    }
+
+    if (refreshToken) {
+      response.cookies.set("refreshToken", refreshToken, cookieOptions);
+    }
   }
 
   return response;
