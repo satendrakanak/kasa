@@ -121,12 +121,12 @@ export default function ProductFeaturesSection() {
             Product features
           </p>
           <h2 className="mt-3 font-heading text-2xl font-semibold leading-[1.12] tracking-normal text-white sm:text-4xl sm:leading-tight lg:text-[3rem]">
-            One LMS product, every institute workflow connected.
+            One LMS product, every academy workflow connected.
           </h2>
           <p className="mx-auto mt-3 max-w-3xl text-sm leading-6 text-muted sm:text-base lg:max-w-2xl">
             Scroll through the product: KASA keeps your academy website,
-            learning portal, live classes, payments, certificates, and CRM in
-            one branded system.
+            course management software, student portal, live classes, payments,
+            certificates, and education CRM in one branded system.
           </p>
         </div>
       </div>

@@ -69,17 +69,18 @@ export default function LandingHero() {
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center px-4 pb-8 text-center sm:px-6 lg:px-8">
         <div className="mx-auto flex flex-1 flex-col items-center justify-center pt-24 sm:pt-32">
           <p className="font-heading text-xs font-medium uppercase tracking-[0.22em] text-white/68 sm:text-sm">
-            Premium LMS software for coaching institutes and online academies
+            White label LMS software for coaching institutes and online academies
           </p>
           <h1 className="mt-5 max-w-5xl font-heading text-3xl font-semibold leading-[1.22] tracking-normal text-white sm:text-5xl sm:leading-[1.12] lg:text-6xl xl:text-7xl">
-            Turn your institute into a{" "}
-            <span className="text-primary">digital academy</span> that sells,
-            teaches, and scales.
+            Launch your own{" "}
+            <span className="text-primary">online course platform</span> for
+            selling, teaching, and scaling.
           </h1>
           <p className="mx-auto mt-5 max-w-3xl text-sm leading-6 text-white/72 sm:text-lg sm:leading-7">
-            KASA brings online course selling, live classes, self learning,
-            assignments, exams, certificates, CRM, and learner analytics into
-            one branded learning management system.
+            KASA brings course selling, live class management, self learning,
+            assignments, online exams, certificates, student management,
+            payments, education CRM, and learner analytics into one branded
+            learning management system.
           </p>
 
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">

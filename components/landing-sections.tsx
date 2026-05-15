@@ -3,10 +3,10 @@ import { LeadCaptureModalTrigger } from "@/components/lead-capture-form";
 import {
   faqs,
   features,
-  pricing,
   replacedTools,
   testimonials,
 } from "@/lib/landing";
+import { getWebsitePricingPlans } from "@/lib/website-pricing";
 
 const planetMotion = [
   "animate-[planet-orbit-0_155s_linear_infinite]",
@@ -38,12 +38,12 @@ export function PlatformSection() {
             Academy operating system
           </p>
           <h2 className="mt-5 font-heading text-3xl font-semibold leading-[1.2] tracking-normal text-foreground sm:text-5xl sm:leading-tight">
-            A complete growth universe for modern training institutes.
+            A complete coaching institute management software stack.
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-muted sm:text-base sm:leading-8">
-            Connect admissions, learning delivery, tuition workflows,
-            assessments, student communication, and brand presence around one
-            KASA core.
+            Connect admissions, course delivery, tuition workflows, online
+            tests, student communication, certificates, and branded academy
+            pages around one KASA core.
           </p>
         </div>
 
@@ -170,9 +170,10 @@ export function FeaturesSection() {
   );
 }
 
-export function PricingSection() {
+export async function PricingSection() {
   const leadsEndpoint =
     process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
+  const pricing = await getWebsitePricingPlans();
 
   return (
     <section
@@ -184,11 +185,12 @@ export function PricingSection() {
           Pricing
         </p>
         <h2 className="mt-3 font-heading text-3xl font-semibold leading-[1.2] tracking-normal sm:text-5xl sm:leading-tight">
-          Pricing that makes sense for where your academy is right now.
+          Dynamic LMS pricing for every stage of your academy.
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-muted sm:text-base">
-          Start with the branded essentials, move into live and hybrid delivery,
-          then scale operations when your team and admissions volume grow.
+          Start with branded course selling, move into live and hybrid delivery,
+          then scale students, faculty, payments, certificates, and operations
+          when your admissions volume grows.
         </p>
       </div>
 
@@ -220,7 +222,7 @@ export function PricingSection() {
                       : "text-xs font-semibold uppercase tracking-[0.18em] text-primary"
                   }
                 >
-                  {plan.name} plan
+                  {plan.eyebrow}
                 </div>
                 <h3 className="mt-2 font-heading text-[1.8rem] font-semibold">
                   {plan.name}
@@ -294,11 +296,7 @@ export function PricingSection() {
                   : "relative z-10 mt-6 text-sm text-muted"
               }
             >
-              {plan.highlighted
-                ? "Best for institutes already selling, teaching, and managing active cohorts."
-                : plan.name === "Starter"
-                  ? "Best for small teams launching their first serious academy setup."
-                  : "Best for multi-team institutes that need custom rollout depth."}
+              {plan.bestFor}
             </div>
             <div className="relative z-10 mt-8">
               <LeadCaptureModalTrigger
