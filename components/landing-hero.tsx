@@ -36,6 +36,8 @@ const floatingCards = [
 export default function LandingHero() {
   const leadsEndpoint =
     process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
+  const demoTourUrl =
+    process.env.NEXT_PUBLIC_DEMO_TOUR_URL ?? "http://localhost:3000/demo-tour";
 
   return (
     <section className="relative min-h-screen overflow-x-hidden bg-surface-strong text-foreground">
@@ -80,15 +82,13 @@ export default function LandingHero() {
           </p>
 
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
-            <LeadCaptureModalTrigger
-              endpoint={leadsEndpoint}
-              source="hero-tour-modal"
-              buttonLabel="Take a Tour"
-              modalTitle="Take a guided KASA tour"
-              modalEyebrow="Tour access"
-              icon={<PlayWindowIcon className="size-4" />}
-              buttonClassName="inline-flex h-12 min-w-[12.25rem] cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition hover:bg-primary-hover"
-            />
+            <a
+              href={demoTourUrl}
+              className="inline-flex h-12 min-w-[12.25rem] cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition hover:bg-primary-hover"
+            >
+              <PlayWindowIcon className="size-4" />
+              Take a Tour
+            </a>
             <LeadCaptureModalTrigger
               endpoint={leadsEndpoint}
               source="hero-enquiry-modal"
