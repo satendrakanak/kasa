@@ -56,6 +56,19 @@ function extractDemoRedirect(responseBody: string) {
   }
 }
 
+function buildUpstreamDemoPayload(payload: DemoTourPayload | null) {
+  if (!payload) return null;
+
+  return {
+    firstName: payload.firstName,
+    lastName: payload.lastName,
+    email: payload.email,
+    phoneNumber: payload.phoneNumber,
+    businessName: payload.businessName,
+    useCase: payload.useCase,
+  };
+}
+
 async function captureDemoLead(
   payload: DemoTourPayload | null,
   context: DemoLeadContext = {},
@@ -113,6 +126,7 @@ export async function POST(request: NextRequest) {
   const endpoint = new URL(DEMO_TOUR_START_PATH, appUrl).toString();
   const requestBody = await request.text();
   const payload = parseDemoPayload(requestBody);
+  const upstreamPayload = buildUpstreamDemoPayload(payload);
 
   let upstreamResponse: Response;
 
@@ -121,10 +135,9 @@ export async function POST(request: NextRequest) {
       method: "POST",
       headers: {
         accept: "application/json",
-        "content-type":
-          request.headers.get("content-type") ?? "application/json",
+        "content-type": "application/json",
       },
-      body: requestBody,
+      body: JSON.stringify(upstreamPayload),
       cache: "no-store",
     });
   } catch {
