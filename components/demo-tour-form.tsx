@@ -137,13 +137,13 @@ export function DemoTourTrigger({
           }}
           aria-hidden="true"
         />
-        <div className="relative z-10 max-h-[calc(100vh-1.5rem)] w-full max-w-3xl overflow-y-auto rounded-[1.6rem] border border-white/12 bg-surface shadow-2xl shadow-black/40 sm:max-h-[calc(100vh-2rem)] sm:rounded-[2rem]">
-          <div className="flex items-start justify-between gap-4 border-b border-white/8 px-5 py-4 sm:px-7 sm:py-5">
+        <div className="relative z-10 max-h-[calc(100vh-1.5rem)] w-full max-w-2xl overflow-y-auto rounded-[1.35rem] border border-white/12 bg-surface shadow-2xl shadow-black/40 sm:max-h-[calc(100vh-2rem)]">
+          <div className="flex items-start justify-between gap-4 border-b border-white/8 px-4 py-3.5 sm:px-5 sm:py-4">
             <div className="text-left">
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-primary sm:text-xs">
                 Tour access
               </p>
-              <h3 className="mt-2 font-heading text-[1.9rem] font-semibold leading-tight text-white sm:text-[2.35rem]">
+              <h3 className="mt-1.5 font-heading text-2xl font-semibold leading-tight text-white sm:text-[1.9rem]">
                 Take a guided KASA tour
               </h3>
             </div>
@@ -159,7 +159,7 @@ export function DemoTourTrigger({
           </div>
 
           {isPreparing ? (
-            <div className="space-y-5 px-5 py-6 sm:px-7">
+            <div className="space-y-4 px-4 py-5 sm:px-5">
               <div>
                 <div className="mb-3 flex items-center gap-2 text-sm font-medium text-white">
                   <SpinnerIcon className="size-4 animate-spin text-primary" />
@@ -172,7 +172,7 @@ export function DemoTourTrigger({
                   />
                 </div>
               </div>
-              <div className="rounded-[1.25rem] border border-white/10 bg-white/7 p-4">
+              <div className="rounded-[1.1rem] border border-white/10 bg-white/7 p-4">
                 <p className="text-sm font-medium text-white">
                   {progressSteps[activeStep]}
                 </p>
@@ -184,7 +184,7 @@ export function DemoTourTrigger({
             </div>
           ) : (
             <form
-              className="grid gap-4 px-5 py-5 sm:grid-cols-2 sm:gap-5 sm:px-7 sm:py-6"
+              className="grid gap-3.5 px-4 py-4 sm:grid-cols-2 sm:px-5 sm:py-5"
               onSubmit={async (event) => {
                 event.preventDefault();
                 const nextErrors = validateForm(form);
@@ -314,7 +314,7 @@ export function DemoTourTrigger({
                         }))
                       }
                       placeholder="Courses, live classes, exams, certificates, users, reports, or complete admin workflow."
-                      className={`${inputClassName} min-h-32 resize-none py-4`}
+                      className={`${inputClassName} min-h-24 resize-none py-3`}
                     />
                   }
                 />
@@ -324,7 +324,7 @@ export function DemoTourTrigger({
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="inline-flex h-12 min-w-44 cursor-pointer items-center justify-center rounded-full bg-primary px-7 text-sm font-semibold text-primary-foreground transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-70 sm:h-13 sm:text-base"
+                  className="inline-flex h-11 min-w-40 cursor-pointer items-center justify-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {submitting ? "Preparing demo..." : "Start demo tour"}
                 </button>
@@ -374,7 +374,7 @@ function FormField({
 }) {
   return (
     <label className="block text-left">
-      <span className="mb-2.5 block text-sm font-medium text-white/88 sm:text-base">
+      <span className="mb-2 block text-sm font-medium text-white/88">
         {label}
       </span>
       {input}
@@ -384,7 +384,7 @@ function FormField({
 }
 
 const inputClassName =
-  "h-13 w-full rounded-[1.1rem] border border-white/10 bg-white/7 px-4 text-sm text-white outline-none transition placeholder:text-white/28 focus:border-primary/45 sm:h-14 sm:px-5 sm:text-base";
+  "h-11 w-full rounded-[0.95rem] border border-white/10 bg-white/7 px-3.5 text-sm text-white outline-none transition placeholder:text-white/28 focus:border-primary/45 sm:px-4";
 
 function CloseIcon({ className = "size-5" }: { className?: string }) {
   return (
