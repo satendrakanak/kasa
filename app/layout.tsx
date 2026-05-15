@@ -15,7 +15,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://getkasa.in"),
+  metadataBase: new URL("https://www.getkasa.in"),
   title: {
     default: "KASA | LMS Software for Coaching Institutes and Online Academies",
     template: "%s | KASA",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     "KASA LMS",
   ],
   applicationName: "KASA",
-  authors: [{ name: "KASA", url: "https://getkasa.in" }],
+  authors: [{ name: "KASA", url: "https://www.getkasa.in" }],
   creator: "KASA",
   publisher: "KASA",
   alternates: {
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://getkasa.in",
+    url: "https://www.getkasa.in",
     siteName: "KASA",
     title: "KASA | LMS Software for Coaching Institutes and Online Academies",
     description:

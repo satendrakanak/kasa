@@ -16,7 +16,7 @@ export default function Home() {
     name: "KASA",
     applicationCategory: "EducationalApplication",
     operatingSystem: "Web",
-    url: "https://getkasa.in",
+    url: "https://www.getkasa.in",
     description:
       "All-in-one LMS software for coaching institutes, online academies, trainers, and EdTech teams.",
     offers: {
@@ -37,7 +37,7 @@ export default function Home() {
     brand: {
       "@type": "Brand",
       name: "KASA",
-      url: "https://getkasa.in",
+      url: "https://www.getkasa.in",
     },
   };
 
@@ -45,8 +45,8 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "KASA",
-    url: "https://getkasa.in",
-    logo: "https://getkasa.in/kasa-logo-dark.png",
+    url: "https://www.getkasa.in",
+    logo: "https://www.getkasa.in/kasa-logo-dark.png",
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "sales",
