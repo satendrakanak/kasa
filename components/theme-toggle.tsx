@@ -8,12 +8,12 @@ type Theme = "light" | "dark";
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window === "undefined") {
-      return "dark";
+      return "light";
     }
 
     const savedTheme = window.localStorage.getItem("theme") as Theme | null;
 
-    return savedTheme || "dark";
+    return savedTheme || "light";
   });
 
   useEffect(() => {

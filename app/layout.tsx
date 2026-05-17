@@ -85,7 +85,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${poppins.variable} dark h-full scroll-smooth antialiased`}
+      className={`${inter.variable} ${poppins.variable} h-full scroll-smooth antialiased`}
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col font-sans">

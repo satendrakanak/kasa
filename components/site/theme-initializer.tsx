@@ -12,10 +12,10 @@ export function ThemeInitializer() {
         document.documentElement.classList.add("dark");
         return;
       }
-      const theme = window.localStorage.getItem("theme") || "dark";
+      const theme = window.localStorage.getItem("theme") || "light";
       document.documentElement.classList.toggle("dark", theme === "dark");
     } catch {
-      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("dark");
     }
   }, []);
 
