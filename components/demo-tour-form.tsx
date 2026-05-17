@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+import { siteButtonClasses } from "@/components/site/site-button";
 
 type DemoFormData = {
   name: string;
@@ -137,13 +138,13 @@ export function DemoTourTrigger({
           }}
           aria-hidden="true"
         />
-        <div className="relative z-10 max-h-[calc(100vh-1.5rem)] w-full max-w-2xl overflow-y-auto rounded-[1.35rem] border border-white/12 bg-surface shadow-2xl shadow-black/40 sm:max-h-[calc(100vh-2rem)]">
-          <div className="flex items-start justify-between gap-4 border-b border-white/8 px-4 py-3.5 sm:px-5 sm:py-4">
+        <div className="relative z-10 max-h-[calc(100vh-1.5rem)] w-full max-w-xl overflow-y-auto rounded-[1.25rem] border border-white/12 bg-surface shadow-2xl shadow-black/40 sm:max-h-[calc(100vh-2rem)]">
+          <div className="flex items-start justify-between gap-4 border-b border-white/8 px-4 py-3 sm:px-5">
             <div className="text-left">
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-primary sm:text-xs">
                 Tour access
               </p>
-              <h3 className="mt-1.5 font-heading text-2xl font-semibold leading-tight text-white sm:text-[1.9rem]">
+              <h3 className="mt-1 font-heading text-xl font-semibold leading-tight text-white sm:text-2xl">
                 Take a guided KASA tour
               </h3>
             </div>
@@ -184,7 +185,7 @@ export function DemoTourTrigger({
             </div>
           ) : (
             <form
-              className="grid gap-3.5 px-4 py-4 sm:grid-cols-2 sm:px-5 sm:py-5"
+              className="grid gap-3 px-4 py-4 sm:grid-cols-2 sm:px-5"
               onSubmit={async (event) => {
                 event.preventDefault();
                 const nextErrors = validateForm(form);
@@ -316,8 +317,8 @@ export function DemoTourTrigger({
                           message: event.target.value,
                         }))
                       }
-                      placeholder="Courses, live classes, exams, certificates, users, reports, or complete admin workflow."
-                      className={`${inputClassName} min-h-24 resize-none py-3`}
+                      placeholder="Courses, live classes, certificates, payments..."
+                      className={`${inputClassName} min-h-20 resize-none py-3`}
                     />
                   }
                 />
@@ -327,7 +328,10 @@ export function DemoTourTrigger({
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="inline-flex h-11 min-w-40 cursor-pointer items-center justify-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-70"
+                  className={siteButtonClasses({
+                    size: "sm",
+                    className: "h-10 min-w-40",
+                  })}
                 >
                   {submitting ? "Preparing demo..." : "Start demo tour"}
                 </button>
@@ -347,7 +351,9 @@ export function DemoTourTrigger({
         onClick={() => setOpen(true)}
         className={
           buttonClassName ??
-          "inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground"
+          siteButtonClasses({
+            size: "sm",
+          })
         }
       >
         {icon}
@@ -377,7 +383,7 @@ function FormField({
 }) {
   return (
     <label className="block text-left">
-      <span className="mb-2 block text-sm font-medium text-white/88">
+      <span className="mb-1.5 block text-xs font-semibold text-white/82">
         {label}
       </span>
       {input}
@@ -387,7 +393,7 @@ function FormField({
 }
 
 const inputClassName =
-  "h-11 w-full rounded-[0.95rem] border border-white/10 bg-white/7 px-3.5 text-sm text-white outline-none transition placeholder:text-white/28 focus:border-primary/45 sm:px-4";
+  "h-10 w-full rounded-[0.85rem] border border-white/10 bg-white/7 px-3 text-sm text-white outline-none transition placeholder:text-white/28 focus:border-primary/45";
 
 function CloseIcon({ className = "size-5" }: { className?: string }) {
   return (

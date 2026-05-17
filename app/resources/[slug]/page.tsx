@@ -1,0 +1,28 @@
+import { notFound } from "next/navigation";
+import { SeoPageTemplate } from "@/components/site/seo-page-template";
+import { getResourcePage, resourcePages } from "@/lib/site-content";
+import { pageMetadata } from "@/lib/seo";
+
+type PageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export function generateStaticParams() {
+  return resourcePages.map((page) => ({ slug: page.slug }));
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const { slug } = await params;
+  const page = getResourcePage(slug);
+  if (!page) return {};
+
+  return pageMetadata(page, `/resources/${slug}`);
+}
+
+export default async function ResourcePage({ params }: PageProps) {
+  const { slug } = await params;
+  const page = getResourcePage(slug);
+  if (!page) notFound();
+
+  return <SeoPageTemplate page={page} />;
+}

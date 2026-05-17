@@ -6,9 +6,9 @@ export const navigation = [
 ];
 
 export const stats = [
-  { value: "0%", label: "commission on sales" },
-  { value: "24/7", label: "learner access" },
-  { value: "7-day", label: "launch support" },
+  { value: "1-click", label: "academy launch" },
+  { value: "3 modes", label: "recorded live hybrid" },
+  { value: "6-in-1", label: "LMS CRM payments" },
 ];
 
 export const features = [

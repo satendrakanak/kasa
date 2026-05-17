@@ -1,0 +1,48 @@
+import type { Metadata } from "next";
+import type { PageSummary } from "@/lib/site-content";
+import seoPageContent from "@/lib/seo-page-content.json";
+
+const SITE_URL = "https://www.getkasa.in";
+
+type SeoContent = {
+  image?: string;
+  imageAlt?: string;
+};
+
+const enrichedPages = seoPageContent as unknown as Record<string, SeoContent>;
+
+export function pageMetadata(page: PageSummary, pathname: string): Metadata {
+  const url = `${SITE_URL}${pathname}`;
+  const enriched = enrichedPages[page.slug];
+  const image = enriched?.image ?? "/kasa-hero.png";
+  const imageAlt = enriched?.imageAlt ?? page.title;
+
+  return {
+    title: page.title,
+    description: page.description,
+    alternates: {
+      canonical: pathname,
+    },
+    openGraph: {
+      type: "website",
+      url,
+      title: page.title,
+      description: page.description,
+      siteName: "KASA",
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: imageAlt,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: page.title,
+      description: page.description,
+      images: [image],
+    },
+  };
+}

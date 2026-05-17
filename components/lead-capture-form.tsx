@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+import { siteButtonClasses } from "@/components/site/site-button";
 
 type LeadFormData = {
   name: string;
@@ -125,15 +126,15 @@ export function LeadCaptureModalTrigger({
           onClick={() => setOpen(false)}
           aria-hidden="true"
         />
-        <div className="relative z-10 max-h-[calc(100vh-1.5rem)] w-full max-w-2xl overflow-y-auto rounded-[1.6rem] border border-white/12 bg-surface shadow-2xl shadow-black/40 sm:max-h-[calc(100vh-2rem)] sm:max-w-3xl sm:rounded-[2rem]">
-          <div className="flex items-start justify-between gap-4 border-b border-white/8 px-5 py-4 sm:px-7 sm:py-5">
+        <div className="relative z-10 max-h-[calc(100vh-1.5rem)] w-full max-w-xl overflow-y-auto rounded-[1.25rem] border border-white/12 bg-surface shadow-2xl shadow-black/40 sm:max-h-[calc(100vh-2rem)]">
+          <div className="flex items-start justify-between gap-4 border-b border-white/8 px-4 py-3 sm:px-5">
             <div className="text-left">
               {modalEyebrow ? (
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-primary sm:text-xs">
                   {modalEyebrow}
                 </p>
               ) : null}
-              <h3 className="mt-2 font-heading text-[1.9rem] font-semibold leading-tight text-white sm:text-[2.35rem]">
+              <h3 className="mt-1 font-heading text-xl font-semibold leading-tight text-white sm:text-2xl">
                 {modalTitle}
               </h3>
             </div>
@@ -148,7 +149,7 @@ export function LeadCaptureModalTrigger({
           </div>
 
           <form
-            className="grid gap-4 px-5 py-5 sm:grid-cols-2 sm:gap-5 sm:px-7 sm:py-6"
+            className="grid gap-3 px-4 py-4 sm:grid-cols-2 sm:px-5"
             onSubmit={async (event) => {
               event.preventDefault();
               const nextErrors = validateForm(form);
@@ -263,8 +264,8 @@ export function LeadCaptureModalTrigger({
                         message: event.target.value,
                       }))
                     }
-                    placeholder="Tell us about your courses, current setup, live classes, learner flow, or rollout plans."
-                    className={`${inputClassName} min-h-36 resize-none py-4`}
+                    placeholder="Courses, live classes, payments, learners..."
+                    className={`${inputClassName} min-h-20 resize-none py-3`}
                   />
                 }
               />
@@ -274,7 +275,10 @@ export function LeadCaptureModalTrigger({
               <button
                 type="submit"
                 disabled={submitting}
-                className="inline-flex h-12 min-w-40 cursor-pointer items-center justify-center rounded-full bg-primary px-7 text-sm font-semibold text-primary-foreground transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-70 sm:h-13 sm:text-base"
+                className={siteButtonClasses({
+                  size: "sm",
+                  className: "h-10 min-w-40",
+                })}
               >
                 {submitting ? "Sending..." : "Send query"}
               </button>
@@ -293,7 +297,9 @@ export function LeadCaptureModalTrigger({
         onClick={() => setOpen(true)}
         className={
           buttonClassName ??
-          "inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground"
+          siteButtonClasses({
+            size: "sm",
+          })
         }
       >
         {icon}
@@ -323,7 +329,7 @@ function FormField({
 }) {
   return (
     <label className="block text-left">
-      <span className="mb-2.5 block text-sm font-medium text-white/88 sm:text-base">
+      <span className="mb-1.5 block text-xs font-semibold text-white/82">
         {label}
       </span>
       {input}
@@ -333,7 +339,7 @@ function FormField({
 }
 
 const inputClassName =
-  "h-13 w-full rounded-[1.1rem] border border-white/10 bg-white/7 px-4 text-sm text-white outline-none transition placeholder:text-white/28 focus:border-primary/45 sm:h-14 sm:px-5 sm:text-base";
+  "h-10 w-full rounded-[0.85rem] border border-white/10 bg-white/7 px-3 text-sm text-white outline-none transition placeholder:text-white/28 focus:border-primary/45";
 
 function CloseIcon({ className = "size-5" }: { className?: string }) {
   return (

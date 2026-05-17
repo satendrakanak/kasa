@@ -1,0 +1,111 @@
+{
+  "whyKasa": {
+    "eyebrow": "Why KASA",
+    "title": "A branded LMS built for institutes that want ownership, speed, and control.",
+    "description": "KASA helps education businesses avoid scattered plugins, marketplace dependency, and long custom LMS builds by bringing sales, learning, payments, live classes, CRM, and reports into one platform.",
+    "points": ["Own domain and brand", "Connected LMS operations", "Fast software rollout"],
+    "storyTitle": "Why teams switch to KASA",
+    "story": "Most academies do not fail because they lack content. They struggle because website, payment, class links, learner access, certificates, and follow-ups are spread across different tools. KASA gives the team one operating system for the academy.",
+    "blocks": [
+      {
+        "title": "Built for real academy workflows",
+        "body": "KASA starts from the practical needs of coaching teams: sell programs, run classes, manage learners, collect fees, track progress, and issue certificates.",
+        "points": ["Recorded and live learning", "Admin and faculty roles", "Learner dashboard"]
+      },
+      {
+        "title": "Launch without custom build delays",
+        "body": "Configure your domain, brand, payment keys, email, media, and live class setup without waiting months for a custom LMS project.",
+        "points": ["1-click style setup", "Docker-managed stack", "AWS hosted rollout"]
+      },
+      {
+        "title": "Designed for owned growth",
+        "body": "Your institute keeps its brand, domain, learner data, pricing, course catalog, and sales journey instead of sending everything to a third-party marketplace.",
+        "points": ["Zero marketplace dependency", "SEO-ready pages", "Direct learner relationship"]
+      },
+      {
+        "title": "One system for the whole team",
+        "body": "Admin, sales, faculty, and learners work from connected dashboards, so every order, class, certificate, and lead has context.",
+        "points": ["Payments and orders", "Education CRM", "Reports and analytics"]
+      }
+    ]
+  },
+  "about": {
+    "eyebrow": "About KASA",
+    "title": "We build the software layer for modern coaching and academy businesses.",
+    "description": "KASA is focused on one clear idea: education teams should be able to launch, sell, teach, track, and scale from their own branded platform without stitching together ten tools.",
+    "points": ["LMS-first product", "Built for Indian education teams", "Ready for serious academy operations"],
+    "storyTitle": "A platform for teams that want to own the academy experience",
+    "story": "From the first course page to the final certificate, KASA is designed so learners stay inside your academy brand and your team gets operational clarity. The product brings website, learning, commerce, live classes, CRM, and reporting into one practical workflow.",
+    "blocks": [
+      {
+        "title": "Product philosophy",
+        "body": "KASA avoids bloated enterprise complexity while still covering the workflows serious institutes need every day.",
+        "points": ["Simple launch", "Strong admin control", "Learner-friendly UX"]
+      },
+      {
+        "title": "Technology foundation",
+        "body": "The platform is built around a modern Next.js client, NestJS backend, PostgreSQL database, Docker services, and AWS infrastructure.",
+        "points": ["Next.js 16 client", "NestJS APIs", "RDS PostgreSQL"]
+      },
+      {
+        "title": "Education workflows",
+        "body": "Course selling, live batches, self-paced learning, assignments, certificates, payment records, and CRM are treated as one connected system.",
+        "points": ["BBB live classes", "Razorpay payments", "S3 media"]
+      },
+      {
+        "title": "Customer fit",
+        "body": "KASA is made for coaching institutes, online academies, trainers, skill centres, and EdTech teams that need an owned LMS.",
+        "points": ["Coaching institutes", "Online academies", "EdTech teams"]
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact KASA",
+    "title": "Talk to KASA about your academy, courses, batches, and rollout plan.",
+    "description": "Share what you want to launch or improve. The KASA team can help map the right setup for course selling, live classes, payments, learner dashboards, certificates, CRM, and admin reporting.",
+    "points": ["Compact enquiry", "Product tour access", "Workflow-based demo"],
+    "storyTitle": "A better conversation starts with your workflow",
+    "story": "Instead of a generic demo, KASA conversations focus on your academy structure: course models, live batch needs, payment flow, faculty roles, learner access, and growth plans.",
+    "blocks": [
+      {
+        "title": "For new academies",
+        "body": "Plan your domain, website, course catalog, payment gateway, email, media, and launch sequence from the start.",
+        "points": ["Domain setup", "Course launch", "Payment flow"]
+      },
+      {
+        "title": "For running institutes",
+        "body": "Move scattered workflows into one branded LMS without losing your current academic and sales process.",
+        "points": ["Batch migration", "Learner access", "Faculty roles"]
+      },
+      {
+        "title": "For EdTech teams",
+        "body": "Use KASA as a software foundation for branded learning products, live programs, and scalable operations.",
+        "points": ["Hosted stack", "Admin controls", "Reports"]
+      },
+      {
+        "title": "For product tours",
+        "body": "Use the compact Product Tour form to start a guided demo workspace and see the LMS flow directly.",
+        "points": ["Demo access", "Admin preview", "One-hour tour"]
+      }
+    ]
+  },
+  "pricing": {
+    "plans": [
+      {
+        "name": "Launch",
+        "fit": "For new academies starting with course sales and learner access.",
+        "points": ["Branded academy website", "Course pages and checkout", "Learner dashboard", "Basic reports"]
+      },
+      {
+        "name": "Growth",
+        "fit": "For institutes running recorded, live, and hybrid programs.",
+        "points": ["Live batches and replays", "Coupons and orders", "Certificates", "Faculty workflows"]
+      },
+      {
+        "name": "Scale",
+        "fit": "For teams that need custom rollout, integrations, and deeper controls.",
+        "points": ["AWS hosted setup", "Advanced roles", "CRM and reports", "Priority rollout support"]
+      }
+    ]
+  }
+}
