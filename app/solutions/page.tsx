@@ -18,6 +18,7 @@ export default function SolutionsIndexPage() {
       title="Find the KASA workflow for your education business."
       description="Different teams search for different outcomes. KASA solution pages explain how the same platform supports institutes, online academies, trainers, EdTech teams, and skill centres."
       pages={solutionPages.map((page) => ({ ...page, href: `/solutions/${page.slug}` }))}
+      variant="solution"
     />
   );
 }

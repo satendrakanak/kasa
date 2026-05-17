@@ -1,6 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import { DemoTourTrigger } from "@/components/demo-tour-form";
 import { LeadCaptureModalTrigger } from "@/components/lead-capture-form";
+import { siteButtonClasses } from "@/components/site/site-button";
 import { stats } from "@/lib/landing";
 
 const floatingCards = [
@@ -60,6 +62,45 @@ export default function LandingHero() {
       <div className="absolute left-[68%] top-[10%] h-px w-16 -rotate-45 bg-gradient-to-r from-transparent via-white/60 to-transparent animate-[star-drift_12s_ease-in-out_infinite]" />
       <div className="absolute left-[16%] top-[45%] h-px w-14 -rotate-45 bg-gradient-to-r from-transparent via-white/45 to-transparent animate-[star-drift_15s_ease-in-out_infinite]" />
 
+      <div className="fixed inset-x-0 top-6 z-40 px-4 sm:top-8">
+        <div className="mx-auto flex h-12 w-full max-w-[52rem] items-center justify-between rounded-full border border-white/12 bg-white/10 px-4 shadow-2xl shadow-black/20 backdrop-blur-xl sm:h-14 sm:px-6">
+          <Link href="/cwk" className="relative block h-5 w-20 sm:h-6 sm:w-24" aria-label="KASA landing home">
+            <Image
+              src="/kasa-logo-dark.png"
+              alt="KASA"
+              width={760}
+              height={260}
+              className="h-full w-full object-contain object-left"
+              priority
+            />
+          </Link>
+          <nav className="hidden items-center gap-7 text-sm font-semibold text-white/68 sm:flex">
+            <a href="#platform" className="transition hover:text-white">
+              Features
+            </a>
+            <a href="#pricing" className="transition hover:text-white">
+              Pricing
+            </a>
+            <a href="#faq" className="transition hover:text-white">
+              FAQ
+            </a>
+          </nav>
+          <LeadCaptureModalTrigger
+            endpoint={leadsEndpoint}
+            source="landing-nav-enquiry-modal"
+            leadType="enquiry"
+            buttonLabel="Enquire Now"
+            modalTitle="Tell us about your academy"
+            modalEyebrow="Enquiry request"
+            icon={<ChatBubbleIcon className="size-4" />}
+            buttonClassName={siteButtonClasses({
+              size: "sm",
+              className: "h-9 px-4 sm:h-10 sm:px-5",
+            })}
+          />
+        </div>
+      </div>
+
       <div className="absolute inset-x-0 bottom-0 hidden h-72 sm:block">
         <div className="absolute bottom-0 left-0 h-56 w-[68%] bg-slate-950/80 [clip-path:polygon(0_55%,18%_22%,32%_48%,48%_12%,68%_60%,100%_28%,100%_100%,0_100%)]" />
         <div className="absolute bottom-0 right-0 h-64 w-[72%] bg-slate-900/85 [clip-path:polygon(0_34%,19%_58%,39%_18%,58%_52%,76%_22%,100%_48%,100%_100%,0_100%)]" />
@@ -67,7 +108,7 @@ export default function LandingHero() {
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center px-4 pb-8 text-center sm:px-6 lg:px-8">
-        <div className="mx-auto flex flex-1 flex-col items-center justify-center pt-24 sm:pt-32">
+        <div className="mx-auto flex flex-1 flex-col items-center justify-center pt-36 sm:pt-40">
           <p className="font-heading text-xs font-medium uppercase tracking-[0.22em] text-white/68 sm:text-sm">
             White label LMS software for coaching institutes and online academies
           </p>
@@ -88,7 +129,10 @@ export default function LandingHero() {
               appUrl={demoAppUrl}
               buttonLabel="Take a Tour"
               icon={<PlayWindowIcon className="size-4" />}
-              buttonClassName="inline-flex h-12 min-w-[12.25rem] cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition hover:bg-primary-hover"
+              buttonClassName={siteButtonClasses({
+                size: "md",
+                className: "min-w-[12.25rem]",
+              })}
             />
             <LeadCaptureModalTrigger
               endpoint={leadsEndpoint}
@@ -98,7 +142,11 @@ export default function LandingHero() {
               modalTitle="Tell us about your academy"
               modalEyebrow="Enquiry request"
               icon={<ChatBubbleIcon className="size-4" />}
-              buttonClassName="inline-flex h-12 min-w-[12.25rem] cursor-pointer items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/15"
+              buttonClassName={siteButtonClasses({
+                variant: "outline",
+                size: "md",
+                className: "min-w-[12.25rem]",
+              })}
             />
           </div>
 

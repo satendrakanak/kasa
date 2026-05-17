@@ -18,6 +18,7 @@ export default function CompareIndexPage() {
       title="Compare KASA with other ways to build or sell online courses."
       description="These pages help buyers understand when a branded LMS is better than marketplace dependency, plugin stacks, or custom LMS development."
       pages={comparisonPages.map((page) => ({ ...page, href: `/compare/${page.slug}` }))}
+      variant="compare"
     />
   );
 }

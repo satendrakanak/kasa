@@ -18,6 +18,7 @@ export default function ResourcesIndexPage() {
       title="Practical guides for building and growing an online academy."
       description="Use these resources to plan academy setup, course sales, live classes, certificates, pricing, and SEO before scaling your LMS operations."
       pages={resourcePages.map((page) => ({ ...page, href: `/resources/${page.slug}` }))}
+      variant="resource"
     />
   );
 }

@@ -18,6 +18,7 @@ export default function FeaturesIndexPage() {
       title="Explore every major KASA LMS feature in one place."
       description="From course selling and live classes to certificates, payments, CRM, and admin reporting, these pages explain the workflows KASA brings together for modern academy teams."
       pages={featurePages.map((page) => ({ ...page, href: `/features/${page.slug}` }))}
+      variant="feature"
     />
   );
 }

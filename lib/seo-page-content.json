@@ -1,0 +1,427 @@
+{
+  "course-selling-platform": {
+    "template": "feature",
+    "image": "/feature-course-selling-vector.png",
+    "imageAlt": "Course selling storefront and checkout workflow",
+    "spotlightTitle": "Turn your course catalog into a real sales engine.",
+    "spotlightBody": "Course selling is not only a payment button. A serious academy needs course detail pages, learner accounts, coupons, invoices, access rules, follow-up leads, and reporting connected from the first click.",
+    "metrics": [
+      ["Storefront", "Own branded pages"],
+      ["Checkout", "Razorpay-ready flow"],
+      ["Access", "Auto enrolment"]
+    ],
+    "steps": [
+      "Publish the course with modules, pricing, outcomes, and eligibility.",
+      "Collect payment through a branded checkout instead of loose links.",
+      "Open learner access, invoice, dashboard, and progress tracking automatically."
+    ],
+    "proof": [
+      "Works for recorded programs, live cohorts, and hybrid course bundles.",
+      "Keeps orders, coupons, learners, and course access in one admin view.",
+      "Supports SEO pages and campaign funnels without sending traffic to a marketplace."
+    ],
+    "faqs": [
+      ["Can KASA sell both recorded and live courses?", "Yes. Course pages can position recorded lessons, live batches, hybrid programs, resources, assignments, and certificates as one offer."],
+      ["Does the learner get instant course access?", "The intended workflow is payment to order to learner access, so your team does not manually send links after every sale."]
+    ]
+  },
+  "live-class-management": {
+    "template": "feature",
+    "image": "/feature-live-class-room.jpg",
+    "imageAlt": "Faculty-led live class workspace",
+    "spotlightTitle": "Run batches without depending on chat messages and scattered meeting links.",
+    "spotlightBody": "Live teaching needs calendars, faculty ownership, reminders, recordings, replays, resources, assignments, and attendance context. KASA keeps the live learning workflow inside the LMS.",
+    "metrics": [
+      ["BBB", "Live classroom"],
+      ["Replay", "Batch library"],
+      ["Faculty", "Assigned workspace"]
+    ],
+    "steps": [
+      "Create a batch and assign faculty, schedule, and learner access.",
+      "Run live classes through the connected classroom workflow.",
+      "Attach recordings, resources, attendance, and follow-up tasks to the course."
+    ],
+    "proof": [
+      "Designed for coaching cohorts, doubt sessions, workshops, and recurring classes.",
+      "Helps learners find class links and replays from one dashboard.",
+      "Gives admins visibility into schedules instead of buried communication threads."
+    ],
+    "faqs": [
+      ["Which live classroom stack does KASA support?", "The platform is planned around BigBlueButton for live classes, with LMS-side batches, reminders, replays, and learner access."],
+      ["Can students revise after the class?", "Yes. Live delivery can be combined with recordings, resources, assignments, tests, and certificates."]
+    ]
+  },
+  "exams-assignments-certificates": {
+    "template": "feature",
+    "image": "/academy-students-learning.jpg",
+    "imageAlt": "Learners completing assessments and certificates",
+    "spotlightTitle": "Make completion measurable, not just visible.",
+    "spotlightBody": "Certificates feel valuable when they are tied to clear completion rules. KASA connects tests, assignments, learner progress, results, and certificate eligibility inside the same academy system.",
+    "metrics": [
+      ["Tests", "Outcome checks"],
+      ["Tasks", "Assignments"],
+      ["Proof", "Certificates"]
+    ],
+    "steps": [
+      "Add exams or assignments at the right point in the course.",
+      "Track submissions, performance, progress, and completion status.",
+      "Issue branded certificates based on rules that match the program quality."
+    ],
+    "proof": [
+      "Useful for skill courses, professional programs, certification batches, and revision programs.",
+      "Keeps assessment history attached to learner records.",
+      "Reduces manual certificate handling for admin teams."
+    ],
+    "faqs": [
+      ["Can certificates depend on exam pass rules?", "Yes. Programs can use completion rules that fit their seriousness, including lecture completion or assessment-based criteria."],
+      ["Can assignments be part of the same learner flow?", "Yes. Assignments can sit alongside lessons, resources, live sessions, and completion progress."]
+    ]
+  },
+  "payments-coupons-orders": {
+    "template": "feature",
+    "image": "/feature-analytics-team.png",
+    "imageAlt": "Course revenue and order dashboard",
+    "spotlightTitle": "Connect revenue with learner access and support context.",
+    "spotlightBody": "Payments become messy when checkout, invoice, course access, coupon tracking, and learner support live in different places. KASA keeps course commerce tied to the LMS.",
+    "metrics": [
+      ["Razorpay", "Payment gateway"],
+      ["Coupons", "Offer control"],
+      ["Orders", "Access mapping"]
+    ],
+    "steps": [
+      "Define course price, offer rules, and checkout path.",
+      "Capture payment, order details, invoice context, and access status.",
+      "Use revenue visibility to understand course demand and learner conversion."
+    ],
+    "proof": [
+      "Supports paid courses, live cohort fees, bundles, discounts, and access control.",
+      "Helps support teams answer payment and access questions quickly.",
+      "Keeps revenue data close to course and learner records."
+    ],
+    "faqs": [
+      ["Which payment gateway is planned?", "KASA is positioned around Razorpay for Indian course payments and checkout workflows."],
+      ["Can coupons be tracked?", "Yes. Coupons are treated as part of order and access workflows, not as disconnected promo codes."]
+    ]
+  },
+  "student-faculty-management": {
+    "template": "feature",
+    "image": "/feature-online-faculty.png",
+    "imageAlt": "Faculty and student management dashboard",
+    "spotlightTitle": "Give every user the dashboard they actually need.",
+    "spotlightBody": "Learners, faculty, and admins should not see the same cluttered system. KASA separates responsibilities while keeping progress, classes, assignments, orders, and certificates connected.",
+    "metrics": [
+      ["Learners", "Focused portal"],
+      ["Faculty", "Assigned batches"],
+      ["Admin", "Role control"]
+    ],
+    "steps": [
+      "Create users and roles for learners, faculty, staff, and admins.",
+      "Assign courses, batches, classes, exams, and access rules.",
+      "Track activity, progress, and operational work from the right dashboard."
+    ],
+    "proof": [
+      "Reduces dependency on WhatsApp and spreadsheets for learner operations.",
+      "Gives faculty the context they need without exposing admin controls.",
+      "Keeps student history useful for support, renewals, and reporting."
+    ],
+    "faqs": [
+      ["Can faculty have separate access?", "Yes. Faculty workflows are designed around assigned batches, learners, and academic tasks."],
+      ["Can admins control permissions?", "Yes. Role-based access is part of the operating model."]
+    ]
+  },
+  "education-crm-leads": {
+    "template": "feature",
+    "image": "/feature-crm-dashboard.png",
+    "imageAlt": "Education CRM and lead dashboard",
+    "spotlightTitle": "Bring enquiries, demos, admissions, and learner records together.",
+    "spotlightBody": "Education CRM is more useful when it knows what the learner asked for, which page created the enquiry, and which course or demo CTA moved them forward.",
+    "metrics": [
+      ["Leads", "Source context"],
+      ["Demos", "Intent capture"],
+      ["CRM", "Admission follow-up"]
+    ],
+    "steps": [
+      "Capture leads from course pages, demo CTAs, pricing prompts, and contact forms.",
+      "Store source, page, CTA, and message context for follow-up.",
+      "Convert serious enquiries into learners without losing history."
+    ],
+    "proof": [
+      "Useful for admissions teams, counsellors, trainers, and institute owners.",
+      "Connects marketing pages with operational learner records.",
+      "Helps teams prioritize high-intent demo and pricing conversations."
+    ],
+    "faqs": [
+      ["Can KASA capture page-level lead source?", "Yes. Forms can include CTA, page URL, source, and lead type context."],
+      ["Is CRM separate from the LMS?", "The goal is to keep lead and learner context close to course, payment, and access workflows."]
+    ]
+  },
+  "academy-website-builder": {
+    "template": "feature",
+    "image": "/feature-digital-class.jpg",
+    "imageAlt": "Academy website and learning platform",
+    "spotlightTitle": "Build a search-ready academy website around the LMS.",
+    "spotlightBody": "A coaching institute website should do more than look good. It should explain courses, capture enquiries, support SEO pages, route demos, and connect learners to login and checkout.",
+    "metrics": [
+      ["Pages", "SEO structure"],
+      ["Forms", "Lead capture"],
+      ["Login", "Learner entry"]
+    ],
+    "steps": [
+      "Create home, feature, solution, guide, comparison, and course pages.",
+      "Use CTAs that capture enquiry and demo intent directly.",
+      "Connect discovery pages to course selling and learner access."
+    ],
+    "proof": [
+      "Built for organic search and paid campaign traffic.",
+      "Supports owned domain positioning and branded trust.",
+      "Avoids the limitations of a single landing page trying to rank for every keyword."
+    ],
+    "faqs": [
+      ["Can KASA support SEO content pages?", "Yes. The site structure supports feature, solution, resource, and comparison pages."],
+      ["Does the academy website connect to the LMS?", "Yes. The website is intended to connect with course pages, forms, checkout, and learner login."]
+    ]
+  },
+  "admin-dashboard-reporting": {
+    "template": "feature",
+    "image": "/feature-analytics-team.png",
+    "imageAlt": "Admin dashboard and reports",
+    "spotlightTitle": "See operations without opening five different tools.",
+    "spotlightBody": "Admins need a control room for users, courses, orders, leads, certificates, roles, and reports. KASA keeps daily back-office work connected to business visibility.",
+    "metrics": [
+      ["Admin", "Control room"],
+      ["Reports", "Growth signals"],
+      ["Roles", "Secure access"]
+    ],
+    "steps": [
+      "Manage courses, users, orders, leads, coupons, certificates, and settings.",
+      "Review learner activity, course performance, and revenue signals.",
+      "Protect sensitive controls with role-based access."
+    ],
+    "proof": [
+      "Helps owners, operations teams, and academic managers work from one view.",
+      "Reduces repeated manual checks across payment, CRM, and classroom tools.",
+      "Makes growth decisions easier because core signals are connected."
+    ],
+    "faqs": [
+      ["What can admins control?", "Admins can manage the core LMS workflows: courses, users, payments, leads, roles, certificates, and reports."],
+      ["Is reporting only for sales?", "No. Reports should cover learner activity, course performance, operations, and revenue together."]
+    ]
+  },
+  "white-label-lms": {
+    "template": "feature",
+    "image": "/cwk-banner-01.webp",
+    "imageAlt": "White label academy experience",
+    "spotlightTitle": "Make the LMS feel like your own product.",
+    "spotlightBody": "A white label LMS should protect your domain, brand, pricing, learner journey, and certificate identity. KASA is built for academies that want ownership instead of platform dependency.",
+    "metrics": [
+      ["Domain", "Own URL"],
+      ["Brand", "Own identity"],
+      ["Journey", "Own learners"]
+    ],
+    "steps": [
+      "Configure domain, logo, brand colors, and academy identity.",
+      "Publish course and solution pages under your own brand.",
+      "Keep purchase, learning, certificate, and support workflows consistent."
+    ],
+    "proof": [
+      "Useful for trainers, institutes, creators, and EdTech teams.",
+      "Avoids marketplace branding throughout the learner experience.",
+      "Builds long-term trust around your institute name."
+    ],
+    "faqs": [
+      ["Is KASA a marketplace?", "No. KASA is positioned as an owned academy LMS, not a marketplace profile."],
+      ["Can certificates carry the academy brand?", "Yes. Certificate workflows are designed around branded academy identity."]
+    ]
+  },
+  "learner-dashboard-progress": {
+    "template": "feature",
+    "image": "/academy-online-student.jpg",
+    "imageAlt": "Learner dashboard and progress tracking",
+    "spotlightTitle": "Help learners know exactly what to do next.",
+    "spotlightBody": "A learner dashboard reduces confusion by keeping courses, live classes, recordings, exams, assignments, certificates, orders, and notifications in one place.",
+    "metrics": [
+      ["Courses", "My learning"],
+      ["Progress", "Next step"],
+      ["Proof", "Certificates"]
+    ],
+    "steps": [
+      "Show enrolled courses and active learning paths clearly.",
+      "Surface pending lessons, live sessions, tests, and assignments.",
+      "Keep certificate and order history easy to find."
+    ],
+    "proof": [
+      "Reduces support messages about links and pending tasks.",
+      "Improves completion by making progress visible.",
+      "Creates a professional learning experience after purchase."
+    ],
+    "faqs": [
+      ["Can learners see live and recorded content together?", "Yes. The dashboard is designed for recorded, live, and hybrid learning access."],
+      ["Does progress help certificate eligibility?", "Yes. Progress can support completion and certificate workflows."]
+    ]
+  },
+  "coaching-institutes": {
+    "template": "solution",
+    "image": "/feature-team-meeting.jpg",
+    "imageAlt": "Coaching institute team planning LMS operations",
+    "spotlightTitle": "One institute platform for sales, teaching, fees, and student operations.",
+    "spotlightBody": "Coaching institutes need more than video hosting. KASA brings admissions, live batches, course selling, student management, faculty workflows, exams, certificates, and reports under one branded LMS.",
+    "metrics": [["Batches", "Live cohorts"], ["Fees", "Orders and access"], ["Students", "Progress and support"]],
+    "steps": ["Launch the institute website and course catalog.", "Run live and recorded programs with faculty ownership.", "Track fees, learners, exams, certificates, and growth signals."],
+    "proof": ["Fits offline-to-online coaching transitions.", "Reduces scattered tools for links, payments, tests, and certificates.", "Supports branded trust for students and parents."],
+    "faqs": [["Is KASA useful for offline institutes going online?", "Yes. It is designed for institutes adding online, hybrid, and self-paced delivery."], ["Can faculty manage batches?", "Yes. Faculty workflows can be assigned without giving full admin access."]]
+  },
+  "online-academies": {
+    "template": "solution",
+    "image": "/academy-online-student.jpg",
+    "imageAlt": "Online academy learner using digital courses",
+    "spotlightTitle": "Create a complete digital academy, not just a course upload page.",
+    "spotlightBody": "Online academies need a strong branded front, checkout, learner dashboard, course progress, certificates, support, and growth tracking. KASA connects those pieces.",
+    "metrics": [["Website", "Owned academy"], ["Learning", "Self-paced and live"], ["Growth", "Leads and revenue"]],
+    "steps": ["Build search-ready pages around programs and outcomes.", "Sell programs and open learner access through the LMS.", "Use CRM and reports to improve launches."],
+    "proof": ["Works for recorded, live, and hybrid course businesses.", "Keeps learners under your brand after purchase.", "Supports SEO and campaign funnels."],
+    "faqs": [["Can an academy sell multiple programs?", "Yes. KASA supports a catalog-style setup with different course models."], ["Can it support future live cohorts?", "Yes. Live and hybrid delivery can be added to self-paced programs."]]
+  },
+  "trainers-creators": {
+    "template": "solution",
+    "image": "/feature-creator-class.jpg",
+    "imageAlt": "Trainer delivering an online course",
+    "spotlightTitle": "Give independent trainers a branded academy without heavy tech work.",
+    "spotlightBody": "Trainers need credibility, payments, content delivery, certificates, and learner progress without becoming software operators. KASA gives them the academy layer.",
+    "metrics": [["Brand", "Own platform"], ["Courses", "Recorded or live"], ["Sales", "Direct checkout"]],
+    "steps": ["Package expertise into sellable programs.", "Create a branded course website and checkout.", "Deliver lessons, live support, certificates, and renewals."],
+    "proof": ["Useful for coaches, consultants, subject experts, and creators.", "Avoids platform dependency and commission-heavy marketplaces.", "Keeps learner relationship direct."],
+    "faqs": [["Can a solo trainer use KASA?", "Yes. The platform can start lean and expand as programs grow."], ["Does it need a technical team?", "The goal is to reduce custom software work through a ready LMS stack."]]
+  },
+  "edtech-startups": {
+    "template": "solution",
+    "image": "/feature-digital-class.jpg",
+    "imageAlt": "EdTech learning product platform",
+    "spotlightTitle": "Move faster with a production-ready LMS foundation.",
+    "spotlightBody": "EdTech teams often lose months building common LMS plumbing. KASA provides course commerce, live learning, user roles, media, notifications, payments, and admin control as a ready base.",
+    "metrics": [["Stack", "Next.js and NestJS"], ["Cloud", "AWS, RDS, S3"], ["Scale", "Docker-managed services"]],
+    "steps": ["Validate the learning business with ready workflows.", "Use modular LMS capabilities instead of rebuilding basics.", "Scale operations with stronger admin and reporting views."],
+    "proof": ["Works as a serious MVP foundation.", "Supports real delivery models beyond prototype screens.", "Keeps room for custom rollout conversations."],
+    "faqs": [["Is KASA only for small institutes?", "No. It can support EdTech teams that need a ready LMS base."], ["Can infrastructure be discussed?", "Yes. Hosting, media, database, notifications, payments, and live classes can be mapped in rollout."]]
+  },
+  "skill-development-centres": {
+    "template": "solution",
+    "image": "/academy-students-learning.jpg",
+    "imageAlt": "Skill development learners in training",
+    "spotlightTitle": "Structure skill programs with proof of learning outcomes.",
+    "spotlightBody": "Skill centres need program pages, trainer guidance, practical assignments, tests, certificates, learner records, and progress visibility. KASA supports the operational backbone.",
+    "metrics": [["Programs", "Skill paths"], ["Assessment", "Tests and tasks"], ["Proof", "Certificates"]],
+    "steps": ["Create structured programs with modules and resources.", "Track practical work, tests, progress, and attendance.", "Issue certificates with clear completion criteria."],
+    "proof": ["Useful for vocational, professional, and short-term certificate programs.", "Helps standardize delivery across batches.", "Gives admins learner outcome records."],
+    "faqs": [["Can KASA support certificate programs?", "Yes. Certificates can be part of structured course completion."], ["Can trainers manage assigned learners?", "Yes. Faculty-style workflows are supported for delivery teams."]]
+  },
+  "kasa-vs-custom-lms-development": {
+    "template": "compare",
+    "image": "/feature-team-meeting.jpg",
+    "imageAlt": "Team comparing LMS build options",
+    "spotlightTitle": "Choose speed when the business needs validation and operations now.",
+    "spotlightBody": "Custom LMS development can be useful, but most institutes first need a reliable sales, learning, payment, and admin base. KASA gives those workflows without starting from zero.",
+    "metrics": [["Time", "Weeks vs months"], ["Risk", "Ready modules"], ["Focus", "Business first"]],
+    "steps": ["Compare must-have workflows before estimating custom code.", "Use KASA to launch core operations quickly.", "Customize only after real learner and revenue data exists."],
+    "proof": ["Avoids rebuilding common LMS flows.", "Reduces first-version risk and coordination overhead.", "Keeps product momentum with working modules."],
+    "faqs": [["When should an institute avoid custom LMS first?", "When it mainly needs standard course selling, live classes, payments, users, certificates, and reports quickly."], ["Can KASA still support custom rollout discussions?", "Yes. KASA can be a strong base before deeper custom needs are considered."]]
+  },
+  "kasa-vs-marketplaces": {
+    "template": "compare",
+    "image": "/cwk-banner-01.webp",
+    "imageAlt": "Owned academy platform compared with marketplace dependency",
+    "spotlightTitle": "Own the learner journey instead of renting a marketplace presence.",
+    "spotlightBody": "Marketplaces can help discovery, but they limit brand control, pricing control, learner data, and repeat relationship. KASA supports direct ownership.",
+    "metrics": [["Brand", "Your domain"], ["Data", "Your learners"], ["Sales", "Your pricing"]],
+    "steps": ["Use owned SEO and campaign pages to attract serious learners.", "Sell under your institute brand with direct checkout.", "Build retention through learner dashboard, certificates, and follow-up."],
+    "proof": ["Better for institutes building long-term brand equity.", "Avoids competing beside similar courses on the same marketplace.", "Keeps admissions and remarketing under your control."],
+    "faqs": [["Can a marketplace still be used for discovery?", "It can, but KASA gives you the owned platform where serious learners should convert and study."], ["Why does own domain matter?", "It builds brand trust, SEO equity, and direct learner relationship over time."]]
+  },
+  "kasa-vs-wordpress-lms": {
+    "template": "compare",
+    "image": "/feature-analytics-team.png",
+    "imageAlt": "Managed LMS compared with plugin stack",
+    "spotlightTitle": "Avoid plugin stitching when academy operations become serious.",
+    "spotlightBody": "WordPress LMS plugins can work for simple setups, but course sales, roles, coupons, certificates, CRM, reports, and live classes often become a fragile stack.",
+    "metrics": [["Plugins", "Less stitching"], ["Ops", "One admin view"], ["Growth", "Managed workflows"]],
+    "steps": ["Identify how many plugins the academy needs to run daily.", "Compare maintenance, conflicts, updates, and support overhead.", "Use KASA when LMS operations matter more than generic publishing."],
+    "proof": ["Reduces dependency on plugin compatibility.", "Creates one consistent product experience for learners and staff.", "Keeps education workflows central."],
+    "faqs": [["Is WordPress bad for all academies?", "No. It can be fine for simple websites, but serious LMS operations usually need a more connected product."], ["Does KASA replace a marketing website?", "KASA includes academy website and LMS workflows together for education businesses."]]
+  },
+  "best-lms-for-coaching-institutes": {
+    "template": "compare",
+    "image": "/academy-live-class.jpg",
+    "imageAlt": "Coaching institute choosing LMS software",
+    "spotlightTitle": "The best coaching LMS supports the whole institute, not only lessons.",
+    "spotlightBody": "A coaching LMS should cover course sales, batches, live classes, replays, tests, payments, learner dashboards, faculty roles, certificates, CRM, and reports.",
+    "metrics": [["Checklist", "15+ workflows"], ["India", "Payments and support"], ["Scale", "From launch to growth"]],
+    "steps": ["List the institute workflows that currently depend on manual work.", "Check if the LMS connects sales, learning, live classes, and certificates.", "Choose a platform that supports both launch and long-term operations."],
+    "proof": ["Useful as a buying guide for owners and academic managers.", "Highlights hidden operational needs before purchase.", "Positions KASA as a complete academy operating system."],
+    "faqs": [["What should a coaching institute check first?", "Check course selling, live class management, payments, learner dashboard, faculty roles, certificates, CRM, and reports."], ["Why is India-specific payment support important?", "Institutes need local payment flows, invoices, and familiar checkout expectations for learners."]]
+  },
+  "start-online-academy-india": {
+    "template": "resource",
+    "image": "/academy-online-student.jpg",
+    "imageAlt": "Starting an online academy in India",
+    "spotlightTitle": "Start with the operating model, not only the website.",
+    "spotlightBody": "An online academy needs a clear learner journey: discover, enquire, pay, learn, attend live classes, complete assessments, receive certificates, and return for future programs.",
+    "metrics": [["Plan", "Offer and audience"], ["Launch", "Website and checkout"], ["Operate", "Learners and reports"]],
+    "steps": ["Define the niche, course promise, delivery model, and pricing.", "Launch owned pages, checkout, learner dashboard, and support flow.", "Track leads, purchases, completion, certificates, and repeat enrolments."],
+    "proof": ["Helps avoid tool chaos before the academy grows.", "Keeps SEO, ads, payment, and learning in one plan.", "Useful for trainers, institutes, and new EdTech teams."],
+    "faqs": [["What is the first step to start an online academy?", "Define the audience, course promise, delivery model, and learner journey before choosing tools."], ["Can KASA help with launch setup?", "Yes. KASA supports domain, course pages, payments, learner access, and admin workflows."]]
+  },
+  "sell-recorded-courses-online": {
+    "template": "resource",
+    "image": "/feature-woman-laptop.png",
+    "imageAlt": "Selling recorded courses online",
+    "spotlightTitle": "Recorded courses need packaging, access, progress, and proof.",
+    "spotlightBody": "Selling recorded courses online is not just uploading videos. The course needs modules, outcomes, resources, checkout, learner progress, support, and certificate rules.",
+    "metrics": [["Content", "Modules and lessons"], ["Sales", "Checkout and coupons"], ["Learning", "Progress and certificate"]],
+    "steps": ["Package the course around outcomes, modules, and learner value.", "Create a course page with pricing, FAQ, and direct checkout.", "Give learners structured access with progress, resources, and certificates."],
+    "proof": ["Supports self-paced learning businesses.", "Connects payment to access automatically.", "Makes recorded courses feel like a premium learning product."],
+    "faqs": [["Can recorded courses be sold under my brand?", "Yes. KASA supports owned course pages and learner dashboards."], ["Do recorded courses need certificates?", "Not always, but certificates can improve perceived value when tied to completion rules."]]
+  },
+  "run-live-online-classes": {
+    "template": "resource",
+    "image": "/academy-live-class.jpg",
+    "imageAlt": "Running live online classes",
+    "spotlightTitle": "Treat live classes as a program, not a meeting link.",
+    "spotlightBody": "Live online classes need batches, schedule visibility, faculty ownership, reminders, recordings, resources, assignments, and progress tracking.",
+    "metrics": [["Schedule", "Batch calendar"], ["Class", "BBB workflow"], ["Replay", "Revision library"]],
+    "steps": ["Create batches with dates, faculty, learners, and class plan.", "Run live sessions through a controlled LMS flow.", "Attach recordings, assignments, tests, and certificates after class."],
+    "proof": ["Better for cohort-based coaching and doubt sessions.", "Reduces missed links and manual replay sharing.", "Keeps hybrid learning organized."],
+    "faqs": [["How do I manage live class recordings?", "Recordings should be attached to the course or batch so learners can revise from their dashboard."], ["Can live and recorded courses be combined?", "Yes. Hybrid programs are one of the strongest use cases for KASA."]]
+  },
+  "lms-seo-for-academies": {
+    "template": "resource",
+    "image": "/feature-digital-class.jpg",
+    "imageAlt": "SEO strategy for academy websites",
+    "spotlightTitle": "One landing page cannot rank for every academy keyword.",
+    "spotlightBody": "SEO for an online academy works best when each page targets a clear intent: features, solutions, resources, comparisons, pricing, and course offers all need their own internal links.",
+    "metrics": [["Keywords", "Intent pages"], ["Links", "Topic clusters"], ["Growth", "Organic leads"]],
+    "steps": ["Group keywords by buyer intent, not only search volume.", "Create separate pages for features, solutions, comparisons, and guides.", "Link pages naturally into product tour and enquiry CTAs."],
+    "proof": ["Supports long-term discovery beyond paid ads.", "Helps buyers move from research to product evaluation.", "Makes the website a real acquisition asset."],
+    "faqs": [["Why not use only the homepage?", "Homepage cannot deeply answer every high-intent query around LMS, live classes, payments, certificates, and coaching use cases."], ["What should resource pages link to?", "They should link to relevant feature, solution, pricing, comparison, and demo CTAs."]]
+  },
+  "course-certificates-best-practices": {
+    "template": "resource",
+    "image": "/academy-students-learning.jpg",
+    "imageAlt": "Course certificate best practices",
+    "spotlightTitle": "Certificates should prove meaningful completion, not just attendance.",
+    "spotlightBody": "A certificate is stronger when the academy defines rules: lesson completion, assignment submission, exam score, live attendance, or program completion.",
+    "metrics": [["Rules", "Completion criteria"], ["Brand", "Academy identity"], ["Value", "Learner proof"]],
+    "steps": ["Decide what completion means for each course type.", "Connect progress, exam, or assignment data to certificate eligibility.", "Issue branded certificates that learners can trust and share."],
+    "proof": ["Improves course perceived value.", "Encourages learners to complete the program.", "Creates cleaner admin records."],
+    "faqs": [["Should every course give certificates?", "Only when the certificate matches course value and completion rules."], ["Can certificates be branded?", "Yes. KASA positions certificates as part of the academy brand experience."]]
+  },
+  "online-course-pricing-guide": {
+    "template": "resource",
+    "image": "/feature-analytics-team.png",
+    "imageAlt": "Online course pricing and revenue planning",
+    "spotlightTitle": "Price based on transformation, support, and delivery depth.",
+    "spotlightBody": "Recorded courses, live cohorts, hybrid programs, exam prep, and certificate programs need different pricing logic. A good LMS keeps offers, coupons, orders, and access clear.",
+    "metrics": [["Value", "Outcome pricing"], ["Offer", "Coupon control"], ["Revenue", "Order visibility"]],
+    "steps": ["Define the course outcome, audience urgency, and support level.", "Set pricing for recorded, live, hybrid, or certificate depth.", "Track conversions, coupons, revenue, and learner completion."],
+    "proof": ["Helps avoid underpricing serious programs.", "Keeps discounts controlled and measurable.", "Connects pricing with learner access and revenue reporting."],
+    "faqs": [["Should live courses cost more than recorded courses?", "Usually yes when they include faculty time, accountability, doubt sessions, and cohort support."], ["How should coupons be used?", "Use coupons for campaigns, but track usage, order value, and access rules carefully."]]
+  }
+}

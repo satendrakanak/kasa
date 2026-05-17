@@ -37,10 +37,58 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.86,
     },
     {
-      url: `${SITE_URL}/landing`,
+      url: `${SITE_URL}/pricing`,
       lastModified,
-      changeFrequency: "weekly",
+      changeFrequency: "monthly",
+      priority: 0.82,
+    },
+    {
+      url: `${SITE_URL}/why-kasa`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.82,
+    },
+    {
+      url: `${SITE_URL}/about`,
+      lastModified,
+      changeFrequency: "monthly",
       priority: 0.72,
+    },
+    {
+      url: `${SITE_URL}/contact`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.82,
+    },
+    {
+      url: `${SITE_URL}/testimonials`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.78,
+    },
+    {
+      url: `${SITE_URL}/faq`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.78,
+    },
+    {
+      url: `${SITE_URL}/terms`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.35,
+    },
+    {
+      url: `${SITE_URL}/privacy`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.35,
+    },
+    {
+      url: `${SITE_URL}/cookies`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.35,
     },
   ];
 

@@ -6,6 +6,7 @@ import {
   replacedTools,
   testimonials,
 } from "@/lib/landing";
+import { siteButtonClasses } from "@/components/site/site-button";
 import { getWebsitePricingPlans } from "@/lib/website-pricing";
 
 const planetMotion = [
@@ -47,8 +48,8 @@ export function PlatformSection() {
           </p>
         </div>
 
-        <div className="relative mx-auto mt-12 flex h-[18rem] max-w-5xl items-center justify-center overflow-hidden sm:mt-14 sm:h-[24rem] lg:hidden">
-          <OrbitSystem scaleClassName="scale-[0.37] sm:scale-[0.5]" />
+        <div className="relative mx-auto mt-8 flex h-[23rem] max-w-5xl items-center justify-center overflow-hidden sm:mt-12 sm:h-[29rem] lg:hidden">
+          <OrbitSystem scaleClassName="scale-[0.5] sm:scale-[0.62]" />
         </div>
 
         <div className="relative mx-auto mt-18 hidden h-[44rem] max-w-5xl items-center justify-center lg:flex">
@@ -307,12 +308,10 @@ export async function PricingSection() {
                 ctaLabel={`${plan.highlighted ? "Enquire Now" : "Talk to sales"} - ${plan.name} plan`}
                 modalTitle="Tell us about your academy"
                 modalEyebrow={`${plan.name} plan enquiry`}
-                buttonClassName={[
-                  "inline-flex h-12 w-full cursor-pointer items-center justify-center rounded-full text-sm font-semibold transition",
-                  plan.highlighted
-                    ? "bg-white text-slate-950 hover:bg-slate-100"
-                    : "bg-primary text-primary-foreground hover:bg-primary-hover",
-                ].join(" ")}
+                buttonClassName={siteButtonClasses({
+                  size: "md",
+                  className: "w-full",
+                })}
               />
             </div>
           </article>
@@ -445,7 +444,10 @@ export function SiteFooter() {
           buttonLabel="Enquire Now"
           modalTitle="Tell us about your academy"
           modalEyebrow="Footer enquiry"
-          buttonClassName="inline-flex h-12 min-w-44 cursor-pointer items-center justify-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition hover:bg-primary-hover"
+          buttonClassName={siteButtonClasses({
+            size: "md",
+            className: "min-w-44",
+          })}
         />
       </div>
     </footer>

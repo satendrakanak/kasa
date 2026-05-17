@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import SiteHeader from "@/components/site-header";
+import { ThemeInitializer } from "@/components/site/theme-initializer";
 import { SiteFooter } from "@/components/site/site-footer";
+import { SiteStructuredData } from "@/components/site/structured-data";
 import "./globals.css";
 
 const inter = Inter({
@@ -23,21 +25,6 @@ export const metadata: Metadata = {
   },
   description:
     "KASA is an all-in-one LMS software for coaching institutes, online academies, trainers, and EdTech teams to sell courses, run live classes, manage students, collect payments, issue certificates, and track growth.",
-  keywords: [
-    "LMS software for coaching institutes",
-    "online academy software",
-    "course selling platform",
-    "learning management system India",
-    "coaching institute management software",
-    "online course platform",
-    "live class management software",
-    "student management system",
-    "course payment and certificate software",
-    "education CRM software",
-    "EdTech platform for trainers",
-    "white label LMS",
-    "KASA LMS",
-  ],
   applicationName: "KASA",
   authors: [{ name: "KASA", url: "https://www.getkasa.in" }],
   creator: "KASA",
@@ -95,27 +82,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const themeScript = `
-    (() => {
-      try {
-        const theme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.classList.toggle('dark', theme === 'dark');
-      } catch {
-        document.documentElement.classList.add('dark');
-      }
-    })();
-  `;
-
   return (
     <html
       lang="en"
       className={`${inter.variable} ${poppins.variable} dark h-full scroll-smooth antialiased`}
       suppressHydrationWarning
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
       <body className="flex min-h-full flex-col font-sans">
+        <ThemeInitializer />
+        <SiteStructuredData />
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />

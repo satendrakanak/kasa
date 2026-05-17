@@ -1,15 +1,25 @@
 import type { Metadata } from "next";
 import type { PageSummary } from "@/lib/site-content";
+import seoPageContent from "@/lib/seo-page-content.json";
 
 const SITE_URL = "https://www.getkasa.in";
 
+type SeoContent = {
+  image?: string;
+  imageAlt?: string;
+};
+
+const enrichedPages = seoPageContent as unknown as Record<string, SeoContent>;
+
 export function pageMetadata(page: PageSummary, pathname: string): Metadata {
   const url = `${SITE_URL}${pathname}`;
+  const enriched = enrichedPages[page.slug];
+  const image = enriched?.image ?? "/kasa-hero.png";
+  const imageAlt = enriched?.imageAlt ?? page.title;
 
   return {
     title: page.title,
     description: page.description,
-    keywords: page.keywords,
     alternates: {
       canonical: pathname,
     },
@@ -21,10 +31,10 @@ export function pageMetadata(page: PageSummary, pathname: string): Metadata {
       siteName: "KASA",
       images: [
         {
-          url: "/kasa-hero.png",
+          url: image,
           width: 1200,
           height: 630,
-          alt: page.title,
+          alt: imageAlt,
         },
       ],
     },
@@ -32,7 +42,7 @@ export function pageMetadata(page: PageSummary, pathname: string): Metadata {
       card: "summary_large_image",
       title: page.title,
       description: page.description,
-      images: ["/kasa-hero.png"],
+      images: [image],
     },
   };
 }
