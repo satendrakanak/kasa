@@ -6,25 +6,19 @@ import { Moon, Sun } from "lucide-react";
 type Theme = "light" | "dark";
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("dark");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const savedTheme = window.localStorage.getItem("theme") as Theme | null;
-    const nextTheme = savedTheme || "dark";
-
-    setTheme(nextTheme);
-    setMounted(true);
-    document.documentElement.classList.toggle("dark", nextTheme === "dark");
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) {
-      return;
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") {
+      return "dark";
     }
 
+    const savedTheme = window.localStorage.getItem("theme") as Theme | null;
+
+    return savedTheme || "dark";
+  });
+
+  useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
-  }, [mounted, theme]);
+  }, [theme]);
 
   function toggleTheme() {
     const nextTheme = theme === "dark" ? "light" : "dark";
@@ -42,7 +36,7 @@ export default function ThemeToggle() {
       aria-label="Toggle color theme"
       suppressHydrationWarning
     >
-      {mounted && theme === "light" ? (
+      {theme === "light" ? (
         <Sun className="size-4" aria-hidden="true" />
       ) : (
         <Moon className="size-4" aria-hidden="true" />

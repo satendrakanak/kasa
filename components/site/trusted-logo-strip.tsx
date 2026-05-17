@@ -52,11 +52,12 @@ export function TrustedLogoStrip() {
               >
                 <div className="flex items-center gap-3">
                   <span className="grid size-11 place-items-center rounded-2xl border border-blue-950/10 bg-white shadow-sm dark:border-white/10">
-                    <img
-                      src={`https://www.google.com/s2/favicons?domain=${brand.domain}&sz=128`}
-                      alt={`${brand.name} logo`}
-                      className="size-7 object-contain transition duration-300 group-hover:scale-110"
-                      loading="lazy"
+                    <span
+                      aria-hidden="true"
+                      className="size-7 bg-contain bg-center bg-no-repeat transition duration-300 group-hover:scale-110"
+                      style={{
+                        backgroundImage: `url(https://www.google.com/s2/favicons?domain=${brand.domain}&sz=128)`,
+                      }}
                     />
                   </span>
                   <div className="font-heading text-sm font-semibold text-slate-800 dark:text-white">

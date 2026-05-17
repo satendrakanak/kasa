@@ -33,7 +33,6 @@ export function AnimatedCounter({
 
   useEffect(() => {
     if (!parsed) {
-      setDisplayValue(value);
       return;
     }
 
@@ -61,5 +60,5 @@ export function AnimatedCounter({
     return () => cancelAnimationFrame(frameId);
   }, [duration, parsed, value]);
 
-  return <span className={className}>{displayValue}</span>;
+  return <span className={className}>{parsed ? displayValue : value}</span>;
 }
