@@ -56,9 +56,9 @@ export function HomeHero({ leadsEndpoint }: HomeHeroProps) {
         })}
       >
         <div className="mx-auto max-w-3xl lg:mx-0">
-          <div className="inline-flex items-center gap-2 rounded-full border border-blue-950/10 bg-white/78 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary shadow-sm shadow-blue-950/5 dark:border-primary/25 dark:bg-primary/10">
-            <Sparkles className="size-3.5" />
-            LMS software for coaching institutes
+          <div className="inline-flex max-w-full items-center justify-center gap-2 rounded-full border border-blue-950/10 bg-white/78 px-3.5 py-2 text-center text-[0.68rem] font-semibold uppercase leading-5 tracking-[0.16em] text-primary shadow-sm shadow-blue-950/5 dark:border-primary/25 dark:bg-primary/10 sm:px-4 sm:text-xs sm:leading-none sm:tracking-[0.18em]">
+            <Sparkles className="size-3.5 shrink-0" />
+            <span className="sm:whitespace-nowrap">White label LMS software</span>
           </div>
 
           <h1 className="mt-6 max-w-3xl font-heading text-4xl font-semibold leading-[1.08] tracking-normal text-slate-950 sm:text-5xl lg:text-[3.25rem] xl:text-[3.7rem] dark:text-white">
