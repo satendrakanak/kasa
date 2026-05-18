@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import SiteHeader from "@/components/site-header";
 import { ThemeInitializer } from "@/components/site/theme-initializer";
 import { SiteFooter } from "@/components/site/site-footer";
@@ -16,6 +17,8 @@ const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
   variable: "--font-poppins",
 });
+
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-WCLQ27XF";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.getkasa.in"),
@@ -88,6 +91,7 @@ export default function RootLayout({
       className={`${inter.variable} ${poppins.variable} h-full scroll-smooth antialiased`}
       suppressHydrationWarning
     >
+      <GoogleTagManager gtmId={GTM_ID} />
       <body className="flex min-h-full flex-col font-sans">
         <ThemeInitializer />
         <SiteStructuredData />
