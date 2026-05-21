@@ -16,8 +16,10 @@ import { PageHero } from "@/components/site/page-hero";
 import { ProductTourTrigger } from "@/components/site/product-tour-trigger";
 import {
   BreadcrumbStructuredData,
+  FaqStructuredData,
   WebPageStructuredData,
 } from "@/components/site/structured-data";
+import { industrySeoPageContent } from "@/lib/industry-page-content";
 import { allSeoPages, type PageSummary } from "@/lib/site-content";
 import seoPageContent from "@/lib/seo-page-content.json";
 
@@ -37,7 +39,10 @@ type SeoPageContent = {
   faqs: [string, string][];
 };
 
-const enrichedPages = seoPageContent as unknown as Record<string, SeoPageContent>;
+const enrichedPages = {
+  ...(seoPageContent as unknown as Record<string, SeoPageContent>),
+  ...(industrySeoPageContent as Record<string, SeoPageContent>),
+};
 
 function pageVariant(page: PageSummary) {
   const match = allSeoPages.find((item) => item.slug === page.slug);
@@ -128,6 +133,7 @@ export function SeoPageTemplate({ page }: SeoPageTemplateProps) {
         image={content?.image}
         pageType={variant === "resource" ? "Article" : "WebPage"}
       />
+      {content?.faqs.length ? <FaqStructuredData faqs={content.faqs} /> : null}
       <PageHero
         eyebrow={page.eyebrow}
         title={page.title}

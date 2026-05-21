@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ListingPage } from "@/components/site/listing-page";
-import { solutionPages } from "@/lib/site-content";
+import { allSolutionPages } from "@/lib/site-content";
 
 export const metadata: Metadata = {
   title: "KASA LMS Solutions for Institutes, Academies, Trainers, and EdTech Teams",
@@ -17,7 +17,7 @@ export default function SolutionsIndexPage() {
       eyebrow="KASA solutions"
       title="Find the KASA workflow for your education business."
       description="Different teams search for different outcomes. KASA solution pages explain how the same platform supports institutes, online academies, trainers, EdTech teams, and skill centres."
-      pages={solutionPages.map((page) => ({ ...page, href: `/solutions/${page.slug}` }))}
+      pages={allSolutionPages.map((page) => ({ ...page, href: `/solutions/${page.slug}` }))}
       variant="solution"
     />
   );

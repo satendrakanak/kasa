@@ -19,7 +19,7 @@ import { ProductTourTrigger } from "@/components/site/product-tour-trigger";
 import { siteContainerClasses } from "@/components/site/site-container";
 import { siteButtonClasses } from "@/components/site/site-button";
 import ThemeToggle from "@/components/theme-toggle";
-import { featurePages, resourcePages, solutionPages } from "@/lib/site-content";
+import { allSolutionPages, featurePages, resourcePages } from "@/lib/site-content";
 
 type NavChild = {
   label: string;
@@ -52,7 +52,7 @@ const primaryNav: NavItem[] = [
   {
     label: "Solutions",
     href: "/solutions",
-    items: solutionPages.slice(0, 5).map((page) => ({
+    items: allSolutionPages.slice(0, 5).map((page) => ({
       label: page.eyebrow,
       href: `/solutions/${page.slug}`,
       description: page.title,

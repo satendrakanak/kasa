@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { SeoPageTemplate } from "@/components/site/seo-page-template";
-import { getSolutionPage, solutionPages } from "@/lib/site-content";
+import { allSolutionPages, getSolutionPage } from "@/lib/site-content";
 import { pageMetadata } from "@/lib/seo";
 
 type PageProps = {
@@ -8,7 +8,7 @@ type PageProps = {
 };
 
 export function generateStaticParams() {
-  return solutionPages.map((page) => ({ slug: page.slug }));
+  return allSolutionPages.map((page) => ({ slug: page.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps) {

@@ -16,7 +16,7 @@ import {
   comparisonPages,
   featurePages,
   resourcePages,
-  solutionPages,
+  allSolutionPages,
 } from "@/lib/site-content";
 
 type FooterLink = {
@@ -119,7 +119,7 @@ export function SiteFooter() {
     href: `/features/${page.slug}`,
   }));
 
-  const solutionLinks = solutionPages.map((page) => ({
+  const solutionLinks = allSolutionPages.map((page) => ({
     label: page.eyebrow.replace("For ", ""),
     href: `/solutions/${page.slug}`,
   }));

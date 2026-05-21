@@ -1,3 +1,5 @@
+import { industrySolutionPages } from "@/lib/industry-page-content";
+
 export type PageSummary = {
   slug: string;
   title: string;
@@ -771,7 +773,7 @@ export function getFeaturePage(slug: string) {
 }
 
 export function getSolutionPage(slug: string) {
-  return solutionPages.find((page) => page.slug === slug);
+  return allSolutionPages.find((page) => page.slug === slug);
 }
 
 export function getComparisonPage(slug: string) {
@@ -782,9 +784,11 @@ export function getResourcePage(slug: string) {
   return resourcePages.find((page) => page.slug === slug);
 }
 
+export const allSolutionPages = [...solutionPages, ...industrySolutionPages];
+
 export const allSeoPages = [
   ...featurePages.map((page) => ({ ...page, href: `/features/${page.slug}`, group: "Features" })),
-  ...solutionPages.map((page) => ({ ...page, href: `/solutions/${page.slug}`, group: "Solutions" })),
+  ...allSolutionPages.map((page) => ({ ...page, href: `/solutions/${page.slug}`, group: "Solutions" })),
   ...comparisonPages.map((page) => ({ ...page, href: `/compare/${page.slug}`, group: "Compare" })),
   ...resourcePages.map((page) => ({ ...page, href: `/resources/${page.slug}`, group: "Resources" })),
 ];

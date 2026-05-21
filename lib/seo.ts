@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { PageSummary } from "@/lib/site-content";
+import { industrySeoPageContent } from "@/lib/industry-page-content";
 import seoPageContent from "@/lib/seo-page-content.json";
 
 const SITE_URL = "https://www.getkasa.in";
@@ -9,7 +10,10 @@ type SeoContent = {
   imageAlt?: string;
 };
 
-const enrichedPages = seoPageContent as unknown as Record<string, SeoContent>;
+const enrichedPages = {
+  ...(seoPageContent as unknown as Record<string, SeoContent>),
+  ...(industrySeoPageContent as Record<string, SeoContent>),
+};
 
 export function pageMetadata(page: PageSummary, pathname: string): Metadata {
   const url = `${SITE_URL}${pathname}`;
