@@ -8,6 +8,7 @@ import {
   FaFacebookF,
   FaInstagram,
   FaLinkedinIn,
+  FaWhatsapp,
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
@@ -85,6 +86,9 @@ const socialLinks = [
   },
 ];
 
+const whatsappHref =
+  "https://wa.me/918979791615?text=I%20want%20to%20know%20more%20about%20KASA%20LMS";
+
 function FooterColumn({
   title,
   links,
@@ -124,8 +128,10 @@ function FooterLinkItem({
     <Link
       href={link.href}
       className={[
-        "group inline-flex items-start gap-2 leading-6 text-slate-300 transition hover:text-white",
-        compact ? "text-[0.82rem]" : "text-sm",
+        "group inline-flex items-start gap-2 leading-6 transition hover:text-white",
+        compact
+          ? "text-[0.84rem] font-medium text-slate-200"
+          : "text-sm text-slate-300",
       ].join(" ")}
     >
       <ChevronRight className="mt-1 size-4 shrink-0 text-emerald-300 transition group-hover:translate-x-0.5" />
@@ -142,13 +148,13 @@ function FooterMegaColumn({
   links: FooterLink[];
 }) {
   return (
-    <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.035] p-5 shadow-xl shadow-black/10">
+    <div className="rounded-[1.5rem] border border-emerald-300/14 bg-[#14233b] p-5 shadow-xl shadow-black/15">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 className="font-heading text-base font-semibold text-emerald-300">
             {title}
           </h2>
-          <p className="mt-1 text-xs leading-5 text-slate-400">
+          <p className="mt-1 text-xs leading-5 text-slate-300">
             Focused pages for high-intent academy and institute searches.
           </p>
         </div>
@@ -203,9 +209,21 @@ export function SiteFooter() {
   }
 
   return (
-    <footer className="site-footer relative overflow-hidden bg-[#101b31] text-white">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(43,168,255,0.14),transparent_30rem),radial-gradient(circle_at_88%_8%,rgba(34,181,115,0.16),transparent_34rem)]" />
-      <div className="pointer-events-none absolute bottom-0 right-0 hidden h-80 w-80 rounded-tl-full bg-[linear-gradient(135deg,rgba(105,211,142,0.18),rgba(43,168,255,0.1))] lg:block" />
+    <>
+      <a
+        href={whatsappHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-4 right-4 z-40 inline-flex size-13 items-center justify-center rounded-full border border-white/25 bg-[#25D366] text-white shadow-2xl shadow-emerald-950/25 transition hover:-translate-y-0.5 hover:bg-[#20bd5a] focus:outline-none focus:ring-4 focus:ring-emerald-300/35 sm:bottom-5 sm:right-5 md:h-13 md:w-auto md:gap-2.5 md:px-4"
+        aria-label="Contact KASA on WhatsApp"
+      >
+        <FaWhatsapp className="size-7" aria-hidden="true" />
+        <span className="hidden text-sm font-bold md:inline">WhatsApp</span>
+      </a>
+
+      <footer className="site-footer relative overflow-hidden bg-[#101b31] text-white">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(43,168,255,0.14),transparent_30rem),radial-gradient(circle_at_88%_8%,rgba(34,181,115,0.16),transparent_34rem)]" />
+        <div className="pointer-events-none absolute bottom-0 right-0 hidden h-80 w-80 rounded-tl-full bg-[linear-gradient(135deg,rgba(105,211,142,0.18),rgba(43,168,255,0.1))] lg:block" />
 
       <div className="relative mx-auto w-full max-w-[108rem] px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid gap-10 xl:grid-cols-[0.78fr_2.2fr_0.72fr]">
@@ -328,6 +346,7 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-    </footer>
+      </footer>
+    </>
   );
 }
