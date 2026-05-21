@@ -63,7 +63,15 @@ const primaryNav: NavItem[] = [
     label: "Resources",
     href: "/resources",
     items: resourcePages.slice(0, 6).map((page) => ({
-      label: page.eyebrow,
+      label:
+        {
+          "start-online-academy-india": "Start online academy",
+          "sell-recorded-courses-online": "Sell recorded courses",
+          "run-live-online-classes": "Run live online classes",
+          "lms-seo-for-academies": "Academy website SEO",
+          "course-certificates-best-practices": "Course certificates",
+          "online-course-pricing-guide": "Course pricing",
+        }[page.slug] ?? page.title.replace(/\.$/, ""),
       href: `/resources/${page.slug}`,
       description: page.title,
     })),
