@@ -1,29 +1,39 @@
 import { Building2, GraduationCap, Landmark, Sparkles } from "lucide-react";
-import Image from "next/image";
+import {
+  SiCanva,
+  SiCoursera,
+  SiGoogle,
+  SiHubspot,
+  SiNotion,
+  SiShopify,
+  SiSlack,
+  SiStripe,
+  SiUdemy,
+  SiZoom,
+} from "react-icons/si";
+import type { IconType } from "react-icons";
 import { siteContainerClasses } from "@/components/site/site-container";
 
 const trustedBrands = [
-  { name: "Google", domain: "google.com" },
-  { name: "Microsoft", domain: "microsoft.com" },
-  { name: "Zoom", domain: "zoom.us" },
-  { name: "Slack", domain: "slack.com" },
-  { name: "Stripe", domain: "stripe.com" },
-  { name: "Shopify", domain: "shopify.com" },
-  { name: "Notion", domain: "notion.so" },
-  { name: "Udemy", domain: "udemy.com" },
-  { name: "Coursera", domain: "coursera.org" },
-  { name: "Canva", domain: "canva.com" },
-  { name: "HubSpot", domain: "hubspot.com" },
-  { name: "Teachable", domain: "teachable.com" },
-];
+  { name: "Google", icon: SiGoogle, color: "text-[#4285F4]" },
+  { name: "Microsoft", mark: "M", color: "text-[#5E5E5E]" },
+  { name: "Zoom", icon: SiZoom, color: "text-[#0B5CFF]" },
+  { name: "Slack", icon: SiSlack, color: "text-[#4A154B]" },
+  { name: "Stripe", icon: SiStripe, color: "text-[#635BFF]" },
+  { name: "Shopify", icon: SiShopify, color: "text-[#7AB55C]" },
+  { name: "Notion", icon: SiNotion, color: "text-[#000000]" },
+  { name: "Udemy", icon: SiUdemy, color: "text-[#A435F0]" },
+  { name: "Coursera", icon: SiCoursera, color: "text-[#0056D2]" },
+  { name: "Canva", icon: SiCanva, color: "text-[#00C4CC]" },
+  { name: "HubSpot", icon: SiHubspot, color: "text-[#FF7A59]" },
+  { name: "Teachable", mark: "T", color: "text-[#21CD9C]" },
+] satisfies Array<{ name: string; icon?: IconType; mark?: string; color: string }>;
 
 const trustedStats = [
   { value: "250K+", label: "Learners managed", icon: GraduationCap },
   { value: "18K+", label: "Courses delivered", icon: Building2 },
   { value: "₹12Cr+", label: "Course sales tracked", icon: Landmark },
 ];
-
-const faviconUrl = (domain: string) => `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
 
 export function TrustedLogoStrip() {
   const marqueeBrands = [...trustedBrands, ...trustedBrands];
@@ -47,29 +57,32 @@ export function TrustedLogoStrip() {
 
         <div className="relative mt-9 overflow-hidden py-2 [mask-image:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)]">
           <div className="logo-marquee flex w-max gap-3">
-            {marqueeBrands.map((brand, index) => (
+            {marqueeBrands.map((brand, index) => {
+              const BrandIcon = brand.icon;
+
+              return (
               <div
                 key={`${brand.name}-${index}`}
                 className="group flex min-h-24 w-52 shrink-0 items-center justify-center rounded-[1.25rem] border border-blue-950/10 bg-gradient-to-br from-white to-blue-50/70 px-5 text-center shadow-sm shadow-blue-950/5 transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-blue-950/10 dark:border-white/10 dark:from-white/[0.05] dark:to-white/[0.02]"
               >
                 <div className="flex items-center gap-3">
-                  <span className="grid size-11 place-items-center rounded-2xl border border-blue-950/10 bg-white text-sm font-bold text-primary shadow-sm transition duration-300 group-hover:scale-110 dark:border-white/10">
-                    <Image
-                      src={faviconUrl(brand.domain)}
-                      alt={`${brand.name} logo`}
-                      width={28}
-                      height={28}
-                      loading="lazy"
-                      unoptimized
-                      className="size-7 object-contain"
-                    />
+                  <span
+                    aria-hidden="true"
+                    className="grid size-11 place-items-center rounded-2xl border border-blue-950/10 bg-white shadow-sm shadow-blue-950/10 transition duration-300 group-hover:scale-110 dark:border-white/10"
+                  >
+                    {BrandIcon ? (
+                      <BrandIcon className={`size-6 ${brand.color}`} />
+                    ) : (
+                      <span className={`text-sm font-black ${brand.color}`}>{brand.mark}</span>
+                    )}
                   </span>
                   <div className="font-heading text-sm font-semibold text-slate-800 dark:text-white">
                     {brand.name}
                   </div>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 

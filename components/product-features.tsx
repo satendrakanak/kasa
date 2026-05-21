@@ -71,7 +71,6 @@ export default function ProductFeaturesSection() {
                 alt="KASA online academy dashboard preview"
                 width={1400}
                 height={1000}
-                quality={72}
                 sizes="(min-width: 1024px) 42rem, 92vw"
                 className="absolute bottom-0 left-1/2 h-[102%] w-auto max-w-none -translate-x-1/2 object-contain opacity-100"
               />

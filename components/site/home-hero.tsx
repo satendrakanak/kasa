@@ -131,7 +131,6 @@ export function HomeHero({ leadsEndpoint }: HomeHeroProps) {
               alt="Learner using KASA academy platform"
               fill
               priority
-              quality={72}
               sizes="(min-width: 1024px) 42rem, 90vw"
               className="object-contain object-bottom"
             />
