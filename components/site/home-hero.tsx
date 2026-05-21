@@ -129,8 +129,8 @@ export function HomeHero({ leadsEndpoint }: HomeHeroProps) {
               src="/cwk-banner-01-900.webp"
               alt="Learner using KASA academy platform"
               fill
-              priority
-              sizes="(min-width: 1024px) 42rem, 90vw"
+              preload
+              sizes="(min-width: 1280px) 36rem, (min-width: 1024px) 40vw, 90vw"
               className="object-contain object-bottom"
             />
           </div>
