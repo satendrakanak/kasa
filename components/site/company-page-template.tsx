@@ -95,7 +95,7 @@ export function CompanyPageTemplate({
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row lg:flex-col">
               <ProductTourTrigger
-                label="Start Product Tour"
+                label="Take a Product Tour"
                 variant="solid"
                 size="sm"
                 className="justify-center"
@@ -224,7 +224,7 @@ export function CompanyPageTemplate({
                   })}
                 />
                 <ProductTourTrigger
-                  label="Product Tour"
+                  label="Take a Product Tour"
                   variant="outline"
                   size="sm"
                   className="w-full justify-center"
@@ -246,7 +246,7 @@ export function CompanyPageTemplate({
               </h2>
             </div>
             <ProductTourTrigger
-              label="Start Product Tour"
+              label="Take a Product Tour"
               variant="solid"
               size="md"
               className="justify-center"

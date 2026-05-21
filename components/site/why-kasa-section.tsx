@@ -175,7 +175,7 @@ export function WhyKasaSection() {
 
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <ProductTourTrigger
-            label="View Product Tour"
+            label="Take a Product Tour"
             variant="solid"
             size="lg"
             className="justify-center"

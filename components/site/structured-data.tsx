@@ -28,7 +28,13 @@ export function SiteStructuredData() {
           logo: `${SITE_URL}/kasa-logo-light.png`,
           email: "support@getkasa.in",
           telephone: "+91 8979 791615",
-          sameAs: ["https://www.linkedin.com", "https://www.youtube.com"],
+          sameAs: [
+            "https://www.instagram.com/getkasalms",
+            "https://www.youtube.com/@codewithkasa751",
+            "https://www.linkedin.com/company/getkasa",
+            "https://www.facebook.com/profile.php?id=61590188274201",
+            "https://x.com/getkasalms",
+          ],
           areaServed: {
             "@type": "Country",
             name: "India",

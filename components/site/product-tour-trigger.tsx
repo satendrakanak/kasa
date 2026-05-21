@@ -14,7 +14,7 @@ type ProductTourTriggerProps = {
 };
 
 export function ProductTourTrigger({
-  label = "Product Tour",
+  label = "Take a Product Tour",
   variant = "outline",
   size = "sm",
   className,

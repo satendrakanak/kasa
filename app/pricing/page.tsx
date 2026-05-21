@@ -47,10 +47,10 @@ export default async function PricingPage() {
       <PageHero
         eyebrow="KASA pricing"
         title="Choose the LMS rollout that matches your academy stage."
-        description="KASA pricing is based on your launch scope, users, modules, live class needs, media usage, and rollout support. Start with a product tour so the team can map the right plan."
+        description="KASA pricing is based on your launch scope, users, modules, live class needs, media usage, and rollout support. Take a product tour so the team can map the right plan."
         points={["Plan by workflow", "No marketplace commission", "Demo before rollout"]}
         variant="compare"
-        primaryLabel="Start Product Tour"
+        primaryLabel="Take a Product Tour"
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Pricing" },
@@ -185,12 +185,12 @@ export default async function PricingPage() {
                 Want exact pricing for your academy?
               </h2>
               <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300">
-                Start the product tour and share your workflow. The team can
+                Take a product tour and share your workflow. The team can
                 suggest the right module set and rollout path.
               </p>
             </div>
             <ProductTourTrigger
-              label="Start Product Tour"
+              label="Take a Product Tour"
               variant="solid"
               size="md"
               className="justify-center"

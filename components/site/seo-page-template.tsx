@@ -450,7 +450,7 @@ export function SeoPageTemplate({ page }: SeoPageTemplateProps) {
                 </p>
               </div>
               <ProductTourTrigger
-                label="View Product Tour"
+                label="Take a Product Tour"
                 variant="solid"
                 size="md"
                 className="justify-center"

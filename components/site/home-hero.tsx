@@ -89,7 +89,7 @@ export function HomeHero({ leadsEndpoint }: HomeHeroProps) {
               })}
             />
             <ProductTourTrigger
-              label="View Product Tour"
+              label="Take a Product Tour"
               variant="outline"
               size="sm"
               className="h-11 px-5"

@@ -29,7 +29,7 @@ export function PageHero({
   title,
   description,
   points,
-  primaryLabel = "View Product Tour",
+  primaryLabel = "Take a Product Tour",
   variant = "feature",
   breadcrumbs,
 }: PageHeroProps) {

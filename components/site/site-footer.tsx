@@ -4,7 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight, Mail, MapPin, Phone, ShieldCheck } from "lucide-react";
-import { FaLinkedinIn, FaYoutube } from "react-icons/fa6";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaXTwitter,
+  FaYoutube,
+} from "react-icons/fa6";
 import { ProductTourTrigger } from "@/components/site/product-tour-trigger";
 import {
   comparisonPages,
@@ -48,6 +54,34 @@ const companyLinks: FooterLink[] = [
   { label: "FAQ", href: "/faq" },
   { label: "Feature index", href: "/features" },
   { label: "Solution index", href: "/solutions" },
+];
+
+const socialLinks = [
+  {
+    label: "KASA Instagram",
+    href: "https://www.instagram.com/getkasalms",
+    icon: FaInstagram,
+  },
+  {
+    label: "KASA YouTube",
+    href: "https://www.youtube.com/@codewithkasa751",
+    icon: FaYoutube,
+  },
+  {
+    label: "KASA LinkedIn",
+    href: "https://www.linkedin.com/company/getkasa",
+    icon: FaLinkedinIn,
+  },
+  {
+    label: "KASA Facebook",
+    href: "https://www.facebook.com/profile.php?id=61590188274201",
+    icon: FaFacebookF,
+  },
+  {
+    label: "KASA X",
+    href: "https://x.com/getkasalms",
+    icon: FaXTwitter,
+  },
 ];
 
 function FooterColumn({
@@ -151,21 +185,19 @@ export function SiteFooter() {
               </span>
             </div>
 
-            <div className="mt-6 flex gap-3">
-              <a
-                href="https://www.youtube.com"
-                className="grid size-11 place-items-center rounded-full border border-white/15 bg-white/10 !text-white shadow-lg shadow-black/10 transition hover:border-emerald-300/40 hover:bg-white/16"
-                aria-label="KASA YouTube"
-              >
-                <FaYoutube className="size-5" />
-              </a>
-              <a
-                href="https://www.linkedin.com"
-                className="grid size-11 place-items-center rounded-full border border-white/15 bg-white/10 !text-white shadow-lg shadow-black/10 transition hover:border-emerald-300/40 hover:bg-white/16"
-                aria-label="KASA LinkedIn"
-              >
-                <FaLinkedinIn className="size-5" />
-              </a>
+            <div className="mt-6 flex flex-wrap gap-3">
+              {socialLinks.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="grid size-11 place-items-center rounded-full border border-white/15 bg-white/10 !text-white shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:border-emerald-300/40 hover:bg-white/16"
+                  aria-label={label}
+                >
+                  <Icon className="size-5" aria-hidden="true" />
+                </a>
+              ))}
             </div>
           </div>
 
@@ -194,7 +226,7 @@ export function SiteFooter() {
             </p>
             <div className="mt-5">
               <ProductTourTrigger
-                label="Start Product Tour"
+                label="Take a Product Tour"
                 variant="solid"
                 size="sm"
                 className="justify-center"

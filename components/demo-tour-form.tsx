@@ -33,7 +33,7 @@ const progressSteps = [
   "Creating your demo account",
   "Preparing KASA controls",
   "Adding limited admin access",
-  "Opening your 1 hour tour",
+  "Opening your guided tour",
 ];
 
 function validateForm(data: DemoFormData) {
@@ -333,7 +333,7 @@ export function DemoTourTrigger({
                     className: "h-10 min-w-40",
                   })}
                 >
-                  {submitting ? "Preparing demo..." : "Start demo tour"}
+                  {submitting ? "Preparing demo..." : "Start guided tour"}
                 </button>
               </div>
             </form>
