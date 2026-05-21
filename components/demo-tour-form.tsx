@@ -138,13 +138,13 @@ export function DemoTourTrigger({
           }}
           aria-hidden="true"
         />
-        <div className="relative z-10 max-h-[calc(100vh-1.5rem)] w-full max-w-xl overflow-y-auto rounded-[1.25rem] border border-white/12 bg-surface shadow-2xl shadow-black/40 sm:max-h-[calc(100vh-2rem)]">
-          <div className="flex items-start justify-between gap-4 border-b border-white/8 px-4 py-3 sm:px-5">
+        <div className="relative z-10 max-h-[calc(100vh-1.5rem)] w-full max-w-xl overflow-y-auto rounded-[1.25rem] border border-blue-950/10 bg-white shadow-2xl shadow-blue-950/18 dark:border-white/12 dark:bg-surface dark:shadow-black/40 sm:max-h-[calc(100vh-2rem)]">
+          <div className="flex items-start justify-between gap-4 border-b border-blue-950/8 px-4 py-3 dark:border-white/8 sm:px-5">
             <div className="text-left">
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-primary sm:text-xs">
                 Tour access
               </p>
-              <h3 className="mt-1 font-heading text-xl font-semibold leading-tight text-white sm:text-2xl">
+              <h3 className="mt-1 font-heading text-xl font-semibold leading-tight text-slate-950 dark:text-white sm:text-2xl">
                 Take a guided KASA tour
               </h3>
             </div>
@@ -152,7 +152,7 @@ export function DemoTourTrigger({
               type="button"
               onClick={() => setOpen(false)}
               disabled={submitting}
-              className="grid size-10 shrink-0 cursor-pointer place-items-center rounded-full border border-white/10 bg-white/6 text-white/80 transition hover:bg-white/12 disabled:cursor-not-allowed disabled:opacity-60 sm:size-11"
+              className="grid size-10 shrink-0 cursor-pointer place-items-center rounded-full border border-blue-950/10 bg-white text-slate-600 shadow-sm shadow-blue-950/6 transition hover:border-primary/30 hover:text-primary disabled:cursor-not-allowed disabled:opacity-60 dark:border-white/10 dark:bg-white/6 dark:text-white/80 dark:hover:bg-white/12 sm:size-11"
               aria-label="Close demo form"
             >
               <CloseIcon className="size-4.5 sm:size-5" />
@@ -383,17 +383,21 @@ function FormField({
 }) {
   return (
     <label className="block text-left">
-      <span className="mb-1.5 block text-xs font-semibold text-white/82">
+      <span className="mb-1.5 block text-xs font-semibold text-slate-700 dark:text-white/82">
         {label}
       </span>
       {input}
-      {error ? <span className="mt-2 block text-sm text-rose-300">{error}</span> : null}
+      {error ? (
+        <span className="mt-2 block text-sm font-medium leading-5 text-rose-600 dark:text-rose-300">
+          {error}
+        </span>
+      ) : null}
     </label>
   );
 }
 
 const inputClassName =
-  "h-10 w-full rounded-[0.85rem] border border-white/10 bg-white/7 px-3 text-sm text-white outline-none transition placeholder:text-white/28 focus:border-primary/45";
+  "h-10 w-full rounded-[0.85rem] border border-blue-950/10 bg-white px-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-primary/45 dark:border-white/10 dark:bg-white/7 dark:text-white dark:placeholder:text-white/28";
 
 function CloseIcon({ className = "size-5" }: { className?: string }) {
   return (
