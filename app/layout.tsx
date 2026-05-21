@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
-import { GoogleTagManager } from "@next/third-parties/google";
+import Script from "next/script";
 import SiteHeader from "@/components/site-header";
 import { ThemeInitializer } from "@/components/site/theme-initializer";
 import { SiteFooter } from "@/components/site/site-footer";
@@ -10,12 +10,14 @@ import "./globals.css";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
 });
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["500", "600", "700"],
   variable: "--font-poppins",
+  display: "swap",
 });
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-WCLQ27XF";
@@ -92,8 +94,27 @@ export default function RootLayout({
       className={`${inter.variable} ${poppins.variable} h-full scroll-smooth antialiased`}
       suppressHydrationWarning
     >
-      <GoogleTagManager gtmId={GTM_ID} />
       <body className="flex min-h-full flex-col font-sans">
+        <Script id="gtm" strategy="lazyOnload">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+            (function(w,d,s,l,i){
+              var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+              j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+              f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${GTM_ID}');
+          `}
+        </Script>
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <ThemeInitializer />
         <SiteStructuredData />
         <SiteHeader />

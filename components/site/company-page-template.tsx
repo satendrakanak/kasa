@@ -118,27 +118,29 @@ export function CompanyPageTemplate({
             {blocks.map((block) => (
               <article
                 key={block.title}
-                className="rounded-[1.6rem] border border-blue-950/10 bg-white p-5 shadow-xl shadow-blue-950/6 dark:border-white/10 dark:bg-white/[0.04]"
+                className="flex items-start gap-4 rounded-[1.6rem] border border-blue-950/10 bg-white p-5 shadow-xl shadow-blue-950/6 dark:border-white/10 dark:bg-white/[0.04] sm:block"
               >
-                <div className="grid size-12 place-items-center rounded-2xl bg-primary/8 text-primary dark:bg-white/8 dark:text-emerald-200">
+                <div className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary/8 text-primary dark:bg-white/8 dark:text-emerald-200">
                   <BadgeCheck className="size-5" aria-hidden="true" />
                 </div>
-                <h3 className="mt-4 font-heading text-xl font-semibold leading-tight text-slate-950 dark:text-white">
-                  {block.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                  {block.body}
-                </p>
-                <div className="mt-4 grid gap-2">
-                  {block.points.map((point) => (
-                    <div
-                      key={point}
-                      className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
-                    >
-                      <CheckCircle2 className="size-4 text-primary" aria-hidden="true" />
-                      {point}
-                    </div>
-                  ))}
+                <div className="min-w-0">
+                  <h3 className="font-heading text-xl font-semibold leading-tight text-slate-950 dark:text-white sm:mt-4">
+                    {block.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                    {block.body}
+                  </p>
+                  <div className="mt-4 grid gap-2">
+                    {block.points.map((point) => (
+                      <div
+                        key={point}
+                        className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
+                      >
+                        <CheckCircle2 className="size-4 text-primary" aria-hidden="true" />
+                        {point}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </article>
             ))}

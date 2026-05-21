@@ -176,6 +176,7 @@ export default function SiteHeader() {
             width={760}
             height={260}
             priority
+            sizes="(min-width: 640px) 10.6rem, 8rem"
             className="h-full w-full object-contain object-left dark:hidden"
           />
           <Image
@@ -183,7 +184,7 @@ export default function SiteHeader() {
             alt="KASA"
             width={760}
             height={260}
-            priority
+            sizes="(min-width: 640px) 10.6rem, 8rem"
             className="hidden h-full w-full object-contain object-left dark:block"
           />
         </Link>

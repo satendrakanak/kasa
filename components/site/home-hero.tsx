@@ -202,16 +202,18 @@ export function HomeHero({ leadsEndpoint }: HomeHeroProps) {
             {heroFeatureCards.map(({ title, body, icon: Icon }) => (
               <div
                 key={title}
-                className="rounded-[1.1rem] border border-blue-950/10 bg-white/88 p-4 shadow-sm shadow-blue-950/5 dark:border-white/10 dark:bg-white/[0.04]"
+                className="flex items-start gap-3 rounded-[1.1rem] border border-blue-950/10 bg-white/88 p-4 shadow-sm shadow-blue-950/5 dark:border-white/10 dark:bg-white/[0.04] sm:block"
               >
-                <span className="grid size-9 place-items-center rounded-xl bg-primary/10 text-primary">
+                <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
                   <Icon className="size-4" />
                 </span>
-                <div className="mt-3 text-sm font-semibold text-slate-950 dark:text-white">
-                  {title}
-                </div>
-                <div className="mt-1 text-xs leading-5 text-slate-600 dark:text-muted">
-                  {body}
+                <div className="min-w-0">
+                  <div className="text-sm font-semibold text-slate-950 dark:text-white sm:mt-3">
+                    {title}
+                  </div>
+                  <div className="mt-1 text-xs leading-5 text-slate-600 dark:text-muted">
+                    {body}
+                  </div>
                 </div>
               </div>
             ))}

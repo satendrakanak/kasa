@@ -7,6 +7,7 @@ import {
   Radio,
   UsersRound,
 } from "lucide-react";
+import { LazyVideo } from "@/components/site/lazy-video";
 import { siteContainerClasses } from "@/components/site/site-container";
 
 const deliveryModes = [
@@ -121,16 +122,12 @@ export function DeliveryModelsSection() {
                   className="group relative min-h-[13.5rem] overflow-hidden rounded-[1.6rem] border border-blue-950/10 bg-white p-2 shadow-xl shadow-blue-950/8 dark:border-white/10 dark:bg-surface"
                 >
                   <div className="relative h-full min-h-[12.25rem] overflow-hidden rounded-[1.2rem]">
-                    {"video" in card ? (
-                      <video
+                    {typeof card.video === "string" ? (
+                      <LazyVideo
                         className="h-full min-h-[12.25rem] w-full object-cover transition duration-500 group-hover:scale-[1.04]"
                         src={card.video}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        preload="metadata"
-                        aria-label={card.alt}
+                        poster={card.src}
+                        ariaLabel={card.alt}
                       />
                     ) : (
                       <Image

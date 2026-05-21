@@ -70,6 +70,7 @@ export default function LandingHero() {
               alt="KASA"
               width={760}
               height={260}
+              sizes="(min-width: 640px) 6rem, 5rem"
               className="h-full w-full object-contain object-left"
               priority
             />
@@ -164,6 +165,7 @@ export default function LandingHero() {
               alt="Smiling student holding a laptop"
               width={1133}
               height={1700}
+              sizes="(min-width: 1024px) 34rem, (min-width: 640px) 30rem, 20rem"
               priority
               className="absolute bottom-0 left-1/2 h-[20rem] w-auto -translate-x-1/2 object-contain drop-shadow-2xl sm:h-[30rem] lg:h-[33rem]"
             />

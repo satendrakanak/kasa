@@ -18,6 +18,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import type { ReactNode } from "react";
+import { LazyVideo } from "@/components/site/lazy-video";
 import { siteContainerClasses } from "@/components/site/site-container";
 import { featurePages } from "@/lib/site-content";
 
@@ -259,15 +260,11 @@ export function FeatureShowcaseSection() {
                 </div>
 
                 <div className="relative min-h-[21rem] overflow-hidden rounded-[1.6rem] border border-blue-950/10 bg-slate-950 dark:border-white/10">
-                  <video
+                  <LazyVideo
                     className="h-full min-h-[21rem] w-full object-cover object-[86%_center] opacity-90"
                     src="/feature-self-learning.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    aria-label="KASA self-learning course preview"
+                    poster="/academy-students-learning.jpg"
+                    ariaLabel="KASA self-learning course preview"
                   />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,10,26,0.18),rgba(3,10,26,0.12)_42%,rgba(3,10,26,0.74))]" />
                   <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-white/20 bg-[rgba(3,10,26,0.52)] px-3 py-1.5 text-xs font-semibold !text-white shadow-lg backdrop-blur-md">
@@ -295,24 +292,26 @@ export function FeatureShowcaseSection() {
               </div>
             </div>
 
-            <div className="grid gap-5 md:grid-cols-3">
-              {signalCards.map((card) => (
-                <div
-                  key={card.label}
-                  className="group rounded-[1.55rem] border border-blue-950/10 bg-white p-5 shadow-xl shadow-blue-950/6 transition hover:-translate-y-1 hover:border-primary/40 dark:border-white/10 dark:bg-white/[0.04]"
-                >
-                  <span className="grid size-12 place-items-center rounded-2xl border border-blue-950/10 bg-primary/8 text-primary transition group-hover:bg-primary group-hover:text-white dark:border-white/10 dark:bg-primary/12">
-                    <card.icon className="size-5" aria-hidden="true" />
-                  </span>
-                  <h3 className="mt-5 font-heading text-lg font-semibold text-slate-950 dark:text-white">
-                    {card.label}
-                  </h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                    {card.text}
-                  </p>
+                <div className="grid gap-5 md:grid-cols-3">
+                  {signalCards.map((card) => (
+                    <div
+                      key={card.label}
+                      className="group flex items-start gap-4 rounded-[1.55rem] border border-blue-950/10 bg-white p-5 shadow-xl shadow-blue-950/6 transition hover:-translate-y-1 hover:border-primary/40 dark:border-white/10 dark:bg-white/[0.04] md:block"
+                    >
+                      <span className="grid size-12 shrink-0 place-items-center rounded-2xl border border-blue-950/10 bg-primary/8 text-primary transition group-hover:bg-primary group-hover:text-white dark:border-white/10 dark:bg-primary/12">
+                        <card.icon className="size-5" aria-hidden="true" />
+                      </span>
+                      <div className="min-w-0">
+                        <h3 className="font-heading text-lg font-semibold text-slate-950 dark:text-white md:mt-5">
+                          {card.label}
+                        </h3>
+                        <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300 md:mt-3">
+                          {card.text}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
           </div>
         </div>
 

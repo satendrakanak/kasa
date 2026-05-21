@@ -353,10 +353,10 @@ export function SeoPageTemplate({ page }: SeoPageTemplateProps) {
                 {content.proof.map((item) => (
                   <article
                     key={item}
-                    className="rounded-[1.5rem] border border-blue-950/10 bg-white p-5 shadow-xl shadow-blue-950/6 dark:border-white/10 dark:bg-white/[0.04]"
+                    className="flex items-start gap-3 rounded-[1.5rem] border border-blue-950/10 bg-white p-5 shadow-xl shadow-blue-950/6 dark:border-white/10 dark:bg-white/[0.04] sm:block"
                   >
-                    <CheckCircle2 className="size-6 text-primary" aria-hidden="true" />
-                    <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                    <CheckCircle2 className="mt-0.5 size-6 shrink-0 text-primary sm:mt-0" aria-hidden="true" />
+                    <p className="text-sm leading-7 text-slate-600 dark:text-slate-300 sm:mt-4">
                       {item}
                     </p>
                   </article>

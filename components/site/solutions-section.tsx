@@ -172,8 +172,8 @@ export function SolutionsSection() {
                   href={`/solutions/${page.slug}`}
                   className={`group rounded-[2rem] border border-blue-950/10 bg-gradient-to-br ${meta?.accent} p-5 shadow-xl shadow-blue-950/7 transition hover:-translate-y-1 hover:border-primary/45 dark:border-white/10`}
                 >
-                  <div className="flex items-start justify-between gap-4">
-                    <span className="grid size-13 place-items-center rounded-2xl bg-white text-primary shadow-sm dark:bg-white/10 dark:text-emerald-200">
+                  <div className="flex items-start gap-4 md:justify-between">
+                    <span className="grid size-13 shrink-0 place-items-center rounded-2xl bg-white text-primary shadow-sm dark:bg-white/10 dark:text-emerald-200">
                       <Icon className="size-6" aria-hidden="true" />
                     </span>
                     <span className="rounded-full border border-primary/15 bg-white/78 px-3 py-1.5 text-xs font-semibold text-primary dark:border-white/10 dark:bg-white/8 dark:text-emerald-200">

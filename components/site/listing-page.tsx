@@ -140,7 +140,7 @@ export function ListingPage({
                 href={page.href}
                 className="group flex min-h-[24rem] flex-col rounded-[1.75rem] border border-blue-950/10 bg-white p-5 shadow-xl shadow-blue-950/6 transition hover:-translate-y-1 hover:border-primary/45 dark:border-white/10 dark:bg-white/[0.04]"
               >
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start gap-4 md:justify-between">
                   <span className="grid size-13 place-items-center rounded-2xl bg-primary/8 text-primary dark:bg-white/8 dark:text-emerald-200">
                     {variant === "resource" ? (
                       <FileText className="size-6" aria-hidden="true" />

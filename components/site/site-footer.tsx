@@ -234,6 +234,7 @@ export function SiteFooter() {
                 alt="KASA"
                 width={760}
                 height={260}
+                sizes="11rem"
                 className="h-full w-full object-contain object-left"
               />
             </div>
