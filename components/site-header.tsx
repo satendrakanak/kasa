@@ -143,6 +143,7 @@ const primaryNav: NavItem[] = [
       },
     ],
   },
+  { label: "Tools", href: "/tools" },
   {
     label: "Company",
     href: "/why-kasa",
