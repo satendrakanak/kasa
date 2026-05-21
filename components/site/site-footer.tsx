@@ -12,11 +12,12 @@ import {
   FaYoutube,
 } from "react-icons/fa6";
 import { ProductTourTrigger } from "@/components/site/product-tour-trigger";
+import { industrySolutionPages } from "@/lib/industry-page-content";
 import {
   comparisonPages,
   featurePages,
   resourcePages,
-  allSolutionPages,
+  solutionPages,
 } from "@/lib/site-content";
 
 type FooterLink = {
@@ -112,6 +113,61 @@ function FooterColumn({
   );
 }
 
+function FooterLinkItem({
+  link,
+  compact = false,
+}: {
+  link: FooterLink;
+  compact?: boolean;
+}) {
+  return (
+    <Link
+      href={link.href}
+      className={[
+        "group inline-flex items-start gap-2 leading-6 text-slate-300 transition hover:text-white",
+        compact ? "text-[0.82rem]" : "text-sm",
+      ].join(" ")}
+    >
+      <ChevronRight className="mt-1 size-4 shrink-0 text-emerald-300 transition group-hover:translate-x-0.5" />
+      <span>{link.label}</span>
+    </Link>
+  );
+}
+
+function FooterMegaColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: FooterLink[];
+}) {
+  return (
+    <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.035] p-5 shadow-xl shadow-black/10">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h2 className="font-heading text-base font-semibold text-emerald-300">
+            {title}
+          </h2>
+          <p className="mt-1 text-xs leading-5 text-slate-400">
+            Focused pages for high-intent academy and institute searches.
+          </p>
+        </div>
+        <Link
+          href="/solutions"
+          className="text-xs font-semibold uppercase tracking-[0.16em] text-sky-200 transition hover:text-white"
+        >
+          View all
+        </Link>
+      </div>
+      <div className="mt-5 grid gap-x-5 gap-y-2 sm:grid-cols-2 xl:grid-cols-3">
+        {links.map((link) => (
+          <FooterLinkItem key={`${title}-${link.href}-${link.label}`} link={link} compact />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function SiteFooter() {
   const pathname = usePathname();
   const featureLinks = featurePages.map((page) => ({
@@ -119,8 +175,13 @@ export function SiteFooter() {
     href: `/features/${page.slug}`,
   }));
 
-  const solutionLinks = allSolutionPages.map((page) => ({
+  const solutionLinks = solutionPages.map((page) => ({
     label: page.eyebrow.replace("For ", ""),
+    href: `/solutions/${page.slug}`,
+  }));
+
+  const industryLinks = industrySolutionPages.map((page) => ({
+    label: page.eyebrow,
     href: `/solutions/${page.slug}`,
   }));
 
@@ -147,7 +208,7 @@ export function SiteFooter() {
       <div className="pointer-events-none absolute bottom-0 right-0 hidden h-80 w-80 rounded-tl-full bg-[linear-gradient(135deg,rgba(105,211,142,0.18),rgba(43,168,255,0.1))] lg:block" />
 
       <div className="relative mx-auto w-full max-w-[108rem] px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.8fr_0.9fr]">
+        <div className="grid gap-10 xl:grid-cols-[0.78fr_2.2fr_0.72fr]">
           <div>
             <div className="relative h-12 w-44">
               <Image
@@ -201,14 +262,17 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
-            <FooterColumn title="Products & Services" links={productLinks} />
-            <FooterColumn title="Features" links={featureLinks} />
-            <FooterColumn title="Solutions" links={solutionLinks} />
-            <FooterColumn title="Resources" links={resourceLinks} />
+          <div className="grid gap-8">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              <FooterColumn title="Products & Services" links={productLinks} />
+              <FooterColumn title="Features" links={featureLinks} />
+              <FooterColumn title="Core Solutions" links={solutionLinks} />
+              <FooterColumn title="Resources" links={resourceLinks} />
+            </div>
+            <FooterMegaColumn title="Industry LMS pages" links={industryLinks} />
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-1">
+          <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-1">
             <FooterColumn title="Compare" links={compareLinks} />
             <FooterColumn title="Platform" links={platformLinks} />
             <FooterColumn title="Company" links={companyLinks} />
