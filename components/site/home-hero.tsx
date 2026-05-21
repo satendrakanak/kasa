@@ -8,8 +8,7 @@ import {
   Sparkles,
   UsersRound,
 } from "lucide-react";
-import { LeadCaptureModalTrigger } from "@/components/lead-capture-form";
-import { AnimatedCounter } from "@/components/site/animated-counter";
+import { LeadCaptureModalTrigger } from "@/components/lead-capture-trigger";
 import { ProductTourTrigger } from "@/components/site/product-tour-trigger";
 import { siteButtonClasses } from "@/components/site/site-button";
 import { siteContainerClasses } from "@/components/site/site-container";
@@ -103,11 +102,9 @@ export function HomeHero({ leadsEndpoint }: HomeHeroProps) {
                 className="animate-[stat-glow_4.5s_ease-in-out_infinite] border-b border-r border-blue-950/10 px-4 py-3 last:border-r-0 odd:sm:border-b-0 even:sm:border-b-0 dark:border-white/10"
                 style={{ animationDelay: `${index * 120}ms` }}
               >
-                <AnimatedCounter
-                  value={value}
-                  duration={1250 + index * 130}
-                  className="stat-gradient-text block font-heading text-xl font-semibold animate-[gradient-shift_4s_ease-in-out_infinite]"
-                />
+                <span className="stat-gradient-text block font-heading text-xl font-semibold animate-[gradient-shift_4s_ease-in-out_infinite]">
+                  {value}
+                </span>
                 <div className="mt-1 text-xs font-medium text-slate-600 dark:text-muted">
                   {label}
                 </div>

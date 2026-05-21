@@ -12,7 +12,7 @@ type LeadFormData = {
   message: string;
 };
 
-type LeadCaptureModalTriggerProps = {
+export type LeadCaptureModalTriggerProps = {
   endpoint: string;
   source: string;
   leadType?: "enquiry" | "demo" | "pricing" | "support";
@@ -22,6 +22,8 @@ type LeadCaptureModalTriggerProps = {
   modalTitle: string;
   modalEyebrow?: string;
   icon?: React.ReactNode;
+  autoOpen?: boolean;
+  hideButton?: boolean;
 };
 
 type ValidationErrors = Partial<Record<keyof LeadFormData, string>>;
@@ -86,8 +88,10 @@ export function LeadCaptureModalTrigger({
   modalTitle,
   modalEyebrow,
   icon,
+  autoOpen = false,
+  hideButton = false,
 }: LeadCaptureModalTriggerProps) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(autoOpen);
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState<LeadFormData>(initialForm);
   const [errors, setErrors] = useState<ValidationErrors>({});
@@ -292,19 +296,21 @@ export function LeadCaptureModalTrigger({
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className={
-          buttonClassName ??
-          siteButtonClasses({
-            size: "sm",
-          })
-        }
-      >
-        {icon}
-        {buttonLabel}
-      </button>
+      {hideButton ? null : (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className={
+            buttonClassName ??
+            siteButtonClasses({
+              size: "sm",
+            })
+          }
+        >
+          {icon}
+          {buttonLabel}
+        </button>
+      )}
       {modal}
       {toast && typeof document !== "undefined"
         ? createPortal(

@@ -1,5 +1,4 @@
 import { Building2, GraduationCap, Landmark, Sparkles } from "lucide-react";
-import { AnimatedCounter } from "@/components/site/animated-counter";
 import { siteContainerClasses } from "@/components/site/site-container";
 
 const trustedBrands = [
@@ -51,14 +50,8 @@ export function TrustedLogoStrip() {
                 className="group flex min-h-24 w-52 shrink-0 items-center justify-center rounded-[1.25rem] border border-blue-950/10 bg-gradient-to-br from-white to-blue-50/70 px-5 text-center shadow-sm shadow-blue-950/5 transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-blue-950/10 dark:border-white/10 dark:from-white/[0.05] dark:to-white/[0.02]"
               >
                 <div className="flex items-center gap-3">
-                  <span className="grid size-11 place-items-center rounded-2xl border border-blue-950/10 bg-white shadow-sm dark:border-white/10">
-                    <span
-                      aria-hidden="true"
-                      className="size-7 bg-contain bg-center bg-no-repeat transition duration-300 group-hover:scale-110"
-                      style={{
-                        backgroundImage: `url(https://www.google.com/s2/favicons?domain=${brand.domain}&sz=128)`,
-                      }}
-                    />
+                  <span className="grid size-11 place-items-center rounded-2xl border border-blue-950/10 bg-white text-sm font-bold text-primary shadow-sm transition duration-300 group-hover:scale-110 dark:border-white/10">
+                    {brand.name.slice(0, 1)}
                   </span>
                   <div className="font-heading text-sm font-semibold text-slate-800 dark:text-white">
                     {brand.name}
@@ -76,10 +69,9 @@ export function TrustedLogoStrip() {
               className="rounded-[1.25rem] border border-blue-950/10 bg-gradient-to-br from-blue-50 to-emerald-50/70 p-5 text-center shadow-sm shadow-blue-950/5 dark:border-white/10 dark:from-white/[0.06] dark:to-white/[0.02]"
             >
               <Icon className="mx-auto size-5 text-primary" />
-              <AnimatedCounter
-                value={value}
-                className="stat-gradient-text mt-2 block font-heading text-2xl font-semibold animate-[gradient-shift_4s_ease-in-out_infinite]"
-              />
+              <span className="stat-gradient-text mt-2 block font-heading text-2xl font-semibold animate-[gradient-shift_4s_ease-in-out_infinite]">
+                {value}
+              </span>
               <div className="mt-1 text-xs font-medium text-slate-600 dark:text-muted">
                 {label}
               </div>

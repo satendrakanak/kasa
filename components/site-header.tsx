@@ -14,12 +14,11 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import { LeadCaptureModalTrigger } from "@/components/lead-capture-form";
+import { LeadCaptureModalTrigger } from "@/components/lead-capture-trigger";
 import { ProductTourTrigger } from "@/components/site/product-tour-trigger";
 import { siteContainerClasses } from "@/components/site/site-container";
 import { siteButtonClasses } from "@/components/site/site-button";
 import ThemeToggle from "@/components/theme-toggle";
-import { allSolutionPages, featurePages, resourcePages } from "@/lib/site-content";
 
 type NavChild = {
   label: string;
@@ -43,38 +42,106 @@ const primaryNav: NavItem[] = [
   {
     label: "Features",
     href: "/features",
-    items: featurePages.slice(0, 6).map((page) => ({
-      label: page.eyebrow,
-      href: `/features/${page.slug}`,
-      description: page.title,
-    })),
+    items: [
+      {
+        label: "Course selling platform",
+        href: "/features/course-selling-platform",
+        description: "Course pages, checkout, coupons, invoices, and access.",
+      },
+      {
+        label: "Live class management",
+        href: "/features/live-class-management",
+        description: "Batches, calendars, replays, attendance, and reminders.",
+      },
+      {
+        label: "Assessment and certificates",
+        href: "/features/exams-assignments-certificates",
+        description: "Quizzes, assignments, results, and certificate rules.",
+      },
+      {
+        label: "Learner dashboard",
+        href: "/features/student-faculty-management",
+        description: "Student, trainer, and admin workspaces in one LMS.",
+      },
+      {
+        label: "Education CRM",
+        href: "/features/education-crm-leads",
+        description: "Lead capture, follow-ups, fees, and learner records.",
+      },
+      {
+        label: "Admin reporting",
+        href: "/features/admin-dashboard-reporting",
+        description: "Revenue, progress, course, and operation reports.",
+      },
+    ],
   },
   {
     label: "Solutions",
     href: "/solutions",
-    items: allSolutionPages.slice(0, 5).map((page) => ({
-      label: page.eyebrow,
-      href: `/solutions/${page.slug}`,
-      description: page.title,
-    })),
+    items: [
+      {
+        label: "Coaching institutes",
+        href: "/solutions/coaching-institutes",
+        description: "Run courses, batches, fees, and learner operations.",
+      },
+      {
+        label: "Online academies",
+        href: "/solutions/online-academies",
+        description: "Launch a branded academy with recorded and live programs.",
+      },
+      {
+        label: "Trainers and creators",
+        href: "/solutions/trainers-creators",
+        description: "Sell courses, host sessions, and track student progress.",
+      },
+      {
+        label: "EdTech startups",
+        href: "/solutions/edtech-startups",
+        description: "Ship a production-ready LMS without rebuilding core infra.",
+      },
+      {
+        label: "Skill development centres",
+        href: "/solutions/skill-development-centres",
+        description: "Manage training, batches, attendance, and certificates.",
+      },
+    ],
   },
   { label: "Pricing", href: "/pricing" },
   {
     label: "Resources",
     href: "/resources",
-    items: resourcePages.slice(0, 6).map((page) => ({
-      label:
-        {
-          "start-online-academy-india": "Start online academy",
-          "sell-recorded-courses-online": "Sell recorded courses",
-          "run-live-online-classes": "Run live online classes",
-          "lms-seo-for-academies": "Academy website SEO",
-          "course-certificates-best-practices": "Course certificates",
-          "online-course-pricing-guide": "Course pricing",
-        }[page.slug] ?? page.title.replace(/\.$/, ""),
-      href: `/resources/${page.slug}`,
-      description: page.title,
-    })),
+    items: [
+      {
+        label: "Start online academy",
+        href: "/resources/start-online-academy-india",
+        description: "How to start an online academy in India with courses, payments, and certificates.",
+      },
+      {
+        label: "Sell recorded courses",
+        href: "/resources/sell-recorded-courses-online",
+        description: "How to sell recorded courses online from your own branded platform.",
+      },
+      {
+        label: "Run live online classes",
+        href: "/resources/run-live-online-classes",
+        description: "How to run live online classes with batches, replays, and student tracking.",
+      },
+      {
+        label: "Academy website SEO",
+        href: "/resources/lms-seo-for-academies",
+        description: "SEO strategy for online academies and coaching institute websites.",
+      },
+      {
+        label: "Course certificates",
+        href: "/resources/course-certificates-best-practices",
+        description: "Course certificate best practices for coaching institutes and trainers.",
+      },
+      {
+        label: "Course pricing",
+        href: "/resources/online-course-pricing-guide",
+        description: "Online course pricing guide for trainers and coaching institutes.",
+      },
+    ],
   },
   {
     label: "Company",

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { LeadCaptureModalTrigger } from "@/components/lead-capture-form";
+import { LeadCaptureModalTrigger } from "@/components/lead-capture-trigger";
 import {
   faqs,
   features,

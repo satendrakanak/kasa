@@ -10,7 +10,7 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
-import { LeadCaptureModalTrigger } from "@/components/lead-capture-form";
+import { LeadCaptureModalTrigger } from "@/components/lead-capture-trigger";
 import { PageHero } from "@/components/site/page-hero";
 import { ProductTourTrigger } from "@/components/site/product-tour-trigger";
 import { siteButtonClasses } from "@/components/site/site-button";

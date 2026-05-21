@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { DemoTourTrigger } from "@/components/demo-tour-form";
-import { LeadCaptureModalTrigger } from "@/components/lead-capture-form";
+import { LeadCaptureModalTrigger } from "@/components/lead-capture-trigger";
 import { siteButtonClasses } from "@/components/site/site-button";
 import { stats } from "@/lib/landing";
 
