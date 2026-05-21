@@ -36,7 +36,7 @@ const imageCards = [
     label: "Faculty-led batches",
   },
   {
-    src: "/academy-students-learning.jpg",
+    src: "/academy-students-learning-card.webp",
     video: "/learner-access-video.mp4",
     alt: "Students learning online with laptop and tablet",
     title: "Learner access",

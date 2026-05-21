@@ -263,7 +263,7 @@ export function FeatureShowcaseSection() {
                   <LazyVideo
                     className="h-full min-h-[21rem] w-full object-cover object-[86%_center] opacity-90"
                     src="/feature-self-learning.mp4"
-                    poster="/academy-students-learning.jpg"
+                    poster="/academy-students-learning-card.webp"
                     ariaLabel="KASA self-learning course preview"
                   />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,10,26,0.18),rgba(3,10,26,0.12)_42%,rgba(3,10,26,0.74))]" />

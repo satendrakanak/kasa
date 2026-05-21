@@ -67,10 +67,12 @@ export default function ProductFeaturesSection() {
           <div className="relative overflow-hidden rounded-[2.25rem] border border-white/12 bg-white/[0.07] p-4 shadow-2xl shadow-black/30 backdrop-blur sm:p-5 lg:p-6">
             <div className="relative min-h-[34rem] overflow-hidden rounded-[1.7rem] border border-white/12 bg-slate-950 sm:min-h-[38rem] lg:min-h-[42rem]">
               <Image
-                src="/cwk-banner-01.webp"
+                src="/cwk-banner-01-900.webp"
                 alt="KASA online academy dashboard preview"
                 width={1400}
                 height={1000}
+                quality={72}
+                sizes="(min-width: 1024px) 42rem, 92vw"
                 className="absolute bottom-0 left-1/2 h-[102%] w-auto max-w-none -translate-x-1/2 object-contain opacity-100"
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.24),rgba(2,6,23,0.02)_45%,rgba(2,6,23,0.34)),linear-gradient(180deg,rgba(2,6,23,0.02),rgba(2,6,23,0.72)),radial-gradient(circle_at_30%_20%,rgba(88,201,138,0.2),transparent_19rem)]" />

@@ -530,7 +530,7 @@ export const industrySeoPageContent = Object.fromEntries(
       "/academy-online-student.jpg",
       "/feature-digital-class.jpg",
       "/feature-woman-laptop.png",
-      "/academy-students-learning.jpg",
+      "/academy-students-learning-card.webp",
       "/feature-online-faculty.png",
       "/feature-creator-class.jpg",
       "/feature-team-meeting.jpg",

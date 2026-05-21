@@ -127,11 +127,12 @@ export function HomeHero({ leadsEndpoint }: HomeHeroProps) {
         <div className="relative mx-auto w-full max-w-[38rem] lg:min-h-[34rem] lg:max-w-none">
           <div className="relative mx-auto h-[24rem] w-full max-w-[34rem] overflow-hidden rounded-[2rem] rounded-br-[3.5rem] border border-white bg-white/88 shadow-2xl shadow-blue-950/14 dark:border-white/10 dark:bg-white/[0.04] dark:shadow-black/25 sm:h-[28rem] lg:absolute lg:right-0 lg:top-1/2 lg:h-[31rem] lg:w-[86%] lg:max-w-none lg:-translate-y-1/2 lg:rounded-br-[4.25rem]">
             <Image
-              src="/cwk-banner-01.webp"
+              src="/cwk-banner-01-900.webp"
               alt="Learner using KASA academy platform"
               fill
               priority
-              sizes="(min-width: 1024px) 46rem, 90vw"
+              quality={72}
+              sizes="(min-width: 1024px) 42rem, 90vw"
               className="object-contain object-bottom"
             />
           </div>

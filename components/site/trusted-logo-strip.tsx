@@ -1,4 +1,5 @@
 import { Building2, GraduationCap, Landmark, Sparkles } from "lucide-react";
+import Image from "next/image";
 import { siteContainerClasses } from "@/components/site/site-container";
 
 const trustedBrands = [
@@ -21,6 +22,8 @@ const trustedStats = [
   { value: "18K+", label: "Courses delivered", icon: Building2 },
   { value: "₹12Cr+", label: "Course sales tracked", icon: Landmark },
 ];
+
+const faviconUrl = (domain: string) => `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
 
 export function TrustedLogoStrip() {
   const marqueeBrands = [...trustedBrands, ...trustedBrands];
@@ -51,7 +54,15 @@ export function TrustedLogoStrip() {
               >
                 <div className="flex items-center gap-3">
                   <span className="grid size-11 place-items-center rounded-2xl border border-blue-950/10 bg-white text-sm font-bold text-primary shadow-sm transition duration-300 group-hover:scale-110 dark:border-white/10">
-                    {brand.name.slice(0, 1)}
+                    <Image
+                      src={faviconUrl(brand.domain)}
+                      alt={`${brand.name} logo`}
+                      width={28}
+                      height={28}
+                      loading="lazy"
+                      unoptimized
+                      className="size-7 object-contain"
+                    />
                   </span>
                   <div className="font-heading text-sm font-semibold text-slate-800 dark:text-white">
                     {brand.name}

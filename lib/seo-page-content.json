@@ -53,7 +53,7 @@
   },
   "exams-assignments-certificates": {
     "template": "feature",
-    "image": "/academy-students-learning.jpg",
+    "image": "/academy-students-learning-card.webp",
     "imageAlt": "Learners completing assessments and certificates",
     "spotlightTitle": "Make completion measurable, not just visible.",
     "spotlightBody": "Certificates feel valuable when they are tied to clear completion rules. KASA connects tests, assignments, learner progress, results, and certificate eligibility inside the same academy system.",
@@ -209,7 +209,7 @@
   },
   "white-label-lms": {
     "template": "feature",
-    "image": "/cwk-banner-01.webp",
+    "image": "/cwk-banner-01-900.webp",
     "imageAlt": "White label academy experience",
     "spotlightTitle": "Make the LMS feel like your own product.",
     "spotlightBody": "A white label LMS should protect your domain, brand, pricing, learner journey, and certificate identity. KASA is built for academies that want ownership instead of platform dependency.",
@@ -305,7 +305,7 @@
   },
   "skill-development-centres": {
     "template": "solution",
-    "image": "/academy-students-learning.jpg",
+    "image": "/academy-students-learning-card.webp",
     "imageAlt": "Skill development learners in training",
     "spotlightTitle": "Structure skill programs with proof of learning outcomes.",
     "spotlightBody": "Skill centres need program pages, trainer guidance, practical assignments, tests, certificates, learner records, and progress visibility. KASA supports the operational backbone.",
@@ -327,7 +327,7 @@
   },
   "kasa-vs-marketplaces": {
     "template": "compare",
-    "image": "/cwk-banner-01.webp",
+    "image": "/cwk-banner-01-900.webp",
     "imageAlt": "Owned academy platform compared with marketplace dependency",
     "spotlightTitle": "Own the learner journey instead of renting a marketplace presence.",
     "spotlightBody": "Marketplaces can help discovery, but they limit brand control, pricing control, learner data, and repeat relationship. KASA supports direct ownership.",
@@ -404,7 +404,7 @@
   },
   "course-certificates-best-practices": {
     "template": "resource",
-    "image": "/academy-students-learning.jpg",
+    "image": "/academy-students-learning-card.webp",
     "imageAlt": "Course certificate best practices",
     "spotlightTitle": "Certificates should prove meaningful completion, not just attendance.",
     "spotlightBody": "A certificate is stronger when the academy defines rules: lesson completion, assignment submission, exam score, live attendance, or program completion.",
