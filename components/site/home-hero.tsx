@@ -96,13 +96,12 @@ export function HomeHero({ leadsEndpoint }: HomeHeroProps) {
           </div>
 
           <div className="mx-auto mt-7 grid max-w-2xl grid-cols-2 overflow-hidden rounded-[1.1rem] border border-blue-950/10 bg-white/88 text-left shadow-sm shadow-blue-950/5 dark:border-white/10 dark:bg-white/[0.04] sm:grid-cols-4 lg:mx-0">
-            {heroHighlights.map(([value, label], index) => (
+            {heroHighlights.map(([value, label]) => (
               <div
                 key={value}
-                className="animate-[stat-glow_4.5s_ease-in-out_infinite] border-b border-r border-blue-950/10 px-4 py-3 last:border-r-0 odd:sm:border-b-0 even:sm:border-b-0 dark:border-white/10"
-                style={{ animationDelay: `${index * 120}ms` }}
+                className="border-b border-r border-blue-950/10 px-4 py-3 last:border-r-0 odd:sm:border-b-0 even:sm:border-b-0 dark:border-white/10"
               >
-                <span className="stat-gradient-text block font-heading text-xl font-semibold animate-[gradient-shift_4s_ease-in-out_infinite]">
+                <span className="stat-gradient-text block font-heading text-xl font-semibold">
                   {value}
                 </span>
                 <div className="mt-1 text-xs font-medium text-slate-600 dark:text-muted">
@@ -136,7 +135,7 @@ export function HomeHero({ leadsEndpoint }: HomeHeroProps) {
             />
           </div>
 
-          <div className="absolute left-0 top-[44%] hidden w-[15.5rem] -translate-y-1/2 animate-[float-x_8s_ease-in-out_infinite] rounded-[1.1rem] border border-blue-950/10 bg-white/92 p-3 shadow-2xl shadow-blue-950/12 dark:border-white/10 dark:bg-surface/92 dark:shadow-black/30 sm:w-[16.5rem] lg:block">
+          <div className="absolute left-0 top-[44%] hidden w-[15.5rem] -translate-y-1/2 rounded-[1.1rem] border border-blue-950/10 bg-white/92 p-3 shadow-2xl shadow-blue-950/12 dark:border-white/10 dark:bg-surface/92 dark:shadow-black/30 sm:w-[16.5rem] lg:block">
             <div className="flex items-center justify-between">
               <span className="rounded-full bg-primary/10 px-2.5 py-1 text-[0.68rem] font-semibold text-primary">
                 Smart workspace
@@ -162,7 +161,7 @@ export function HomeHero({ leadsEndpoint }: HomeHeroProps) {
             </div>
           </div>
 
-          <div className="absolute bottom-[10%] right-[3%] hidden w-[15.5rem] animate-[float-x-reverse_9s_ease-in-out_infinite] rounded-[1.1rem] border border-blue-950/10 bg-white/92 p-3 shadow-2xl shadow-blue-950/12 dark:border-white/10 dark:bg-surface/92 dark:shadow-black/30 sm:w-[16.5rem] lg:block">
+          <div className="absolute bottom-[10%] right-[3%] hidden w-[15.5rem] rounded-[1.1rem] border border-blue-950/10 bg-white/92 p-3 shadow-2xl shadow-blue-950/12 dark:border-white/10 dark:bg-surface/92 dark:shadow-black/30 sm:w-[16.5rem] lg:block">
             <div className="flex items-center gap-3">
               <span className="grid size-9 place-items-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-primary/12 dark:text-primary">
                 <BookOpenCheck className="size-4" />
@@ -179,7 +178,7 @@ export function HomeHero({ leadsEndpoint }: HomeHeroProps) {
             </div>
           </div>
 
-          <div className="absolute right-[1%] top-[13%] hidden w-[14rem] animate-[float-x_10s_ease-in-out_infinite] rounded-[1.1rem] border border-blue-950/10 bg-white/92 p-3 shadow-2xl shadow-blue-950/12 dark:border-white/10 dark:bg-surface/92 dark:shadow-black/30 sm:w-[15rem] lg:block">
+          <div className="absolute right-[1%] top-[13%] hidden w-[14rem] rounded-[1.1rem] border border-blue-950/10 bg-white/92 p-3 shadow-2xl shadow-blue-950/12 dark:border-white/10 dark:bg-surface/92 dark:shadow-black/30 sm:w-[15rem] lg:block">
             <div className="flex items-start gap-3">
               <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-sky-50 text-primary dark:bg-primary/12">
                 <BadgeCheck className="size-4" />
