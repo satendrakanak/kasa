@@ -10,6 +10,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
+import { RelatedToolsBlock } from "@/components/site/related-tools-block";
 import {
   BreadcrumbStructuredData,
   ItemListStructuredData,
@@ -189,6 +190,16 @@ export function ListingPage({
           </div>
         </div>
       </section>
+
+      <RelatedToolsBlock
+        context={variant}
+        pageTitle={title}
+        keywords={pages.flatMap((page) => page.keywords).slice(0, 24)}
+        title="Free tools connected to this section."
+        description="Use these calculators and AI generators while exploring the related KASA pages. They help visitors get an instant result before moving into a product workflow."
+        limit={4}
+        className="py-6 sm:py-8"
+      />
 
       <section className="relative overflow-hidden bg-[linear-gradient(180deg,#eef7ff_0%,#f8fbff_52%,#ffffff_100%)] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 dark:bg-[linear-gradient(180deg,#071126_0%,#0b1833_54%,#061126_100%)]">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(43,168,255,0.16),transparent_30rem),radial-gradient(circle_at_90%_20%,rgba(34,181,115,0.12),transparent_34rem)]" />

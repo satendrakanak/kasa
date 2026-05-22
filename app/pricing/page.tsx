@@ -3,6 +3,7 @@ import { CheckCircle2, ShieldCheck, Sparkles } from "lucide-react";
 import { LeadCaptureModalTrigger } from "@/components/lead-capture-trigger";
 import { PageHero } from "@/components/site/page-hero";
 import { ProductTourTrigger } from "@/components/site/product-tour-trigger";
+import { RelatedToolsBlock } from "@/components/site/related-tools-block";
 import { siteButtonClasses } from "@/components/site/site-button";
 import {
   BreadcrumbStructuredData,
@@ -55,6 +56,15 @@ export default async function PricingPage() {
           { label: "Home", href: "/" },
           { label: "Pricing" },
         ]}
+      />
+
+      <RelatedToolsBlock
+        context="pricing"
+        pageTitle="KASA pricing LMS course pricing profit calculator batch capacity fee receipt"
+        title="Calculate pricing before you choose a plan."
+        description="Use these free tools to estimate course fees, profit margin, batch capacity, receipts, and certificates before mapping the full KASA rollout."
+        limit={4}
+        className="py-10 sm:py-12"
       />
 
       <section className="bg-background px-4 py-16 sm:px-6 sm:py-20 lg:px-8">

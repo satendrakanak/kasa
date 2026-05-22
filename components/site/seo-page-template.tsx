@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
 import { ProductTourTrigger } from "@/components/site/product-tour-trigger";
+import { RelatedToolsBlock } from "@/components/site/related-tools-block";
 import {
   BreadcrumbStructuredData,
   FaqStructuredData,
@@ -396,6 +397,16 @@ export function SeoPageTemplate({ page }: SeoPageTemplateProps) {
           </div>
         </section>
       ) : null}
+
+      <RelatedToolsBlock
+        context={variant}
+        pageTitle={page.title}
+        keywords={page.keywords}
+        title="Try a free tool related to this topic."
+        description="Give visitors a quick calculator, planner, or AI generator that matches this page, then let them continue into the deeper KASA workflow."
+        limit={4}
+        className="py-6 sm:py-8"
+      />
 
       <section className="bg-background px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <div className="mx-auto w-full max-w-[108rem]">

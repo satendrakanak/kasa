@@ -12,11 +12,11 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/_next/static/:path*",
+        source: "/((?!api|_next/static|_next/image|.*\\..*).*)",
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
+            value: "private, no-cache, no-store, max-age=0, must-revalidate",
           },
         ],
       },
@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=2592000, stale-while-revalidate=31536000",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
           },
         ],
       },
