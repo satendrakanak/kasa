@@ -4,6 +4,7 @@ import Script from "next/script";
 import SiteHeader from "@/components/site-header";
 import { ThemeInitializer } from "@/components/site/theme-initializer";
 import { SiteFooter } from "@/components/site/site-footer";
+import { PageUxControls } from "@/components/site/page-ux-controls";
 import { SiteStructuredData } from "@/components/site/structured-data";
 import "./globals.css";
 
@@ -120,6 +121,7 @@ export default function RootLayout({
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
+        <PageUxControls />
       </body>
     </html>
   );
