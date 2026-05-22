@@ -20,6 +20,12 @@ export const metadata: Metadata = {
     "AI worksheet generator",
     "AI report card generator",
     "AI assignment generator",
+    "AI final year project kit generator",
+    "final year project ideas",
+    "BTech project ideas",
+    "BCA project with documentation",
+    "project viva questions",
+    "project zip download",
     "online quiz generator",
     "free student tools",
     "attendance calculator",
@@ -54,6 +60,9 @@ export const metadata: Metadata = {
 };
 
 const popularSearches = [
+  { label: "final year project ideas", href: "/tools/final-year-project-kit-generator" },
+  { label: "AI project kit generator", href: "/tools/final-year-project-kit-generator" },
+  { label: "BTech project with documentation", href: "/tools/final-year-project-kit-generator" },
   { label: "free ATS checker", href: "/tools/resume-ats-checker" },
   { label: "AI resume checker", href: "/tools/resume-ats-checker" },
   { label: "75% attendance calculator", href: "/tools/attendance-calculator" },
@@ -134,7 +143,7 @@ export default function ToolsPage() {
                   </h2>
                 </div>
                 <span className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-200">
-                  AI tools live
+                  Free to use
                 </span>
               </div>
 

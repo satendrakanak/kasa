@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { generateGeminiContent } from "@/lib/gemini";
 
 type ResumeProfileRequest = {
   resumeText?: string;
@@ -147,39 +148,32 @@ export async function POST(request: NextRequest) {
     parts.push({ inlineData: { mimeType: payload.fileMimeType, data: payload.fileData } });
   }
 
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts }],
-        generationConfig: {
-          temperature: 0.2,
-          responseMimeType: "application/json",
-          responseSchema: {
-            type: "OBJECT",
-            properties: {
-              candidateName: { type: "STRING" },
-              detectedRole: { type: "STRING" },
-              roleFamily: { type: "STRING" },
-              yearsExperience: { type: "NUMBER" },
-              experienceLevel: { type: "STRING" },
-              skills: { type: "ARRAY", items: { type: "STRING" } },
-              summary: { type: "STRING" },
-            },
-            required: ["candidateName", "detectedRole", "roleFamily", "yearsExperience", "experienceLevel", "skills", "summary"],
-          },
+  const result = await generateGeminiContent(apiKey, {
+    contents: [{ parts }],
+    generationConfig: {
+      temperature: 0.2,
+      responseMimeType: "application/json",
+      responseSchema: {
+        type: "OBJECT",
+        properties: {
+          candidateName: { type: "STRING" },
+          detectedRole: { type: "STRING" },
+          roleFamily: { type: "STRING" },
+          yearsExperience: { type: "NUMBER" },
+          experienceLevel: { type: "STRING" },
+          skills: { type: "ARRAY", items: { type: "STRING" } },
+          summary: { type: "STRING" },
         },
-      }),
+        required: ["candidateName", "detectedRole", "roleFamily", "yearsExperience", "experienceLevel", "skills", "summary"],
+      },
     },
-  );
+  });
 
-  if (!response.ok) {
-    return NextResponse.json({ error: "Resume profile detection failed. Please try again." }, { status: response.status });
+  if (!result.ok) {
+    return NextResponse.json({ error: result.message }, { status: result.status });
   }
 
-  const data = await response.json();
+  const data = result.data as { candidates?: { content?: { parts?: { text?: string }[] } }[] };
   const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
   if (typeof rawText !== "string") {
     return NextResponse.json({ error: "AI returned an empty profile response." }, { status: 502 });

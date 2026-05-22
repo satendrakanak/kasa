@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { generateGeminiContent } from "@/lib/gemini";
 
 type ResumeAtsRequest = {
   resumeText: string;
@@ -214,89 +215,79 @@ export async function POST(request: NextRequest) {
     parts.push({ inlineData: { mimeType: payload.fileMimeType, data: payload.fileData } });
   }
 
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts }],
-        generationConfig: {
-          temperature: 0.55,
-          responseMimeType: "application/json",
-          responseSchema: {
-            type: "OBJECT",
-            properties: {
-              atsScore: { type: "NUMBER" },
-              roleFit: { type: "STRING" },
-              verdict: { type: "STRING" },
-              summary: { type: "STRING" },
-              missingKeywords: { type: "ARRAY", items: { type: "STRING" } },
-              missingSkills: { type: "ARRAY", items: { type: "STRING" } },
-              strengths: { type: "ARRAY", items: { type: "STRING" } },
-              weakAreas: { type: "ARRAY", items: { type: "STRING" } },
-              improvedBullets: { type: "ARRAY", items: { type: "STRING" } },
-              projectsToAdd: { type: "ARRAY", items: { type: "STRING" } },
-              interviewQuestions: { type: "ARRAY", items: { type: "STRING" } },
-              roadmap: {
-                type: "ARRAY",
-                items: {
-                  type: "OBJECT",
-                  properties: {
-                    week: { type: "STRING" },
-                    focus: { type: "STRING" },
-                    tasks: { type: "ARRAY", items: { type: "STRING" } },
-                  },
-                  required: ["week", "focus", "tasks"],
-                },
+  const result = await generateGeminiContent(apiKey, {
+    contents: [{ parts }],
+    generationConfig: {
+      temperature: 0.55,
+      responseMimeType: "application/json",
+      responseSchema: {
+        type: "OBJECT",
+        properties: {
+          atsScore: { type: "NUMBER" },
+          roleFit: { type: "STRING" },
+          verdict: { type: "STRING" },
+          summary: { type: "STRING" },
+          missingKeywords: { type: "ARRAY", items: { type: "STRING" } },
+          missingSkills: { type: "ARRAY", items: { type: "STRING" } },
+          strengths: { type: "ARRAY", items: { type: "STRING" } },
+          weakAreas: { type: "ARRAY", items: { type: "STRING" } },
+          improvedBullets: { type: "ARRAY", items: { type: "STRING" } },
+          projectsToAdd: { type: "ARRAY", items: { type: "STRING" } },
+          interviewQuestions: { type: "ARRAY", items: { type: "STRING" } },
+          roadmap: {
+            type: "ARRAY",
+            items: {
+              type: "OBJECT",
+              properties: {
+                week: { type: "STRING" },
+                focus: { type: "STRING" },
+                tasks: { type: "ARRAY", items: { type: "STRING" } },
               },
-              salaryRange: { type: "STRING" },
-              recruiterChecklist: { type: "ARRAY", items: { type: "STRING" } },
-              componentScores: {
-                type: "ARRAY",
-                items: {
-                  type: "OBJECT",
-                  properties: {
-                    label: { type: "STRING" },
-                    score: { type: "NUMBER" },
-                  },
-                  required: ["label", "score"],
-                },
-              },
-              quickWins: { type: "ARRAY", items: { type: "STRING" } },
+              required: ["week", "focus", "tasks"],
             },
-            required: [
-              "atsScore",
-              "roleFit",
-              "verdict",
-              "summary",
-              "missingKeywords",
-              "missingSkills",
-              "strengths",
-              "weakAreas",
-              "improvedBullets",
-              "projectsToAdd",
-              "interviewQuestions",
-              "roadmap",
-              "salaryRange",
-              "recruiterChecklist",
-              "componentScores",
-              "quickWins",
-            ],
           },
+          salaryRange: { type: "STRING" },
+          recruiterChecklist: { type: "ARRAY", items: { type: "STRING" } },
+          componentScores: {
+            type: "ARRAY",
+            items: {
+              type: "OBJECT",
+              properties: {
+                label: { type: "STRING" },
+                score: { type: "NUMBER" },
+              },
+              required: ["label", "score"],
+            },
+          },
+          quickWins: { type: "ARRAY", items: { type: "STRING" } },
         },
-      }),
+        required: [
+          "atsScore",
+          "roleFit",
+          "verdict",
+          "summary",
+          "missingKeywords",
+          "missingSkills",
+          "strengths",
+          "weakAreas",
+          "improvedBullets",
+          "projectsToAdd",
+          "interviewQuestions",
+          "roadmap",
+          "salaryRange",
+          "recruiterChecklist",
+          "componentScores",
+          "quickWins",
+        ],
+      },
     },
-  );
+  });
 
-  if (!response.ok) {
-    return NextResponse.json(
-      { error: "AI resume analysis failed. Please try again in a few minutes." },
-      { status: response.status },
-    );
+  if (!result.ok) {
+    return NextResponse.json({ error: result.message }, { status: result.status });
   }
 
-  const data = await response.json();
+  const data = result.data as { candidates?: { content?: { parts?: { text?: string }[] } }[] };
   const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
   if (typeof rawText !== "string") {
     return NextResponse.json({ error: "AI returned an empty response." }, { status: 502 });

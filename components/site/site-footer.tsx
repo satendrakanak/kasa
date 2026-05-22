@@ -14,8 +14,14 @@ type FooterLink = {
 const productLinks: FooterLink[] = [
   { label: "KASA LMS", href: "/" },
   { label: "White label LMS", href: "/features/course-selling-platform" },
-  { label: "Academy website builder", href: "/features/academy-website-builder" },
-  { label: "Course selling platform", href: "/features/course-selling-platform" },
+  {
+    label: "Academy website builder",
+    href: "/features/academy-website-builder",
+  },
+  {
+    label: "Course selling platform",
+    href: "/features/course-selling-platform",
+  },
   { label: "Live class management", href: "/features/live-class-management" },
   { label: "Learner dashboard", href: "/features/student-faculty-management" },
   { label: "Education CRM", href: "/features/education-crm-leads" },
@@ -34,14 +40,29 @@ const platformLinks: FooterLink[] = [
 ];
 
 const featureLinks: FooterLink[] = [
-  { label: "Course selling platform", href: "/features/course-selling-platform" },
+  {
+    label: "Course selling platform",
+    href: "/features/course-selling-platform",
+  },
   { label: "Live class management", href: "/features/live-class-management" },
-  { label: "Assessment and certificate software", href: "/features/exams-assignments-certificates" },
+  {
+    label: "Assessment and certificate software",
+    href: "/features/exams-assignments-certificates",
+  },
   { label: "Payments and orders", href: "/features/payments-orders-coupons" },
-  { label: "Student and faculty management", href: "/features/student-faculty-management" },
+  {
+    label: "Student and faculty management",
+    href: "/features/student-faculty-management",
+  },
   { label: "Education CRM software", href: "/features/education-crm-leads" },
-  { label: "Academy website builder", href: "/features/academy-website-builder" },
-  { label: "Admin dashboard and reports", href: "/features/admin-dashboard-reporting" },
+  {
+    label: "Academy website builder",
+    href: "/features/academy-website-builder",
+  },
+  {
+    label: "Admin dashboard and reports",
+    href: "/features/admin-dashboard-reporting",
+  },
   { label: "White label LMS", href: "/features/white-label-lms" },
   { label: "Learner dashboard", href: "/features/learner-dashboard" },
 ];
@@ -51,7 +72,32 @@ const solutionLinks: FooterLink[] = [
   { label: "online academies", href: "/solutions/online-academies" },
   { label: "trainers and creators", href: "/solutions/trainers-creators" },
   { label: "EdTech startups", href: "/solutions/edtech-startups" },
-  { label: "skill development centres", href: "/solutions/skill-development-centres" },
+  {
+    label: "skill development centres",
+    href: "/solutions/skill-development-centres",
+  },
+];
+
+const popularToolLinks: FooterLink[] = [
+  { label: "AI Resume ATS Checker", href: "/tools/resume-ats-checker" },
+  {
+    label: "AI Final Year Project Kit",
+    href: "/tools/final-year-project-kit-generator",
+  },
+  { label: "Attendance Calculator", href: "/tools/attendance-calculator" },
+  {
+    label: "Study Timetable Generator",
+    href: "/tools/study-timetable-generator",
+  },
+  {
+    label: "AI Question Paper Generator",
+    href: "/tools/question-paper-generator",
+  },
+  {
+    label: "Course Pricing Calculator",
+    href: "/tools/course-pricing-calculator",
+  },
+  { label: "Certificate Generator", href: "/tools/certificate-generator" },
 ];
 
 const industryLinks: FooterLink[] = [
@@ -67,19 +113,32 @@ const industryLinks: FooterLink[] = [
   { label: "Digital marketing LMS", href: "/solutions/digital-marketing-lms" },
   { label: "Tuition class LMS", href: "/solutions/tuition-class-lms" },
   { label: "Teacher training LMS", href: "/solutions/teacher-training-lms" },
-  { label: "Corporate training LMS", href: "/solutions/corporate-training-lms" },
+  {
+    label: "Corporate training LMS",
+    href: "/solutions/corporate-training-lms",
+  },
   { label: "Nursing institute LMS", href: "/solutions/nursing-institute-lms" },
-  { label: "Computer institute LMS", href: "/solutions/computer-institute-lms" },
+  {
+    label: "Computer institute LMS",
+    href: "/solutions/computer-institute-lms",
+  },
   { label: "Beauty academy LMS", href: "/solutions/beauty-academy-lms" },
-  { label: "Financial education LMS", href: "/solutions/financial-education-lms" },
+  {
+    label: "Financial education LMS",
+    href: "/solutions/financial-education-lms",
+  },
   { label: "Language academy LMS", href: "/solutions/language-academy-lms" },
   { label: "Competitive exam LMS", href: "/solutions/competitive-exam-lms" },
-  { label: "Coaching franchise LMS", href: "/solutions/coaching-franchise-lms" },
+  {
+    label: "Coaching franchise LMS",
+    href: "/solutions/coaching-franchise-lms",
+  },
 ];
 
 const resourceLinks: FooterLink[] = [
   {
-    label: "How to start an online academy in India with courses, payments, and certificates",
+    label:
+      "How to start an online academy in India with courses, payments, and certificates",
     href: "/resources/start-online-academy-india",
   },
   {
@@ -87,7 +146,8 @@ const resourceLinks: FooterLink[] = [
     href: "/resources/sell-recorded-courses-online",
   },
   {
-    label: "How to run live online classes with batches, replays, and student tracking",
+    label:
+      "How to run live online classes with batches, replays, and student tracking",
     href: "/resources/run-live-online-classes",
   },
   {
@@ -95,7 +155,8 @@ const resourceLinks: FooterLink[] = [
     href: "/resources/lms-seo-for-academies",
   },
   {
-    label: "Course certificate best practices for coaching institutes and trainers",
+    label:
+      "Course certificate best practices for coaching institutes and trainers",
     href: "/resources/course-certificates-best-practices",
   },
   {
@@ -105,8 +166,14 @@ const resourceLinks: FooterLink[] = [
 ];
 
 const compareLinks: FooterLink[] = [
-  { label: "KASA vs custom LMS development", href: "/compare/kasa-vs-custom-lms-development" },
-  { label: "KASA vs course marketplaces", href: "/compare/kasa-vs-marketplaces" },
+  {
+    label: "KASA vs custom LMS development",
+    href: "/compare/kasa-vs-custom-lms-development",
+  },
+  {
+    label: "KASA vs course marketplaces",
+    href: "/compare/kasa-vs-marketplaces",
+  },
   {
     label: "KASA vs WordPress LMS plugins for serious coaching operations.",
     href: "/compare/kasa-vs-wordpress-lms",
@@ -215,7 +282,12 @@ function SocialIcon({
 
 function WhatsAppIcon({ className = "size-7" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
       <path d="M20.52 3.48A11.81 11.81 0 0 0 12.1 0C5.55 0 .22 5.33.22 11.89c0 2.1.55 4.14 1.6 5.95L.1 24l6.32-1.66a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.88-5.33 11.88-11.89 0-3.18-1.23-6.16-3.47-8.42ZM12.1 21.78h-.01a9.86 9.86 0 0 1-5.03-1.38l-.36-.22-3.75.98 1-3.65-.24-.38a9.86 9.86 0 0 1-1.51-5.24c0-5.45 4.44-9.89 9.9-9.89a9.82 9.82 0 0 1 6.99 2.9 9.82 9.82 0 0 1 2.9 7c0 5.45-4.44 9.88-9.89 9.88Zm5.42-7.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.88.12.57-.09 1.76-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35Z" />
     </svg>
   );
@@ -299,7 +371,11 @@ function FooterMegaColumn({
       </div>
       <div className="mt-5 grid gap-x-5 gap-y-2 sm:grid-cols-2 xl:grid-cols-3">
         {links.map((link) => (
-          <FooterLinkItem key={`${title}-${link.href}-${link.label}`} link={link} compact />
+          <FooterLinkItem
+            key={`${title}-${link.href}-${link.label}`}
+            link={link}
+            compact
+          />
         ))}
       </div>
     </div>
@@ -329,128 +405,143 @@ export function SiteFooter() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(43,168,255,0.14),transparent_30rem),radial-gradient(circle_at_88%_8%,rgba(34,181,115,0.16),transparent_34rem)]" />
         <div className="pointer-events-none absolute bottom-0 right-0 hidden h-80 w-80 rounded-tl-full bg-[linear-gradient(135deg,rgba(105,211,142,0.18),rgba(43,168,255,0.1))] lg:block" />
 
-      <div className="relative mx-auto w-full max-w-[108rem] px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
-        <div className="grid gap-10 xl:grid-cols-[0.78fr_2.2fr_0.72fr]">
-          <div>
-            <div className="relative h-12 w-44">
-              <Image
-                src="/kasa-logo-dark.png"
-                alt="KASA"
-                width={760}
-                height={260}
-                sizes="11rem"
-                className="h-full w-full object-contain object-left"
+        <div className="relative mx-auto w-full max-w-[108rem] px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+          <div className="grid gap-10 xl:grid-cols-[0.78fr_2.2fr_0.72fr]">
+            <div>
+              <div className="relative h-12 w-44">
+                <Image
+                  src="/kasa-logo-dark.png"
+                  alt="KASA"
+                  width={760}
+                  height={260}
+                  sizes="11rem"
+                  className="h-full w-full object-contain object-left"
+                />
+              </div>
+              <p className="mt-5 max-w-md text-sm leading-7 text-slate-300">
+                KASA is an all-in-one LMS software for coaching institutes,
+                academies, trainers, and EdTech teams to sell courses, run live
+                classes, manage learners, collect payments, and issue
+                certificates.
+              </p>
+
+              <div className="mt-6 grid gap-3 text-sm text-slate-300">
+                <a
+                  href="mailto:support@getkasa.in"
+                  className="inline-flex items-center gap-3 transition hover:text-white"
+                >
+                  <Mail className="size-4 text-emerald-300" />
+                  support@getkasa.in
+                </a>
+                <a
+                  href="tel:+918979791615"
+                  className="inline-flex items-center gap-3 transition hover:text-white"
+                >
+                  <Phone className="size-4 text-emerald-300" />
+                  +91 8979 791615
+                </a>
+                <span className="inline-flex items-center gap-3">
+                  <MapPin className="size-4 text-emerald-300" />
+                  Built for education teams in India
+                </span>
+              </div>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                {socialLinks.map(({ label, href, icon }) => (
+                  <a
+                    key={href}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="grid size-11 place-items-center rounded-full border border-white/15 bg-white/10 !text-white shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:border-emerald-300/40 hover:bg-white/16"
+                    aria-label={label}
+                  >
+                    <SocialIcon name={icon} className="size-5" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-8">
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                <FooterColumn
+                  title="Products & Services"
+                  links={productLinks}
+                />
+                <FooterColumn title="Features" links={featureLinks} />
+                <div className="grid gap-8">
+                  <FooterColumn title="Core Solutions" links={solutionLinks} />
+                  <FooterColumn
+                    title="Popular AI Tools"
+                    links={popularToolLinks}
+                  />
+                </div>
+                <FooterColumn title="Resources" links={resourceLinks} />
+              </div>
+              <FooterMegaColumn
+                title="Industry LMS pages"
+                links={industryLinks}
               />
             </div>
-            <p className="mt-5 max-w-md text-sm leading-7 text-slate-300">
-              KASA is an all-in-one LMS software for coaching institutes,
-              academies, trainers, and EdTech teams to sell courses, run live
-              classes, manage learners, collect payments, and issue certificates.
-            </p>
 
-            <div className="mt-6 grid gap-3 text-sm text-slate-300">
-              <a
-                href="mailto:support@getkasa.in"
-                className="inline-flex items-center gap-3 transition hover:text-white"
-              >
-                <Mail className="size-4 text-emerald-300" />
-                support@getkasa.in
-              </a>
-              <a
-                href="tel:+918979791615"
-                className="inline-flex items-center gap-3 transition hover:text-white"
-              >
-                <Phone className="size-4 text-emerald-300" />
-                +91 8979 791615
-              </a>
-              <span className="inline-flex items-center gap-3">
-                <MapPin className="size-4 text-emerald-300" />
-                Built for education teams in India
-              </span>
+            <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-1">
+              <FooterColumn title="Compare" links={compareLinks} />
+              <FooterColumn title="Platform" links={platformLinks} />
+              <FooterColumn title="Company" links={companyLinks} />
+            </div>
+          </div>
+
+          <div className="mt-12 grid gap-6 border-t border-white/10 pt-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+            <div>
+              <h2 className="font-heading text-lg font-semibold text-white">
+                Launch your branded academy without custom LMS development
+                delays.
+              </h2>
+              <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-200">
+                Configure your domain, connect payments and email, upload
+                courses, run live batches, and manage learners from one
+                connected workspace.
+              </p>
+              <div className="mt-5">
+                <ProductTourTrigger
+                  label="Take a Product Tour"
+                  variant="solid"
+                  size="sm"
+                  className="justify-center"
+                />
+              </div>
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              {socialLinks.map(({ label, href, icon }) => (
-                <a
-                  key={href}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="grid size-11 place-items-center rounded-full border border-white/15 bg-white/10 !text-white shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:border-emerald-300/40 hover:bg-white/16"
-                  aria-label={label}
+            <div className="grid gap-3 sm:grid-cols-3">
+              {["AWS hosted", "S3 media", "RDS PostgreSQL"].map((item) => (
+                <div
+                  key={item}
+                  className="rounded-2xl border border-emerald-300/20 bg-slate-950/35 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-black/10"
                 >
-                  <SocialIcon name={icon} className="size-5" />
-                </a>
+                  <ShieldCheck className="mb-2 size-4 text-emerald-300" />
+                  {item}
+                </div>
               ))}
             </div>
           </div>
-
-          <div className="grid gap-8">
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              <FooterColumn title="Products & Services" links={productLinks} />
-              <FooterColumn title="Features" links={featureLinks} />
-              <FooterColumn title="Core Solutions" links={solutionLinks} />
-              <FooterColumn title="Resources" links={resourceLinks} />
-            </div>
-            <FooterMegaColumn title="Industry LMS pages" links={industryLinks} />
-          </div>
-
-          <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-1">
-            <FooterColumn title="Compare" links={compareLinks} />
-            <FooterColumn title="Platform" links={platformLinks} />
-            <FooterColumn title="Company" links={companyLinks} />
-          </div>
         </div>
 
-        <div className="mt-12 grid gap-6 border-t border-white/10 pt-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-          <div>
-            <h2 className="font-heading text-lg font-semibold text-white">
-              Launch your branded academy without custom LMS development delays.
-            </h2>
-            <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-200">
-              Configure your domain, connect payments and email, upload courses,
-              run live batches, and manage learners from one connected workspace.
-            </p>
-            <div className="mt-5">
-              <ProductTourTrigger
-                label="Take a Product Tour"
-                variant="solid"
-                size="sm"
-                className="justify-center"
-              />
+        <div className="relative border-t border-white/10 bg-[#0b1426]">
+          <div className="mx-auto flex w-full max-w-[108rem] flex-col gap-3 px-4 py-5 text-xs text-slate-400 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
+            <span>© {new Date().getFullYear()} KASA. All rights reserved.</span>
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
+              <Link href="/terms" className="hover:text-white">
+                Terms of Service
+              </Link>
+              <Link href="/privacy" className="hover:text-white">
+                Privacy Policy
+              </Link>
+              <Link href="/cookies" className="hover:text-white">
+                Cookie Preferences
+              </Link>
             </div>
           </div>
-
-          <div className="grid gap-3 sm:grid-cols-3">
-            {["AWS hosted", "S3 media", "RDS PostgreSQL"].map((item) => (
-              <div
-                key={item}
-                className="rounded-2xl border border-emerald-300/20 bg-slate-950/35 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-black/10"
-              >
-                <ShieldCheck className="mb-2 size-4 text-emerald-300" />
-                {item}
-              </div>
-            ))}
-          </div>
         </div>
-      </div>
-
-      <div className="relative border-t border-white/10 bg-[#0b1426]">
-        <div className="mx-auto flex w-full max-w-[108rem] flex-col gap-3 px-4 py-5 text-xs text-slate-400 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
-          <span>© {new Date().getFullYear()} KASA. All rights reserved.</span>
-          <div className="flex flex-wrap gap-x-4 gap-y-2">
-            <Link href="/terms" className="hover:text-white">
-              Terms of Service
-            </Link>
-            <Link href="/privacy" className="hover:text-white">
-              Privacy Policy
-            </Link>
-            <Link href="/cookies" className="hover:text-white">
-              Cookie Preferences
-            </Link>
-          </div>
-        </div>
-      </div>
       </footer>
     </>
   );

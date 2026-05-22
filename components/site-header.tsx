@@ -143,7 +143,42 @@ const primaryNav: NavItem[] = [
       },
     ],
   },
-  { label: "AI Tools", href: "/tools" },
+  {
+    label: "AI Tools",
+    href: "/tools",
+    items: [
+      {
+        label: "AI Resume ATS Checker",
+        href: "/tools/resume-ats-checker",
+        description: "Upload a resume and get ATS score, missing skills, roadmap, and PDF report.",
+      },
+      {
+        label: "AI Final Year Project Kit",
+        href: "/tools/final-year-project-kit-generator",
+        description: "Generate project ideas, architecture, docs, viva questions, and starter ZIP.",
+      },
+      {
+        label: "AI Question Paper Generator",
+        href: "/tools/question-paper-generator",
+        description: "Create class-wise question papers with sections, marks, and teacher hints.",
+      },
+      {
+        label: "AI Quiz Generator",
+        href: "/tools/quiz-generator",
+        description: "Build MCQ, true false, and short-answer quizzes for classroom practice.",
+      },
+      {
+        label: "AI Lesson Plan Generator",
+        href: "/tools/lesson-plan-generator",
+        description: "Plan class objectives, activities, resources, assessment, and homework.",
+      },
+      {
+        label: "AI Worksheet Generator",
+        href: "/tools/worksheet-generator",
+        description: "Generate printable worksheets for practice, homework, and revision.",
+      },
+    ],
+  },
   {
     label: "Company",
     href: "/why-kasa",
@@ -265,10 +300,20 @@ export default function SiteHeader() {
                   href={item.href}
                   className="inline-flex h-10 cursor-pointer items-center gap-1 px-4 text-sm font-semibold text-slate-900 transition hover:text-primary dark:font-medium dark:text-white/78 dark:hover:text-white"
                 >
+                  {item.label === "AI Tools" ? <Sparkles className="size-3.5 animate-pulse text-primary dark:text-emerald-200" aria-hidden="true" /> : null}
                   {item.label}
                   <ChevronDown className="size-3.5" aria-hidden="true" />
                 </Link>
-                <div className="invisible absolute left-1/2 top-full w-[48rem] -translate-x-1/2 opacity-0 transition group-hover:visible group-hover:opacity-100">
+                <div
+                  className={[
+                    "invisible absolute top-full w-[min(48rem,calc(100vw-2rem))] opacity-0 transition group-hover:visible group-hover:opacity-100",
+                    item.label === "Features"
+                      ? "left-0"
+                      : item.label === "Company"
+                        ? "right-0"
+                        : "left-1/2 -translate-x-1/2",
+                  ].join(" ")}
+                >
                   <div className="overflow-hidden rounded-b-[1.6rem] border border-blue-950/10 bg-white shadow-2xl shadow-blue-950/12 dark:border-white/10 dark:bg-surface dark:shadow-black/30">
                     <div className="site-topbar border-b border-white/15 px-6 py-3 text-center">
                       <p className="font-heading text-sm font-semibold text-[var(--topbar-foreground)]">
@@ -278,6 +323,8 @@ export default function SiteHeader() {
                             ? "Solutions by team type"
                             : item.label === "Resources"
                               ? "Guides for academy growth"
+                              : item.label === "AI Tools"
+                                ? "Popular AI tools for students and teachers"
                               : "Company pages"}
                       </p>
                     </div>

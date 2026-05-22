@@ -3,6 +3,7 @@ import {
   BookOpenCheck,
   CalendarDays,
   Calculator,
+  Archive,
   ClipboardList,
   FileText,
   FileCheck2,
@@ -34,6 +35,15 @@ export type ToolItem = {
 };
 
 export const tools: ToolItem[] = [
+  {
+    title: "AI Final Year Project Kit Generator",
+    slug: "final-year-project-kit-generator",
+    description: "Generate final year project ideas, architecture, documentation, viva questions, resume bullets, and starter ZIP.",
+    category: "Students",
+    isAi: true,
+    icon: Archive,
+    status: "Live",
+  },
   {
     title: "AI Resume ATS Checker",
     slug: "resume-ats-checker",

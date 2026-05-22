@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   AlertCircle,
   BarChart3,
@@ -19,6 +19,7 @@ import {
   UploadCloud,
   X,
 } from "lucide-react";
+import { ToolToast, type ToolToastState } from "@/components/tools/tool-toast";
 
 const roleFamilies = [
   "Software Engineering",
@@ -211,8 +212,13 @@ export function ResumeAtsChecker() {
   const [detectedSummary, setDetectedSummary] = useState("");
   const [actionMessage, setActionMessage] = useState("Upload your resume PDF/DOC/DOCX or paste resume text to begin.");
   const [savedAvailable, setSavedAvailable] = useState(false);
+  const [toast, setToast] = useState<ToolToastState>(null);
 
-  const restoreSavedReport = (saved: Partial<SavedResumeAnalysis>, message = "Last AI resume report restored.") => {
+  const notify = useCallback((type: NonNullable<ToolToastState>["type"], title: string, message: string) => {
+    setToast({ id: Date.now(), type, title, message });
+  }, []);
+
+  const restoreSavedReport = useCallback((saved: Partial<SavedResumeAnalysis>, message = "Last AI resume report restored.") => {
     if (!saved.analysis) return;
     setResumeText(saved.resumeText || "");
     setUploadedResume(saved.uploadedResume || null);
@@ -228,7 +234,8 @@ export function ResumeAtsChecker() {
     setAnalysis(saved.analysis);
     setSavedAvailable(true);
     setActionMessage(message);
-  };
+    notify("success", "Last report restored", message);
+  }, [notify]);
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
@@ -240,7 +247,7 @@ export function ResumeAtsChecker() {
       restoreSavedReport(saved, "Last AI resume report restored.");
     }, 0);
     return () => window.clearTimeout(timeoutId);
-  }, []);
+  }, [restoreSavedReport]);
 
   useEffect(() => {
     if (!isGenerating) return;
@@ -312,10 +319,12 @@ export function ResumeAtsChecker() {
     const mimeType = getSupportedMimeType(file);
     if (!mimeType) {
       setActionMessage("Upload a PDF, DOC, DOCX, or TXT resume file.");
+      notify("error", "Unsupported file", "Upload a PDF, DOC, DOCX, or TXT resume file.");
       return;
     }
     if (file.size > 4_000_000) {
       setActionMessage("Please upload a resume under 4 MB.");
+      notify("error", "File too large", "Please upload a resume under 4 MB.");
       return;
     }
     setUploadProgress(8);
@@ -338,6 +347,7 @@ export function ResumeAtsChecker() {
     reader.onerror = () => {
       setUploadProgress(0);
       setActionMessage("Resume upload failed. Try another file.");
+      notify("error", "Upload failed", "Resume upload failed. Try another file.");
     };
     reader.readAsDataURL(file);
   };
@@ -345,6 +355,7 @@ export function ResumeAtsChecker() {
   const detectResumeProfile = async (resumeFile = uploadedResume, pastedText = resumeText) => {
     if (!resumeFile && pastedText.trim().length < 300) {
       setActionMessage("Upload a resume file or paste enough resume text before auto-detecting profile.");
+      notify("error", "Resume needed", "Upload a resume file or paste enough resume text before auto-detecting profile.");
       return;
     }
     setIsDetectingProfile(true);
@@ -378,8 +389,11 @@ export function ResumeAtsChecker() {
       clearGenerated();
       setDetectedSummary(profile.summary || `Detected ${formatExperienceLabel(nextYears)} profile from your resume.`);
       setActionMessage("Profile detected from resume. Review the role and generate your AI ATS report.");
+      notify("success", "Profile detected", "AI detected role, experience, and skills from your resume.");
     } catch (error) {
-      setActionMessage(error instanceof Error ? error.message : "Resume profile detection failed. You can still generate the ATS report.");
+      const message = error instanceof Error ? error.message : "Resume profile detection failed. You can still generate the ATS report.";
+      setActionMessage(message);
+      notify("error", "Profile detection failed", message);
     } finally {
       setIsDetectingProfile(false);
     }
@@ -404,6 +418,7 @@ export function ResumeAtsChecker() {
       window.setTimeout(() => resultPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
     } catch {
       setActionMessage("Could not restore the last report.");
+      notify("error", "Restore failed", "Could not restore the last saved ATS report.");
     }
   };
 
@@ -429,6 +444,7 @@ export function ResumeAtsChecker() {
   const generateAnalysis = async () => {
     if (!uploadedResume && resumeText.trim().length < 300) {
       setActionMessage("Upload a resume file or paste at least 300 characters from your resume.");
+      notify("error", "Resume needed", "Upload a resume file or paste at least 300 characters from your resume.");
       return;
     }
     setIsGenerating(true);
@@ -463,10 +479,14 @@ export function ResumeAtsChecker() {
         JSON.stringify({ resumeText, uploadedResume, targetRole, roleFamily, candidateName, yearsExperience, selectedSkills, customSkill, targetPackage, dailyHours, language, analysis: data.analysis } satisfies SavedResumeAnalysis),
       );
       setSavedAvailable(true);
-      setActionMessage(typeof data.remaining === "number" ? `ATS report generated. ${data.remaining} free AI generations left today.` : "ATS report generated.");
+      const successMessage = typeof data.remaining === "number" ? `ATS report generated. ${data.remaining} free AI generations left today.` : "ATS report generated.";
+      setActionMessage(successMessage);
+      notify("success", "ATS report generated", successMessage);
       window.setTimeout(() => resultPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
     } catch (error) {
-      setActionMessage(error instanceof Error ? error.message : "AI resume analysis failed. Please try again.");
+      const message = error instanceof Error ? error.message : "AI resume analysis failed. Please try again.";
+      setActionMessage(message);
+      notify("error", "ATS analysis failed", message);
     } finally {
       setProgress(100);
       window.setTimeout(() => {
@@ -481,8 +501,10 @@ export function ResumeAtsChecker() {
     try {
       await navigator.clipboard.writeText(resultText);
       setActionMessage("Resume ATS report copied.");
+      notify("success", "Copied", "Resume ATS report copied to clipboard.");
     } catch {
       setActionMessage("Copy was blocked. Use download instead.");
+      notify("error", "Copy blocked", "Your browser blocked clipboard access. Use download instead.");
     }
   };
 
@@ -505,6 +527,7 @@ export function ResumeAtsChecker() {
     link.remove();
     URL.revokeObjectURL(url);
     setActionMessage("Beautiful ATS score PDF downloaded.");
+    notify("success", "PDF downloaded", "Beautiful ATS score PDF downloaded.");
   };
 
   const printReport = () => {
@@ -522,6 +545,7 @@ export function ResumeAtsChecker() {
     if (!frameWindow || !frameDocument) {
       frame.remove();
       setActionMessage("Print was blocked. Please try again.");
+      notify("error", "Print blocked", "Print was blocked. Please try again.");
       return;
     }
     frameDocument.open();
@@ -533,6 +557,7 @@ export function ResumeAtsChecker() {
       frame.remove();
     }, 300);
     setActionMessage("Print view opened with only the ATS report.");
+    notify("success", "Print view opened", "Only the ATS report will be printed.");
   };
 
   const shareReport = async () => {
@@ -550,17 +575,21 @@ export function ResumeAtsChecker() {
       if (navigator.canShare?.({ files: [pdfFile] }) && navigator.share) {
         await navigator.share({ title: shareTitle, text: shareText, url: shareUrl, files: [pdfFile] });
         setActionMessage("ATS score PDF shared.");
+        notify("success", "PDF shared", "ATS score PDF shared successfully.");
         return;
       }
       if (navigator.share) {
         await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
         setActionMessage("ATS score link shared. PDF sharing is not supported on this browser.");
+        notify("success", "Link shared", "PDF sharing is not supported on this browser, so the link was shared.");
         return;
       }
       await navigator.clipboard.writeText(shareText);
       setActionMessage("Share text copied. This browser does not support direct sharing.");
+      notify("success", "Share text copied", "This browser does not support direct sharing, so the text was copied.");
     } catch {
       setActionMessage("Share was cancelled or blocked.");
+      notify("error", "Share blocked", "Sharing was cancelled or blocked by the browser.");
     }
   };
 
@@ -720,6 +749,7 @@ export function ResumeAtsChecker() {
       </div>
 
       {isGenerating ? <GenerationOverlay progress={progress} /> : null}
+      <ToolToast toast={toast} onClose={() => setToast(null)} />
     </section>
   );
 }
