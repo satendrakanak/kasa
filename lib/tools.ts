@@ -11,11 +11,28 @@ import {
   ListChecks,
   Percent,
   PiggyBank,
+  ReceiptText,
   Target,
   Trophy,
+  TrendingUp,
+  UserPlus,
+  UsersRound,
+  type LucideIcon,
 } from "lucide-react";
 
-export const tools = [
+export type ToolCategory = "Students" | "Teachers" | "Academies";
+
+export type ToolItem = {
+  title: string;
+  slug: string;
+  description: string;
+  category: ToolCategory;
+  icon: LucideIcon;
+  status: "Live" | "Coming soon";
+  isAi?: boolean;
+};
+
+export const tools: ToolItem[] = [
   {
     title: "Attendance Calculator",
     slug: "attendance-calculator",
@@ -117,7 +134,8 @@ export const tools = [
     title: "AI Worksheet Generator",
     slug: "worksheet-generator",
     description: "Generate AI worksheets with sections, practice questions, marks, difficulty, and answer key.",
-    category: "AI Tools",
+    category: "Teachers",
+    isAi: true,
     icon: ClipboardList,
     status: "Live",
   },
@@ -125,7 +143,8 @@ export const tools = [
     title: "AI Report Card Generator",
     slug: "report-card-generator",
     description: "Generate AI report card remarks, parent comments, strengths, improvement plans, and next steps.",
-    category: "AI Tools",
+    category: "Teachers",
+    isAi: true,
     icon: FileCheck2,
     status: "Live",
   },
@@ -133,7 +152,8 @@ export const tools = [
     title: "AI Assignment Generator",
     slug: "assignment-generator",
     description: "Generate AI assignments with tasks, marks, learning goals, submission checklist, and rubric.",
-    category: "AI Tools",
+    category: "Teachers",
+    isAi: true,
     icon: ClipboardList,
     status: "Live",
   },
@@ -141,7 +161,8 @@ export const tools = [
     title: "AI Lesson Plan Generator",
     slug: "lesson-plan-generator",
     description: "Generate AI lesson plans with objectives, activities, assessment, homework, and closure.",
-    category: "AI Tools",
+    category: "Teachers",
+    isAi: true,
     icon: BookOpenCheck,
     status: "Live",
   },
@@ -149,7 +170,8 @@ export const tools = [
     title: "AI Quiz Generator",
     slug: "quiz-generator",
     description: "Generate AI quizzes with MCQs, true or false, short answers, answer keys, and explanations.",
-    category: "AI Tools",
+    category: "Teachers",
+    isAi: true,
     icon: ListChecks,
     status: "Live",
   },
@@ -157,16 +179,59 @@ export const tools = [
     title: "AI Question Paper Generator",
     slug: "question-paper-generator",
     description: "Generate AI question papers with class, subject, syllabus coverage, marks, difficulty, and answer key hints.",
-    category: "AI Tools",
+    category: "Teachers",
+    isAi: true,
     icon: FileQuestion,
+    status: "Live",
+  },
+  {
+    title: "Course Pricing Calculator",
+    slug: "course-pricing-calculator",
+    description: "Calculate profitable online course fees, revenue, net profit, margin, and break-even students.",
+    category: "Academies",
+    isAi: true,
+    icon: TrendingUp,
+    status: "Live",
+  },
+  {
+    title: "Academy Profit Calculator",
+    slug: "profit-calculator",
+    description: "Calculate monthly academy revenue, expenses, net profit, margin, and AI profit strategy.",
+    category: "Academies",
+    isAi: true,
+    icon: BarChart3,
+    status: "Live",
+  },
+  {
+    title: "Fee Receipt Generator",
+    slug: "fee-receipt-generator",
+    description: "Create printable student fee receipts with payment mode, due balance, copy, print, and download.",
+    category: "Academies",
+    icon: ReceiptText,
+    status: "Live",
+  },
+  {
+    title: "Admission Form Generator",
+    slug: "admission-form-generator",
+    description: "Create printable student admission forms with custom fields, documents, fees, print, and download.",
+    category: "Academies",
+    icon: UserPlus,
+    status: "Live",
+  },
+  {
+    title: "Batch Capacity Calculator",
+    slug: "batch-capacity-calculator",
+    description: "Calculate academy seats, batch capacity, occupancy, teacher load, and revenue potential.",
+    category: "Academies",
+    icon: UsersRound,
     status: "Live",
   },
   {
     title: "Certificate Generator",
     slug: "certificate-generator",
-    description: "Create printable course completion certificates with academy branding.",
+    description: "Create printable course completion, participation, achievement, workshop, and training certificates.",
     category: "Academies",
     icon: FileText,
-    status: "Planned",
+    status: "Live",
   },
 ];

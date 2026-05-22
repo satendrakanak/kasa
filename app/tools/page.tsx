@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Clock3, Search, Sparkles } from "lucide-react";
+import { CheckCircle2, Search, Sparkles } from "lucide-react";
 import { siteContainerClasses } from "@/components/site/site-container";
 import { ToolBreadcrumb } from "@/components/tools/tool-hero-extras";
-import { tools } from "@/lib/tools";
+import { ToolsDirectory } from "@/components/tools/tools-directory";
 
 export const metadata: Metadata = {
   title: "Free AI Tools for Students and Teachers - Calculators, Planners, Question Papers",
@@ -29,6 +29,24 @@ export const metadata: Metadata = {
     "grade calculator",
     "study timetable generator",
     "exam study planner",
+    "course pricing calculator",
+    "course fee calculator",
+    "online course pricing calculator",
+    "academy profit calculator",
+    "coaching institute profit calculator",
+    "AI profit strategy",
+    "fee receipt generator",
+    "coaching fee receipt generator",
+    "tuition fee receipt generator",
+    "admission form generator",
+    "student admission form generator",
+    "coaching admission form",
+    "batch capacity calculator",
+    "coaching seats calculator",
+    "classroom capacity calculator",
+    "certificate generator",
+    "course completion certificate generator",
+    "printable certificate maker",
   ],
   alternates: {
     canonical: "/tools",
@@ -36,24 +54,28 @@ export const metadata: Metadata = {
 };
 
 const popularSearches = [
-  "75% attendance calculator",
-  "marks percentage calculator",
-  "CGPA calculator",
-  "weighted grade calculator",
-  "final exam calculator",
-  "study timetable generator",
-  "CGPA to percentage converter",
-  "board percentage calculator",
-  "scholarship eligibility calculator",
-  "AI quiz generator",
-  "AI lesson plan generator",
-  "AI worksheet generator",
-  "AI report card generator",
-  "AI assignment generator",
-  "online quiz generator",
-  "AI question paper generator",
-  "question paper generator",
-  "exam study planner",
+  { label: "75% attendance calculator", href: "/tools/attendance-calculator" },
+  { label: "marks percentage calculator", href: "/tools/marks-percentage-calculator" },
+  { label: "CGPA calculator", href: "/tools/cgpa-percentage-converter" },
+  { label: "weighted grade calculator", href: "/tools/grade-calculator" },
+  { label: "final exam calculator", href: "/tools/final-exam-calculator" },
+  { label: "study timetable generator", href: "/tools/study-timetable-generator" },
+  { label: "CGPA to percentage converter", href: "/tools/cgpa-percentage-converter" },
+  { label: "board percentage calculator", href: "/tools/board-percentage-calculator" },
+  { label: "scholarship eligibility calculator", href: "/tools/scholarship-eligibility-calculator" },
+  { label: "AI quiz generator", href: "/tools/quiz-generator" },
+  { label: "AI lesson plan generator", href: "/tools/lesson-plan-generator" },
+  { label: "AI worksheet generator", href: "/tools/worksheet-generator" },
+  { label: "AI report card generator", href: "/tools/report-card-generator" },
+  { label: "AI assignment generator", href: "/tools/assignment-generator" },
+  { label: "AI question paper generator", href: "/tools/question-paper-generator" },
+  { label: "exam study planner", href: "/tools/study-hours-calculator" },
+  { label: "course pricing calculator", href: "/tools/course-pricing-calculator" },
+  { label: "academy profit calculator", href: "/tools/profit-calculator" },
+  { label: "fee receipt generator", href: "/tools/fee-receipt-generator" },
+  { label: "admission form generator", href: "/tools/admission-form-generator" },
+  { label: "batch capacity calculator", href: "/tools/batch-capacity-calculator" },
+  { label: "certificate generator", href: "/tools/certificate-generator" },
 ];
 
 export default function ToolsPage() {
@@ -85,13 +107,14 @@ export default function ToolsPage() {
 
             <div className="mx-auto mt-7 flex max-w-2xl flex-wrap justify-center gap-2 lg:mx-0 lg:justify-start">
               {popularSearches.map((search) => (
-                <span
-                  key={search}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-blue-950/10 bg-white/70 px-3 py-1.5 text-xs font-medium text-slate-600 dark:border-white/10 dark:bg-white/6 dark:text-white/70"
+                <Link
+                  key={search.label}
+                  href={search.href}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-blue-950/10 bg-white/70 px-3 py-1.5 text-xs font-medium text-slate-600 transition hover:-translate-y-0.5 hover:border-primary/35 hover:bg-white hover:text-primary dark:border-white/10 dark:bg-white/6 dark:text-white/70 dark:hover:text-emerald-200"
                 >
                   <Search className="size-3.5 text-primary dark:text-emerald-300" aria-hidden="true" />
-                  {search}
-                </span>
+                  {search.label}
+                </Link>
               ))}
             </div>
           </div>
@@ -156,10 +179,10 @@ export default function ToolsPage() {
           <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary dark:text-emerald-200">
-                Choose an AI tool
+                Choose a tool
               </p>
               <h2 className="mt-2 font-heading text-3xl font-semibold text-slate-950 dark:text-white">
-                Free AI tools library
+                Free tools library
               </h2>
             </div>
             <p className="max-w-xl text-sm leading-6 text-slate-600 dark:text-slate-300">
@@ -167,55 +190,7 @@ export default function ToolsPage() {
             </p>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {tools.map((tool) => {
-              const Icon = tool.icon;
-              const isLive = tool.status === "Live";
-              return (
-                <Link
-                  key={tool.slug}
-                  href={isLive ? `/tools/${tool.slug}` : "/tools"}
-                  className={[
-                    "group flex flex-col rounded-[1.1rem] border bg-white/88 p-5 shadow-sm shadow-blue-950/5 backdrop-blur transition dark:bg-white/[0.05] sm:min-h-[20rem]",
-                    isLive
-                      ? "border-blue-950/10 hover:-translate-y-1 hover:border-primary/35 hover:shadow-2xl hover:shadow-blue-950/12 dark:border-white/10 dark:hover:border-emerald-200/35"
-                      : "pointer-events-none border-blue-950/10 opacity-70 dark:border-white/10",
-                  ].join(" ")}
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <span className="relative grid size-12 place-items-center rounded-xl bg-[image:var(--button-solid)] !text-white">
-                      <Icon className="size-5" aria-hidden="true" />
-                      {tool.category === "AI Tools" ? (
-                        <Sparkles className="absolute -right-1 -top-1 size-4 animate-pulse rounded-full bg-white p-0.5 text-primary shadow-sm" aria-hidden="true" />
-                      ) : null}
-                    </span>
-                    <span className="rounded-full border border-blue-950/10 bg-blue-50 px-2.5 py-1 text-xs font-semibold text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">
-                      {tool.status}
-                    </span>
-                  </div>
-                  <div className="mt-6 text-sm font-semibold uppercase tracking-[0.16em] text-primary dark:text-emerald-200">
-                    {tool.category}
-                  </div>
-                  <h3 className="mt-2 font-heading text-2xl font-semibold leading-tight text-slate-950 dark:text-white">
-                    {tool.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                    {tool.description}
-                  </p>
-                  <div className="mt-auto pt-6">
-                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary dark:text-emerald-200">
-                      {isLive ? (tool.category === "AI Tools" ? "Open AI tool" : "Open tool") : "Coming soon"}
-                      {isLive ? (
-                        <ArrowRight className="size-4 transition group-hover:translate-x-1" aria-hidden="true" />
-                      ) : (
-                        <Clock3 className="size-4" aria-hidden="true" />
-                      )}
-                    </span>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+          <ToolsDirectory />
         </div>
       </section>
 
