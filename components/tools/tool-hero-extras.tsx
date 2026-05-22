@@ -13,7 +13,7 @@ export function ToolBreadcrumb({ current }: { current: string }) {
       </Link>
       <ChevronRight className="size-3.5" aria-hidden="true" />
       <Link href="/tools" className="transition hover:text-primary dark:hover:text-emerald-200">
-        Tools
+        AI Tools
       </Link>
       <ChevronRight className="size-3.5" aria-hidden="true" />
       <span className="text-slate-700 dark:text-white">{current}</span>

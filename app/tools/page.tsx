@@ -7,10 +7,20 @@ import { ToolBreadcrumb } from "@/components/tools/tool-hero-extras";
 import { tools } from "@/lib/tools";
 
 export const metadata: Metadata = {
-  title: "Free Student Tools - Attendance, GPA, Grade, Marks, and Study Planner",
+  title: "Free AI Tools for Students and Teachers - Calculators, Planners, Question Papers",
   description:
-    "Use free student tools including attendance calculator, marks percentage calculator, GPA calculator, grade calculator, study timetable generator, and exam planning tools.",
+    "Use free AI tools and education calculators including attendance calculator, GPA calculator, study timetable generator, AI question paper generator, marks calculator, and exam planning tools.",
   keywords: [
+    "free AI tools",
+    "AI tools for teachers",
+    "AI tools for students",
+    "AI question paper generator",
+    "AI quiz generator",
+    "AI lesson plan generator",
+    "AI worksheet generator",
+    "AI report card generator",
+    "AI assignment generator",
+    "online quiz generator",
     "free student tools",
     "attendance calculator",
     "marks percentage calculator",
@@ -35,6 +45,14 @@ const popularSearches = [
   "CGPA to percentage converter",
   "board percentage calculator",
   "scholarship eligibility calculator",
+  "AI quiz generator",
+  "AI lesson plan generator",
+  "AI worksheet generator",
+  "AI report card generator",
+  "AI assignment generator",
+  "online quiz generator",
+  "AI question paper generator",
+  "question paper generator",
   "exam study planner",
 ];
 
@@ -52,17 +70,17 @@ export default function ToolsPage() {
         >
           <div className="mx-auto max-w-3xl lg:mx-0">
             <div className="inline-flex max-w-full items-center justify-center gap-2 rounded-full border border-blue-950/10 bg-white/78 px-3.5 py-2 text-center text-[0.68rem] font-semibold uppercase leading-5 tracking-[0.16em] text-primary shadow-sm shadow-blue-950/5 dark:border-primary/25 dark:bg-primary/10 sm:px-4 sm:text-xs sm:leading-none sm:tracking-[0.18em]">
-              <Sparkles className="size-3.5" aria-hidden="true" />
-              <span>Free education tools</span>
+              <Sparkles className="size-3.5 animate-pulse" aria-hidden="true" />
+              <span>Free AI education tools</span>
             </div>
-            <ToolBreadcrumb current="Free Student Tools" />
+            <ToolBreadcrumb current="Free AI Tools" />
             <h1 className="mt-6 max-w-3xl font-heading text-4xl font-semibold leading-[1.08] text-slate-950 sm:text-5xl lg:text-[3.25rem] xl:text-[3.7rem] dark:text-white">
-              Free tools that help students get answers faster.
+              Free AI tools that help students and teachers work faster.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-slate-700 sm:text-lg dark:text-muted">
-              Fast calculators and generators for attendance, marks percentage, GPA, CGPA, weighted
-              grades, final exam scores, and exam study planning. No signup, no clutter, just useful answers students
-              can save, print, and share.
+              Fast calculators, planners, converters, and AI generators for attendance, marks percentage, GPA, CGPA, weighted
+              grades, final exam scores, study planning, and printable teacher question papers. No signup, no clutter, just useful outputs
+              students and teachers can save, print, and share.
             </p>
 
             <div className="mx-auto mt-7 flex max-w-2xl flex-wrap justify-center gap-2 lg:mx-0 lg:justify-start">
@@ -84,14 +102,14 @@ export default function ToolsPage() {
               <div className="relative z-10 flex items-center justify-between gap-4">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary dark:text-emerald-200">
-                    Student tools hub
+                    AI tools hub
                   </p>
                   <h2 className="mt-2 max-w-sm font-heading text-2xl font-semibold leading-tight text-slate-950 dark:text-white">
-                    Calculate, plan, save, and share in one place.
+                    Calculate, plan, generate, save, and share in one place.
                   </h2>
                 </div>
                 <span className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-200">
-                  12 live tools
+                  AI tools live
                 </span>
               </div>
 
@@ -120,7 +138,7 @@ export default function ToolsPage() {
                 {[
                   ["GPA", "8.4"],
                   ["Board %", "86.2%"],
-                  ["Final exam", "Need 72%"],
+                  ["AI paper", "Ready"],
                 ].map(([label, value]) => (
                   <div key={label} className="flex items-center justify-between gap-3 rounded-xl bg-blue-50/75 px-3 py-2 dark:bg-white/[0.06]">
                     <span className="text-xs font-semibold text-slate-500 dark:text-slate-300">{label}</span>
@@ -138,14 +156,14 @@ export default function ToolsPage() {
           <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary dark:text-emerald-200">
-                Choose a tool
+                Choose an AI tool
               </p>
               <h2 className="mt-2 font-heading text-3xl font-semibold text-slate-950 dark:text-white">
-                Free tools library
+                Free AI tools library
               </h2>
             </div>
             <p className="max-w-xl text-sm leading-6 text-slate-600 dark:text-slate-300">
-              Calculate attendance, marks, GPA, weighted grades, and study plans quickly without creating an account.
+              Calculate attendance, marks, GPA, weighted grades, study plans, and generate teacher-ready AI papers without creating an account.
             </p>
           </div>
 
@@ -165,8 +183,11 @@ export default function ToolsPage() {
                   ].join(" ")}
                 >
                   <div className="flex items-start justify-between gap-4">
-                    <span className="grid size-12 place-items-center rounded-xl bg-[image:var(--button-solid)] !text-white">
+                    <span className="relative grid size-12 place-items-center rounded-xl bg-[image:var(--button-solid)] !text-white">
                       <Icon className="size-5" aria-hidden="true" />
+                      {tool.category === "AI Tools" ? (
+                        <Sparkles className="absolute -right-1 -top-1 size-4 animate-pulse rounded-full bg-white p-0.5 text-primary shadow-sm" aria-hidden="true" />
+                      ) : null}
                     </span>
                     <span className="rounded-full border border-blue-950/10 bg-blue-50 px-2.5 py-1 text-xs font-semibold text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">
                       {tool.status}
@@ -183,7 +204,7 @@ export default function ToolsPage() {
                   </p>
                   <div className="mt-auto pt-6">
                     <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary dark:text-emerald-200">
-                      {isLive ? "Open tool" : "Coming soon"}
+                      {isLive ? (tool.category === "AI Tools" ? "Open AI tool" : "Open tool") : "Coming soon"}
                       {isLive ? (
                         <ArrowRight className="size-4 transition group-hover:translate-x-1" aria-hidden="true" />
                       ) : (
@@ -201,9 +222,9 @@ export default function ToolsPage() {
       <section className="relative border-y border-blue-950/10 bg-white/72 py-10 backdrop-blur dark:border-white/10 dark:bg-white/[0.04]">
         <div className={siteContainerClasses({ className: "grid gap-4 md:grid-cols-3" })}>
           {[
-            "Student-first tools for attendance, marks, grades, GPA, and exam planning.",
+            "AI-powered and student-first tools for attendance, marks, grades, GPA, question papers, and exam planning.",
             "Useful outputs students can copy, download, print, email, and share.",
-            "SEO-focused calculators built around real student search intent.",
+            "SEO-focused tools built around real student and teacher search intent.",
           ].map((point) => (
             <div key={point} className="flex gap-3 rounded-[1.1rem] border border-blue-950/10 bg-white p-5 dark:border-white/10 dark:bg-slate-950/40">
               <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-primary dark:text-emerald-300" aria-hidden="true" />

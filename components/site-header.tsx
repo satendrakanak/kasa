@@ -143,7 +143,7 @@ const primaryNav: NavItem[] = [
       },
     ],
   },
-  { label: "Tools", href: "/tools" },
+  { label: "AI Tools", href: "/tools" },
   {
     label: "Company",
     href: "/why-kasa",
@@ -312,8 +312,9 @@ export default function SiteHeader() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="inline-flex h-10 cursor-pointer items-center px-4 text-sm font-semibold text-slate-900 transition hover:text-primary dark:font-medium dark:text-white/78 dark:hover:text-white"
+                className="inline-flex h-10 cursor-pointer items-center gap-1.5 px-4 text-sm font-semibold text-slate-900 transition hover:text-primary dark:font-medium dark:text-white/78 dark:hover:text-white"
               >
+                {item.label === "AI Tools" ? <Sparkles className="size-3.5 animate-pulse text-primary dark:text-emerald-200" aria-hidden="true" /> : null}
                 {item.label}
               </Link>
             ),
@@ -385,7 +386,10 @@ export default function SiteHeader() {
                       onClick={() => setOpen(false)}
                       className="flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-white dark:text-white dark:hover:bg-white/7"
                     >
-                      {item.label}
+                      <span className="inline-flex items-center gap-2">
+                        {item.label === "AI Tools" ? <Sparkles className="size-4 animate-pulse text-primary dark:text-emerald-200" aria-hidden="true" /> : null}
+                        {item.label}
+                      </span>
                       {hasChildren(item) ? <ChevronDown className="size-3.5" /> : null}
                     </Link>
                     {hasChildren(item) ? (
