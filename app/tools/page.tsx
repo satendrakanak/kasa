@@ -54,6 +54,8 @@ export const metadata: Metadata = {
 };
 
 const popularSearches = [
+  { label: "free ATS checker", href: "/tools/resume-ats-checker" },
+  { label: "AI resume checker", href: "/tools/resume-ats-checker" },
   { label: "75% attendance calculator", href: "/tools/attendance-calculator" },
   { label: "marks percentage calculator", href: "/tools/marks-percentage-calculator" },
   { label: "CGPA calculator", href: "/tools/cgpa-percentage-converter" },

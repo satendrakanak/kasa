@@ -7,6 +7,7 @@ import {
   FileText,
   FileCheck2,
   FileQuestion,
+  FileSearch,
   GraduationCap,
   ListChecks,
   Percent,
@@ -33,6 +34,15 @@ export type ToolItem = {
 };
 
 export const tools: ToolItem[] = [
+  {
+    title: "AI Resume ATS Checker",
+    slug: "resume-ats-checker",
+    description: "Free ATS resume checker with AI resume roast, rejection reasons, keyword gaps, PDF report, and career roadmap.",
+    category: "Students",
+    isAi: true,
+    icon: FileSearch,
+    status: "Live",
+  },
   {
     title: "Attendance Calculator",
     slug: "attendance-calculator",
