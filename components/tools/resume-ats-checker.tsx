@@ -137,6 +137,8 @@ const popularSkills = [
 ] as const;
 
 const storageKey = "kasa-ai-resume-ats:last";
+const resumeBuilderDraftKey = "kasa-ai-resume-builder:draft";
+const resumeBuilderAtsHandoffKey = "kasa-resume-builder:ats-handoff";
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(Number.isFinite(value) ? value : min, min), max);
 
 type UploadedResume = {
@@ -144,6 +146,7 @@ type UploadedResume = {
   mimeType: string;
   data: string;
   size: number;
+  text?: string;
 };
 
 type ResumeAnalysis = {
@@ -239,6 +242,35 @@ export function ResumeAtsChecker() {
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
+      const handoffRaw = window.localStorage.getItem(resumeBuilderAtsHandoffKey);
+      if (handoffRaw) {
+        try {
+          const handoff = JSON.parse(handoffRaw) as Partial<{
+            resumeText: string;
+            candidateName: string;
+            targetRole: string;
+            roleFamily: string;
+            selectedSkills: string[];
+            source: string;
+          }>;
+          if (handoff.resumeText && handoff.resumeText.trim().length >= 120) {
+            setResumeText(handoff.resumeText);
+            setUploadedResume(null);
+            setCandidateName(handoff.candidateName || "Candidate");
+            setTargetRole(handoff.targetRole || "Frontend Developer");
+            setRoleFamily((handoff.roleFamily as (typeof roleFamilies)[number]) || "Software Engineering");
+            setSelectedSkills(Array.isArray(handoff.selectedSkills) ? handoff.selectedSkills.slice(0, 12) : []);
+            setAnalysis(null);
+            setActionMessage("Resume imported from builder. Add target role if needed, then generate the ATS report.");
+            notify("success", "Resume ready for ATS", "Your built resume is already loaded here. No re-upload needed.");
+            window.localStorage.removeItem(resumeBuilderAtsHandoffKey);
+            setSavedAvailable(Boolean(window.localStorage.getItem(storageKey)));
+            return;
+          }
+        } catch {
+          window.localStorage.removeItem(resumeBuilderAtsHandoffKey);
+        }
+      }
       const raw = window.localStorage.getItem(storageKey);
       setSavedAvailable(Boolean(raw));
       if (!raw) return;
@@ -247,7 +279,7 @@ export function ResumeAtsChecker() {
       restoreSavedReport(saved, "Last AI resume report restored.");
     }, 0);
     return () => window.clearTimeout(timeoutId);
-  }, [restoreSavedReport]);
+  }, [notify, restoreSavedReport]);
 
   useEffect(() => {
     if (!isGenerating) return;
@@ -332,16 +364,18 @@ export function ResumeAtsChecker() {
     reader.onprogress = (event) => {
       if (event.lengthComputable) setUploadProgress(Math.min(95, Math.round((event.loaded / event.total) * 95)));
     };
-    reader.onload = () => {
+    reader.onload = async () => {
       const raw = String(reader.result || "");
       const base64 = raw.includes(",") ? raw.split(",")[1] || "" : raw;
-      const nextResume = { name: file.name, mimeType, data: base64, size: file.size };
+      const extractedText = await extractReadableTextFromUpload(file, mimeType);
+      const nextResume = { name: file.name, mimeType, data: base64, size: file.size, text: extractedText || undefined };
       setUploadedResume(nextResume);
+      if (extractedText.length >= 300) setResumeText(extractedText);
       setCandidateName(deriveNameFromResume(file.name) || "Candidate");
       setUploadProgress(100);
       clearGenerated();
       setActionMessage("Resume uploaded. Detecting role, experience, and skills from the file...");
-      void detectResumeProfile(nextResume, resumeText);
+      void detectResumeProfile(nextResume, extractedText || resumeText);
       window.setTimeout(() => setUploadProgress(0), 600);
     };
     reader.onerror = () => {
@@ -365,9 +399,9 @@ export function ResumeAtsChecker() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          resumeText: pastedText,
-          fileData: resumeFile?.data,
-          fileMimeType: resumeFile?.mimeType,
+          resumeText: pastedText || resumeFile?.text || "",
+          fileData: shouldAttachResumeFile(resumeFile, pastedText) ? resumeFile?.data : undefined,
+          fileMimeType: shouldAttachResumeFile(resumeFile, pastedText) ? resumeFile?.mimeType : undefined,
           fileName: resumeFile?.name,
         }),
       });
@@ -442,7 +476,9 @@ export function ResumeAtsChecker() {
   };
 
   const generateAnalysis = async () => {
-    if (!uploadedResume && resumeText.trim().length < 300) {
+    const effectiveResumeText = resumeText.trim() || uploadedResume?.text || "";
+    const attachFile = shouldAttachResumeFile(uploadedResume, effectiveResumeText);
+    if (!uploadedResume && effectiveResumeText.length < 300) {
       setActionMessage("Upload a resume file or paste at least 300 characters from your resume.");
       notify("error", "Resume needed", "Upload a resume file or paste at least 300 characters from your resume.");
       return;
@@ -455,9 +491,9 @@ export function ResumeAtsChecker() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          resumeText,
-          fileData: uploadedResume?.data,
-          fileMimeType: uploadedResume?.mimeType,
+          resumeText: effectiveResumeText,
+          fileData: attachFile ? uploadedResume?.data : undefined,
+          fileMimeType: attachFile ? uploadedResume?.mimeType : undefined,
           fileName: uploadedResume?.name,
           targetRole,
           roleFamily,
@@ -476,7 +512,7 @@ export function ResumeAtsChecker() {
       setAnalysis(data.analysis);
       window.localStorage.setItem(
         storageKey,
-        JSON.stringify({ resumeText, uploadedResume, targetRole, roleFamily, candidateName, yearsExperience, selectedSkills, customSkill, targetPackage, dailyHours, language, analysis: data.analysis } satisfies SavedResumeAnalysis),
+        JSON.stringify({ resumeText: effectiveResumeText, uploadedResume, targetRole, roleFamily, candidateName, yearsExperience, selectedSkills, customSkill, targetPackage, dailyHours, language, analysis: data.analysis } satisfies SavedResumeAnalysis),
       );
       setSavedAvailable(true);
       const successMessage = typeof data.remaining === "number" ? `ATS report generated. ${data.remaining} free AI generations left today.` : "ATS report generated.";
@@ -591,6 +627,32 @@ export function ResumeAtsChecker() {
       setActionMessage("Share was cancelled or blocked.");
       notify("error", "Share blocked", "Sharing was cancelled or blocked by the browser.");
     }
+  };
+
+  const buildResumeFromReport = () => {
+    if (!analysis) return;
+    window.localStorage.setItem(
+      resumeBuilderDraftKey,
+      JSON.stringify({
+        resumeText,
+        uploadedResume,
+        targetRole,
+        roleFamily,
+        candidateName,
+        yearsExperience,
+        selectedSkills,
+        customSkill,
+        analysis: {
+          atsScore: analysis.atsScore,
+          missingKeywords: analysis.missingKeywords,
+          missingSkills: analysis.missingSkills,
+          improvedBullets: analysis.improvedBullets,
+          weakAreas: analysis.weakAreas,
+          quickWins: analysis.quickWins,
+        },
+      }),
+    );
+    window.location.href = "/tools/ai-resume-builder";
   };
 
   return (
@@ -743,6 +805,7 @@ export function ResumeAtsChecker() {
           onDownload={downloadReport}
           onPrint={printReport}
           onShare={shareReport}
+          onBuildResume={buildResumeFromReport}
           savedAvailable={savedAvailable}
           onRestore={restoreLast}
         />
@@ -762,6 +825,7 @@ type ResultPanelProps = {
   onDownload: () => void;
   onPrint: () => void;
   onShare: () => void;
+  onBuildResume: () => void;
   savedAvailable: boolean;
   onRestore: () => void;
 };
@@ -774,22 +838,43 @@ const ResultPanel = forwardRef<HTMLDivElement, ResultPanelProps>(function Result
   onDownload,
   onPrint,
   onShare,
+  onBuildResume,
   savedAvailable,
   onRestore,
 }, ref) {
   return (
     <div ref={ref} className="rounded-[1.25rem] border border-blue-950/10 bg-white/94 p-5 shadow-2xl shadow-blue-950/12 backdrop-blur dark:border-white/10 dark:bg-surface/92 sm:p-7">
-      <div className="grid gap-5 xl:grid-cols-[0.82fr_1.18fr] xl:items-center">
-        <div className="grid place-items-center rounded-[1.2rem] border border-blue-950/10 bg-[radial-gradient(circle_at_50%_20%,rgba(43,168,255,0.12),transparent_15rem),linear-gradient(180deg,#ffffff,#f1f8ff)] p-6 dark:border-white/10 dark:bg-white/[0.04]">
-          <ScoreRing score={analysis?.atsScore ?? 0} />
-          <span className={`mt-4 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold ${getToneClasses(readiness.tone)}`}>
-            {analysis && analysis.atsScore < 55 ? <AlertCircle className="size-4" aria-hidden="true" /> : <CheckCircle2 className="size-4" aria-hidden="true" />}
-            {analysis ? readiness.label : "Not analyzed"}
-          </span>
+      <div className="grid gap-5 xl:grid-cols-[0.82fr_1.18fr] xl:items-start">
+        <div className="space-y-4">
+          <div className="grid place-items-center rounded-[1.2rem] border border-blue-950/10 bg-[radial-gradient(circle_at_50%_20%,rgba(43,168,255,0.12),transparent_15rem),linear-gradient(180deg,#ffffff,#f1f8ff)] p-6 dark:border-white/10 dark:bg-white/[0.04]">
+            <ScoreRing score={analysis?.atsScore ?? 0} />
+            <span className={`mt-4 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold ${getToneClasses(readiness.tone)}`}>
+              {analysis && analysis.atsScore < 55 ? <AlertCircle className="size-4" aria-hidden="true" /> : <CheckCircle2 className="size-4" aria-hidden="true" />}
+              {analysis ? readiness.label : "Not analyzed"}
+            </span>
+          </div>
+          {analysis ? (
+            <div className="rounded-[1.2rem] border border-emerald-200 bg-[linear-gradient(135deg,rgba(34,181,115,0.13),rgba(43,168,255,0.11))] p-5 shadow-lg shadow-blue-950/8 dark:border-emerald-300/25 dark:bg-emerald-400/10">
+              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.16em] text-emerald-800 dark:text-emerald-200">
+                <Sparkles className="size-4 animate-pulse" aria-hidden="true" />
+                Recommended next step
+              </div>
+              <h4 className="mt-2 font-heading text-xl font-semibold leading-tight text-slate-950 dark:text-white">
+                Build a stronger ATS-friendly resume
+              </h4>
+              <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-300">
+                Turn this report into a cleaner resume with better keywords, stronger bullets, and improved sections.
+              </p>
+              <button type="button" onClick={onBuildResume} className="mt-4 inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-[image:var(--button-solid)] px-4 text-sm font-semibold !text-white shadow-xl shadow-primary/20 transition hover:-translate-y-0.5">
+                <FileText className="size-4" aria-hidden="true" />
+                Build improved resume
+              </button>
+            </div>
+          ) : null}
         </div>
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary dark:text-emerald-200">Your ATS result</p>
-          <h3 className="mt-3 font-heading text-3xl font-semibold text-slate-950 dark:text-white">{analysis ? analysis.roleFit : "Upload a resume to unlock your score"}</h3>
+          <h3 className="mt-3 font-heading text-2xl font-semibold leading-tight text-slate-950 dark:text-white lg:text-3xl">{analysis ? analysis.roleFit : "Upload a resume to unlock your score"}</h3>
           <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{analysis ? analysis.summary : "Get ATS score, skill gaps, missing keywords, better bullet points, project ideas, interview questions, and a roadmap."}</p>
           {analysis ? <p className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm leading-6 text-slate-700 dark:border-emerald-300/25 dark:bg-emerald-400/10 dark:text-slate-200">{analysis.verdict}</p> : null}
         </div>
@@ -817,6 +902,18 @@ const ResultPanel = forwardRef<HTMLDivElement, ResultPanelProps>(function Result
           <div className="rounded-[1.1rem] border border-blue-950/10 bg-blue-50/70 p-4 dark:border-white/10 dark:bg-white/[0.05]">
             <div className="font-semibold text-slate-950 dark:text-white">Salary note</div>
             <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{analysis.salaryRange}</p>
+          </div>
+          <div className="rounded-[1.1rem] border-2 border-primary/20 bg-[linear-gradient(135deg,rgba(43,168,255,0.10),rgba(34,181,115,0.10))] p-4 shadow-lg shadow-blue-950/8 dark:border-emerald-300/20 dark:bg-emerald-400/10">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-xs font-semibold leading-5 text-slate-700 dark:text-slate-200">Report review complete. Copy, share, print, download, or build the improved resume from here.</p>
+              <div className="flex flex-wrap gap-2 sm:justify-end">
+                <ActionButton label="Copy" icon={Copy} onClick={onCopy} />
+                <ActionButton label="Share PDF" icon={Share2} onClick={onShare} />
+                <ActionButton label="Print" icon={Printer} onClick={onPrint} />
+                <ActionButton label="Download PDF" icon={Download} onClick={onDownload} />
+                <ActionButton label="Build resume" icon={FileText} onClick={onBuildResume} />
+              </div>
+            </div>
           </div>
         </div>
       ) : (
@@ -855,6 +952,53 @@ function getSupportedMimeType(file: File) {
   if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || name.endsWith(".docx")) return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
   if (file.type.startsWith("text/") || name.endsWith(".txt")) return "text/plain";
   return "";
+}
+
+function shouldAttachResumeFile(resumeFile: UploadedResume | null | undefined, resumeText: string) {
+  if (!resumeFile?.data) return false;
+  if (resumeFile.mimeType === "application/msword" && (resumeText.trim().length >= 300 || (resumeFile.text || "").trim().length >= 300)) return false;
+  return true;
+}
+
+async function extractReadableTextFromUpload(file: File, mimeType: string) {
+  const name = file.name.toLowerCase();
+  const shouldReadAsText =
+    mimeType === "application/msword" ||
+    mimeType === "text/plain" ||
+    name.endsWith(".html") ||
+    name.endsWith(".htm") ||
+    name.endsWith(".rtf");
+  if (!shouldReadAsText) return "";
+  try {
+    const raw = await file.text();
+    return normalizeReadableResumeText(raw);
+  } catch {
+    return "";
+  }
+}
+
+function normalizeReadableResumeText(raw: string) {
+  const looksHtml = /<\/?[a-z][\s\S]*>/i.test(raw);
+  const withoutMarkup = looksHtml
+    ? raw
+        .replace(/<script[\s\S]*?<\/script>/gi, " ")
+        .replace(/<style[\s\S]*?<\/style>/gi, " ")
+        .replace(/<br\s*\/?>/gi, "\n")
+        .replace(/<\/(p|div|li|tr|h[1-6]|section|table)>/gi, "\n")
+        .replace(/<[^>]+>/g, " ")
+    : raw;
+  return withoutMarkup
+    .replace(/\\'[0-9a-f]{2}/gi, " ")
+    .replace(/[{}\\]/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, "\"")
+    .replace(/&#039;|&#39;/gi, "'")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 12000);
 }
 
 function formatFileSize(size: number) {

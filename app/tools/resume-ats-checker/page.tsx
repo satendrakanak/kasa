@@ -163,9 +163,9 @@ export default function ResumeAtsCheckerPage() {
           },
         ]}
         relatedTools={[
+          { href: "/tools/ai-resume-builder", label: "AI Resume Builder" },
           { href: "/tools/assignment-generator", label: "AI Assignment Generator" },
           { href: "/tools/study-timetable-generator", label: "Study Timetable Generator" },
-          { href: "/tools/gpa-calculator", label: "GPA Calculator" },
         ]}
       />
     </div>

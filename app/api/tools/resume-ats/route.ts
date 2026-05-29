@@ -182,6 +182,9 @@ export async function POST(request: NextRequest) {
   if (payload.fileData && !payload.fileMimeType) {
     return NextResponse.json({ error: "Unsupported resume file type. Upload PDF, DOC, DOCX, or TXT." }, { status: 400 });
   }
+  if (payload.fileMimeType === "application/msword" && payload.resumeText.length < 300) {
+    return NextResponse.json({ error: "This DOC file could not be read as text. Please upload PDF/DOCX/TXT or paste the resume text." }, { status: 400 });
+  }
 
   const prompt = [
     "You are an expert resume reviewer, ATS analyst, and career mentor for students and job seekers.",
@@ -211,7 +214,8 @@ export async function POST(request: NextRequest) {
   ].join("\n");
 
   const parts: ({ text: string } | { inlineData: { mimeType: string; data: string } })[] = [{ text: prompt }];
-  if (payload.fileData && payload.fileMimeType) {
+  const canInlineFile = payload.fileMimeType !== "application/msword";
+  if (payload.fileData && payload.fileMimeType && canInlineFile) {
     parts.push({ inlineData: { mimeType: payload.fileMimeType, data: payload.fileData } });
   }
 

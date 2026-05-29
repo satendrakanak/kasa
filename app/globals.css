@@ -79,7 +79,7 @@
 
 html {
   color-scheme: light;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 html.dark {
@@ -93,7 +93,7 @@ html:not(.dark) {
 body {
   background: var(--background);
   color: var(--foreground);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 html:not(.dark) body {

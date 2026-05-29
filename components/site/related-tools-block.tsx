@@ -15,6 +15,7 @@ type RelatedToolsBlockProps = {
 
 const featuredToolSlugs = [
   "resume-ats-checker",
+  "ai-resume-builder",
   "final-year-project-kit-generator",
   "attendance-calculator",
   "study-timetable-generator",
@@ -86,8 +87,8 @@ function pickTools({
     add(studentToolSlugs);
   }
 
-  if (/resume|career|project|placement|btech|bca|coding|bootcamp|computer/.test(haystack)) {
-    add(["resume-ats-checker", "final-year-project-kit-generator", "study-timetable-generator", "gpa-calculator"]);
+if (/resume|career|project|placement|btech|bca|coding|bootcamp|computer/.test(haystack)) {
+    add(["resume-ats-checker", "ai-resume-builder", "final-year-project-kit-generator", "study-timetable-generator"]);
   }
 
   if (!selected.length) add(featuredToolSlugs);

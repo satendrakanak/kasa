@@ -153,6 +153,16 @@ const primaryNav: NavItem[] = [
         description: "Upload a resume and get ATS score, missing skills, roadmap, and PDF report.",
       },
       {
+        label: "AI Resume Builder",
+        href: "/tools/ai-resume-builder",
+        description: "Build a clean ATS-friendly resume with AI templates and smart bullets.",
+      },
+      {
+        label: "Free Resume Builder",
+        href: "/tools/resume-builder-studio",
+        description: "Create a free ATS-friendly resume online with templates, live editing, and PDF-ready export.",
+      },
+      {
         label: "AI Final Year Project Kit",
         href: "/tools/final-year-project-kit-generator",
         description: "Generate project ideas, architecture, docs, viva questions, and starter ZIP.",
@@ -222,6 +232,7 @@ export default function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const isResumeBuilderStudio = pathname === "/tools/resume-builder-studio";
   const leadsEndpoint =
     process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
 
@@ -369,7 +380,7 @@ export default function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <ThemeToggle />
+          {isResumeBuilderStudio ? null : <ThemeToggle />}
           <ProductTourTrigger className="h-11 px-5" />
           <LeadCaptureModalTrigger
             endpoint={leadsEndpoint}
@@ -459,10 +470,12 @@ export default function SiteHeader() {
             </div>
 
             <div className="mt-4 shrink-0 space-y-3 border-t border-blue-950/10 pt-4 dark:border-white/10">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-semibold text-slate-700 dark:text-muted">Theme</span>
-                <ThemeToggle />
-              </div>
+              {isResumeBuilderStudio ? null : (
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold text-slate-700 dark:text-muted">Theme</span>
+                  <ThemeToggle />
+                </div>
+              )}
               <ProductTourTrigger className="w-full justify-center" />
             </div>
           </aside>
