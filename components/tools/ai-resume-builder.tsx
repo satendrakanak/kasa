@@ -191,7 +191,7 @@ export function AiResumeBuilder() {
   const [progress, setProgress] = useState(0);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [downloadOpen, setDownloadOpen] = useState(false);
-  const [actionMessage, setActionMessage] = useState("Upload a resume, paste text, or add profile details to build your resume.");
+  const [, setActionMessage] = useState("Upload a resume, paste text, or add profile details to build your resume.");
   const [savedAvailable, setSavedAvailable] = useState(false);
   const [toast, setToast] = useState<ToolToastState>(null);
 
@@ -237,30 +237,33 @@ export function AiResumeBuilder() {
   }, [notify]);
 
   useEffect(() => {
-    const atsRaw = window.localStorage.getItem(atsDraftKey);
-    if (atsRaw) {
-      const draft = parseJson<AtsDraft>(atsRaw);
-      if (draft) {
-        setResumeText(draft.resumeText || "");
-        setUploadedResume(draft.uploadedResume || null);
-        setCandidateName(draft.candidateName || deriveNameFromResume(draft.uploadedResume?.name) || "Candidate");
-        setTargetRole(draft.targetRole || "Frontend Developer");
-        if (draft.roleFamily && roleFamilies.includes(draft.roleFamily as (typeof roleFamilies)[number])) setRoleFamily(draft.roleFamily as (typeof roleFamilies)[number]);
-        setYearsExperience(clamp(Number(draft.yearsExperience), 0, 25));
-        setSelectedSkills(uniqueList([...(draft.selectedSkills || []), ...(draft.customSkill || "").split(",")], 24));
-        setAtsContext(draft.analysis || null);
-        setActionMessage("ATS report connected. Review the template and build your improved resume.");
-        notify("success", "ATS report connected", "Builder is prefilled from your ATS checker result.");
-        window.localStorage.removeItem(atsDraftKey);
-        return;
+    const timeoutId = window.setTimeout(() => {
+      const atsRaw = window.localStorage.getItem(atsDraftKey);
+      if (atsRaw) {
+        const draft = parseJson<AtsDraft>(atsRaw);
+        if (draft) {
+          setResumeText(draft.resumeText || "");
+          setUploadedResume(draft.uploadedResume || null);
+          setCandidateName(draft.candidateName || deriveNameFromResume(draft.uploadedResume?.name) || "Candidate");
+          setTargetRole(draft.targetRole || "Frontend Developer");
+          if (draft.roleFamily && roleFamilies.includes(draft.roleFamily as (typeof roleFamilies)[number])) setRoleFamily(draft.roleFamily as (typeof roleFamilies)[number]);
+          setYearsExperience(clamp(Number(draft.yearsExperience), 0, 25));
+          setSelectedSkills(uniqueList([...(draft.selectedSkills || []), ...(draft.customSkill || "").split(",")], 24));
+          setAtsContext(draft.analysis || null);
+          setActionMessage("ATS report connected. Review the template and build your improved resume.");
+          notify("success", "ATS report connected", "Builder is prefilled from your ATS checker result.");
+          window.localStorage.removeItem(atsDraftKey);
+          return;
+        }
       }
-    }
 
-    const savedRaw = window.localStorage.getItem(builderStorageKey);
-    setSavedAvailable(Boolean(savedRaw));
-    if (!savedRaw) return;
-    const saved = parseJson<Partial<SavedBuilder>>(savedRaw);
-    if (saved?.resume) restoreSavedBuilder(saved);
+      const savedRaw = window.localStorage.getItem(builderStorageKey);
+      setSavedAvailable(Boolean(savedRaw));
+      if (!savedRaw) return;
+      const saved = parseJson<Partial<SavedBuilder>>(savedRaw);
+      if (saved?.resume) restoreSavedBuilder(saved);
+    }, 0);
+    return () => window.clearTimeout(timeoutId);
   }, [notify, restoreSavedBuilder]);
 
   const clearGenerated = () => {
@@ -768,7 +771,8 @@ function SearchSelect({ label, value, onChange, options }: { label: string; valu
   const canUseTyped = query.trim().length > 1 && !options.some((option) => option.toLowerCase() === query.trim().toLowerCase());
 
   useEffect(() => {
-    setQuery(value);
+    const timeoutId = window.setTimeout(() => setQuery(value), 0);
+    return () => window.clearTimeout(timeoutId);
   }, [value]);
 
   useEffect(() => {

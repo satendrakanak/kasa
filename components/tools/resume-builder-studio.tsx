@@ -27,7 +27,6 @@ import {
   UserRound,
   WandSparkles,
   X,
-  ZoomIn,
   type LucideIcon,
 } from "lucide-react";
 import ThemeToggle from "@/components/theme-toggle";
@@ -530,11 +529,14 @@ export function ResumeBuilderStudio() {
 
   useEffect(() => {
     if (!isImportingResume) return;
-    setImportProgress(12);
+    const progressStartId = window.setTimeout(() => setImportProgress(12), 0);
     const intervalId = window.setInterval(() => {
       setImportProgress((value) => (value < 82 ? value + 7 : Math.min(value + 2, 94)));
     }, 420);
-    return () => window.clearInterval(intervalId);
+    return () => {
+      window.clearTimeout(progressStartId);
+      window.clearInterval(intervalId);
+    };
   }, [isImportingResume]);
 
   const updateResume = <K extends keyof StudioResume>(key: K, value: StudioResume[K]) => {
@@ -2771,89 +2773,4 @@ function createStudioPrintableResume(resume: StudioResume, template: TemplateOpt
   </main>
 </body>
 </html>`;
-}
-
-function createStudioResumePdf(resume: StudioResume) {
-  const safe = (value: string) => value.replace(/[()\\]/g, "\\$&").replace(/[^\x20-\x7E]/g, "");
-  const pageWidth = 595;
-  const pageHeight = 842;
-  const margin = 42;
-  const lineHeight = 14;
-  const wrap = (value: string, maxChars: number) => {
-    const words = safe(value).split(/\s+/).filter(Boolean);
-    const lines: string[] = [];
-    let line = "";
-    words.forEach((word) => {
-      if (`${line} ${word}`.trim().length > maxChars) {
-        if (line) lines.push(line);
-        line = word;
-      } else {
-        line = `${line} ${word}`.trim();
-      }
-    });
-    if (line) lines.push(line);
-    return lines;
-  };
-  const rows = buildPlainResume(resume).split("\n");
-  const pages: string[][] = [[]];
-  let y = pageHeight - margin;
-  rows.forEach((row) => {
-    const needed = Math.max(1, wrap(row, 86).length) * lineHeight + (row === "" ? 4 : 0);
-    if (y - needed < margin) {
-      pages.push([]);
-      y = pageHeight - margin;
-    }
-    pages[pages.length - 1].push(row);
-    y -= needed;
-  });
-  const pageObjects: string[] = [];
-  const contentObjects: string[] = [];
-  pages.forEach((pageRows, pageIndex) => {
-    const commands: string[] = [];
-    let cursorY = pageHeight - margin;
-    const text = (value: string, x: number, size = 10, font = "F1", color = "0.200 0.255 0.333") => {
-      commands.push(`BT /${font} ${size} Tf ${color} rg ${x} ${cursorY} Td (${safe(value).slice(0, 160)}) Tj ET`);
-    };
-    pageRows.forEach((row, rowIndex) => {
-      if (!row) {
-        cursorY -= 8;
-        return;
-      }
-      const isTitle = pageIndex === 0 && rowIndex === 0;
-      const isHeading = ["SUMMARY", "SKILLS", "EXPERIENCE", "PROJECTS", "EDUCATION"].includes(row);
-      wrap(row, isTitle ? 34 : 86).forEach((line) => {
-        text(line, margin, isTitle ? 24 : isHeading ? 11.5 : 10.2, isTitle || isHeading ? "F2" : "F1", isTitle ? "0.027 0.067 0.122" : isHeading ? "0.086 0.239 0.561" : "0.200 0.255 0.333");
-        cursorY -= isTitle ? 28 : lineHeight;
-      });
-      if (isHeading) cursorY -= 4;
-    });
-    const stream = commands.join("\n");
-    contentObjects.push(`<< /Length ${new TextEncoder().encode(stream).length} >>\nstream\n${stream}\nendstream`);
-  });
-  const fontStart = 3 + pages.length * 2;
-  pages.forEach((_, index) => {
-    const contentObjectNumber = 3 + pages.length + index;
-    pageObjects.push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pageWidth} ${pageHeight}] /Resources << /Font << /F1 ${fontStart} 0 R /F2 ${fontStart + 1} 0 R >> >> /Contents ${contentObjectNumber} 0 R >>`);
-  });
-  const objects = [
-    "<< /Type /Catalog /Pages 2 0 R >>",
-    `<< /Type /Pages /Kids [${pages.map((_, index) => `${3 + index} 0 R`).join(" ")}] /Count ${pages.length} >>`,
-    ...pageObjects,
-    ...contentObjects,
-    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
-    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>",
-  ];
-  let pdf = "%PDF-1.4\n";
-  const offsets = [0];
-  objects.forEach((object, index) => {
-    offsets.push(pdf.length);
-    pdf += `${index + 1} 0 obj\n${object}\nendobj\n`;
-  });
-  const xref = pdf.length;
-  pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
-  offsets.slice(1).forEach((offset) => {
-    pdf += `${String(offset).padStart(10, "0")} 00000 n \n`;
-  });
-  pdf += `trailer << /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
-  return new Blob([new TextEncoder().encode(pdf)], { type: "application/pdf" });
 }
