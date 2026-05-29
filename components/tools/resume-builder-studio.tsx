@@ -695,8 +695,8 @@ export function ResumeBuilderStudio() {
   };
 
   return (
-    <section className="relative px-4 pb-8 sm:px-6 lg:px-8 [&_button]:cursor-pointer">
-      <div className="mx-auto w-full max-w-[118rem] space-y-5">
+    <section className="relative min-w-0 overflow-x-clip px-2 pb-8 sm:px-6 lg:px-8 [&_button]:cursor-pointer">
+      <div className="mx-auto w-full max-w-[118rem] min-w-0 space-y-4 sm:space-y-5">
         <StudioHero />
         <StudioProductHeader stage={stage} />
         <StudioTopBar
@@ -775,7 +775,7 @@ export function ResumeBuilderStudio() {
       <ToolToast toast={toast} onClose={() => setToast(null)} />
       {isImportingResume ? <ImportResumeOverlay progress={importProgress} fileName={uploadState.file?.name || "resume"} /> : null}
       {downloadOpen ? <StudioDownloadModal onClose={() => setDownloadOpen(false)} onDownload={downloadResume} /> : null}
-      <div className="fixed bottom-5 left-5 z-40">
+      <div className="fixed bottom-4 left-4 z-40 sm:bottom-5 sm:left-5">
         <ThemeToggle />
       </div>
     </section>
@@ -784,20 +784,20 @@ export function ResumeBuilderStudio() {
 
 function StudioHero() {
   return (
-    <div className="px-2 py-9 text-center sm:px-6 lg:px-10 lg:py-12">
+    <div className="px-1 py-7 text-center sm:px-6 lg:px-10 lg:py-12">
       <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/8 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-primary">
         <WandSparkles className="size-4" aria-hidden="true" />
         Free Online Resume Builder
       </div>
-      <h1 className="mx-auto mt-5 max-w-5xl font-heading text-4xl font-semibold leading-tight text-slate-950 dark:text-white sm:text-5xl lg:text-[3.7rem]">
+      <h1 className="mx-auto mt-5 max-w-5xl text-balance font-heading text-[2.35rem] font-semibold leading-[1.08] text-slate-950 dark:text-white sm:text-5xl lg:text-[3.7rem]">
         Build a professional resume online for free, without signup or hidden charges.
       </h1>
       <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg">
         Choose an ATS-friendly resume template, start from scratch or upload an old resume, edit every section live, add a photo if needed, and prepare a clean resume for PDF or print.
       </p>
-      <div className="mt-6 flex flex-wrap justify-center gap-3">
+      <div className="mt-6 flex flex-wrap justify-center gap-2 sm:gap-3">
         {["No signup needed", "Free resume maker", "Student & fresher friendly", "ATS-friendly templates"].map((item) => (
-          <span key={item} className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200">
+          <span key={item} className="rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200 sm:px-4 sm:text-sm">
             {item}
           </span>
         ))}
@@ -815,21 +815,21 @@ function StudioProductHeader({ stage }: { stage: StudioStage }) {
         : "Edit sections with live preview";
 
   return (
-    <div className="rounded-[1.35rem] border border-slate-200/90 bg-white/92 px-4 py-3 shadow-lg shadow-blue-950/5 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/82">
+    <div className="rounded-[1.1rem] border border-slate-200/90 bg-white/92 px-3 py-3 shadow-lg shadow-blue-950/5 backdrop-blur-xl sm:rounded-[1.35rem] sm:px-4 dark:border-white/10 dark:bg-slate-950/82">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex min-w-0 items-center gap-3">
           <div className="grid size-11 shrink-0 place-items-center rounded-[0.9rem] bg-primary text-primary-foreground shadow-lg shadow-primary/20">
             <LayoutTemplate className="size-5" aria-hidden="true" />
           </div>
           <div className="min-w-0">
-            <h1 className="truncate font-heading text-xl font-semibold text-slate-950 sm:text-2xl dark:text-white">
+            <h1 className="font-heading text-lg font-semibold leading-tight text-slate-950 sm:text-2xl dark:text-white">
               KASA Resume Builder Studio
             </h1>
             <p className="mt-0.5 text-sm font-semibold text-slate-500 dark:text-slate-300">{label}</p>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 lg:flex-nowrap">
+        <div className="flex min-w-0 flex-wrap items-center gap-2 lg:flex-nowrap">
           <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-black text-emerald-700 dark:border-emerald-300/20 dark:bg-emerald-400/10 dark:text-emerald-200">
             Free
           </span>
@@ -868,9 +868,9 @@ function StudioTopBar({
   const activeIndex = steps.findIndex((step) => step.key === stage);
 
   return (
-    <div className="sticky top-[5.5rem] z-30 rounded-[1.35rem] border border-slate-200/90 bg-white/96 p-3 shadow-xl shadow-blue-950/8 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/88">
-      <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
-        <div className="flex flex-wrap items-center gap-2">
+    <div className="sticky top-[4.65rem] z-30 rounded-[1.1rem] border border-slate-200/90 bg-white/96 p-2.5 shadow-xl shadow-blue-950/8 backdrop-blur-xl sm:top-[5.5rem] sm:rounded-[1.35rem] sm:p-3 dark:border-white/10 dark:bg-slate-950/88">
+      <div className="flex min-w-0 flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+        <div className="flex min-w-0 flex-wrap items-center gap-2">
           {steps.map((step, index) => {
             const isActive = step.key === stage;
             const isDone = index < activeIndex;
@@ -885,7 +885,7 @@ function StudioTopBar({
                 >
                   {isDone ? <CheckCircle2 className="size-4" aria-hidden="true" /> : index + 1}
                 </span>
-                <span className={`text-sm font-bold ${isActive ? "text-slate-950 dark:text-white" : "text-slate-500 dark:text-slate-400"}`}>
+                <span className={`text-xs font-bold sm:text-sm ${isActive ? "text-slate-950 dark:text-white" : "text-slate-500 dark:text-slate-400"}`}>
                   {step.label}
                 </span>
                 {index < steps.length - 1 ? <span className="hidden h-px w-8 bg-slate-200 sm:block dark:bg-white/10" /> : null}
@@ -894,7 +894,7 @@ function StudioTopBar({
           })}
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex min-w-0 flex-wrap items-center gap-2">
           <div className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-bold text-slate-700 dark:border-white/10 dark:bg-white/[0.05] dark:text-slate-200">
             {resumeStarted ? `${completion}% ready` : "Start editing"}
           </div>
@@ -965,14 +965,14 @@ function TemplateStage({
   };
 
   return (
-    <div className="rounded-[1.55rem] border border-slate-200 bg-white p-4 shadow-2xl shadow-blue-950/8 dark:border-white/10 dark:bg-white/[0.04]">
-      <div className="grid gap-4 xl:grid-cols-[17rem_minmax(0,1fr)]">
-        <aside className="rounded-[1.25rem] border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/[0.04] xl:sticky xl:top-[13.5rem] xl:self-start">
+    <div className="min-w-0 rounded-[1.25rem] border border-slate-200 bg-white p-3 shadow-2xl shadow-blue-950/8 sm:rounded-[1.55rem] sm:p-4 dark:border-white/10 dark:bg-white/[0.04]">
+      <div className="grid min-w-0 grid-cols-1 gap-4 xl:grid-cols-[17rem_minmax(0,1fr)]">
+        <aside className="min-w-0 rounded-[1.1rem] border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/[0.04] xl:sticky xl:top-[13.5rem] xl:self-start">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-primary shadow-sm dark:bg-white/[0.06]">
             <LayoutTemplate className="size-4" aria-hidden="true" />
             Choose template
           </div>
-          <h2 className="mt-5 font-heading text-2xl font-semibold leading-tight text-slate-950 dark:text-white">
+          <h2 className="mt-5 text-pretty font-heading text-2xl font-semibold leading-tight text-slate-950 dark:text-white">
             Choose your resume template
           </h2>
           <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
@@ -993,7 +993,7 @@ function TemplateStage({
               <Palette className="size-4 text-primary" aria-hidden="true" />
               Accent color
             </div>
-            <div className="mt-4 grid grid-cols-5 gap-2 xl:grid-cols-3">
+            <div className="mt-4 grid grid-cols-5 gap-2 sm:grid-cols-5 xl:grid-cols-3">
               {(Object.keys(accentMap) as AccentId[]).map((accentKey) => (
                 <button
                   key={accentKey}
@@ -1011,11 +1011,11 @@ function TemplateStage({
           </div>
         </aside>
 
-        <div className="space-y-5">
-          <div className="rounded-[1.15rem] border border-slate-200 bg-white p-4 shadow-sm shadow-blue-950/5 dark:border-white/10 dark:bg-white/[0.04]">
-            <div className="flex flex-col gap-3 2xl:flex-row 2xl:items-center">
+        <div className="min-w-0 space-y-5">
+          <div className="min-w-0 rounded-[1.15rem] border border-slate-200 bg-white p-3 shadow-sm shadow-blue-950/5 sm:p-4 dark:border-white/10 dark:bg-white/[0.04]">
+            <div className="flex min-w-0 flex-col gap-3 2xl:flex-row 2xl:items-center">
               <span className="text-sm font-black text-slate-900 dark:text-white">Show</span>
-              <div className="flex gap-2 overflow-x-auto pb-1">
+              <div className="flex min-w-0 max-w-full gap-2 overflow-x-auto pb-1">
                 {["All", "One column", "Two column", "Compact", "Photo"].map((filter) => (
                   <button
                     key={filter}
@@ -1027,7 +1027,7 @@ function TemplateStage({
                   </button>
                 ))}
               </div>
-              <div className="flex gap-2 overflow-x-auto pb-1 2xl:ml-auto">
+              <div className="flex min-w-0 max-w-full gap-2 overflow-x-auto pb-1 2xl:ml-auto">
                 {["All", "Best match", "AI generated", "Creative", "Traditional"].map((filter) => (
                   <button
                     key={filter}
@@ -1042,7 +1042,7 @@ function TemplateStage({
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+          <div className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {filteredTemplates.map((template) => (
               <TemplateCard
                 key={template.id}
@@ -1090,11 +1090,11 @@ function TemplateCard({
     <button
       type="button"
       onClick={onSelect}
-      className={`group text-left transition hover:-translate-y-1 ${
+      className={`group w-full min-w-0 text-left transition hover:-translate-y-1 ${
         active ? "rounded-[1.1rem] ring-2 ring-primary ring-offset-2 ring-offset-white dark:ring-offset-slate-950" : ""
       }`}
     >
-      <div className="rounded-[1.05rem] border border-slate-200 bg-white p-3 shadow-lg shadow-blue-950/8 transition group-hover:shadow-xl dark:border-white/10 dark:bg-slate-950">
+      <div className="min-w-0 rounded-[1.05rem] border border-slate-200 bg-white p-3 shadow-lg shadow-blue-950/8 transition group-hover:shadow-xl dark:border-white/10 dark:bg-slate-950">
         <div className={`relative aspect-[0.72] overflow-hidden rounded-[0.8rem] border border-slate-200 ${theme.bg}`}>
           {template.recommended || template.generated ? (
             <span className="absolute right-3 top-3 z-10 rounded-full bg-white px-3 py-1 text-[0.65rem] font-black uppercase tracking-[0.1em] text-primary shadow-md">
@@ -1104,7 +1104,7 @@ function TemplateCard({
           <MiniResumePreview template={template.id} layout={template.layout} accent={accent} />
         </div>
         <div className="mt-3 space-y-2">
-          <div className="font-heading text-lg font-semibold leading-tight text-slate-950 dark:text-white">{template.name}</div>
+          <div className="break-words font-heading text-lg font-semibold leading-tight text-slate-950 dark:text-white">{template.name}</div>
           {template.generated ? (
             <span className="inline-flex w-fit max-w-full items-center gap-1.5 rounded-full border border-primary/25 bg-gradient-to-r from-primary/10 via-sky-50 to-emerald-50 px-3 py-1.5 text-[0.66rem] font-black uppercase tracking-[0.08em] text-primary shadow-sm dark:from-primary/20 dark:via-white/10 dark:to-emerald-400/10">
               <Sparkles className="size-3 animate-pulse" aria-hidden="true" />
@@ -1340,7 +1340,7 @@ function MethodStage({
   };
 
   return (
-    <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-2xl shadow-blue-950/8 sm:p-8 dark:border-white/10 dark:bg-white/[0.04]">
+    <div className="min-w-0 rounded-[1.25rem] border border-slate-200 bg-white p-4 shadow-2xl shadow-blue-950/8 sm:rounded-[1.75rem] sm:p-8 dark:border-white/10 dark:bg-white/[0.04]">
       <button
         type="button"
         onClick={onBack}
@@ -1350,7 +1350,7 @@ function MethodStage({
         Back to templates
       </button>
       <div className="mx-auto mt-8 max-w-4xl text-center">
-        <h2 className="font-heading text-3xl font-semibold text-slate-950 sm:text-5xl dark:text-white">
+        <h2 className="text-balance font-heading text-3xl font-semibold leading-tight text-slate-950 sm:text-5xl dark:text-white">
           How would you like to build your resume?
         </h2>
         <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300">
@@ -1358,7 +1358,7 @@ function MethodStage({
         </p>
       </div>
 
-      <div className="mt-10 grid gap-5 lg:grid-cols-3">
+      <div className="mt-8 grid min-w-0 grid-cols-1 gap-4 sm:mt-10 lg:grid-cols-3">
         <MethodCard
           icon={PenLine}
           title="Start with a new resume"
@@ -1474,11 +1474,11 @@ function MethodCard({
   children?: ReactNode;
 }) {
   return (
-    <div className="rounded-[1.35rem] border border-slate-200 bg-white p-6 text-center shadow-lg shadow-blue-950/6 transition hover:-translate-y-1 hover:shadow-2xl dark:border-white/10 dark:bg-slate-950">
+    <div className="min-w-0 rounded-[1.15rem] border border-slate-200 bg-white p-5 text-center shadow-lg shadow-blue-950/6 transition hover:-translate-y-1 hover:shadow-2xl sm:rounded-[1.35rem] sm:p-6 dark:border-white/10 dark:bg-slate-950">
       <div className="mx-auto grid size-16 place-items-center rounded-[1.05rem] bg-primary/10 text-primary">
         <Icon className="size-8" aria-hidden="true" />
       </div>
-      <h3 className="mt-5 font-heading text-2xl font-semibold text-slate-950 dark:text-white">{title}</h3>
+      <h3 className="mt-5 text-pretty font-heading text-2xl font-semibold text-slate-950 dark:text-white">{title}</h3>
       <p className="mx-auto mt-3 max-w-sm text-sm leading-6 text-slate-600 dark:text-slate-300">{description}</p>
       {children}
       <button
@@ -1527,7 +1527,7 @@ function EditorStage({
   onCheckAts: () => void;
 }) {
   return (
-    <div className="grid gap-5 xl:grid-cols-[5.35rem_minmax(0,0.93fr)_minmax(32rem,1.07fr)]">
+    <div className="grid min-w-0 grid-cols-1 gap-4 xl:grid-cols-[5.35rem_minmax(0,0.93fr)_minmax(32rem,1.07fr)] xl:gap-5">
       <aside className="hidden rounded-[1.35rem] border border-slate-200 bg-white p-3 shadow-lg shadow-blue-950/6 xl:block dark:border-white/10 dark:bg-white/[0.04]">
         <div className="space-y-2">
           {sectionNav.map(({ key, label, icon: Icon }, index) => (
@@ -1549,8 +1549,8 @@ function EditorStage({
         </div>
       </aside>
 
-      <div className="rounded-[1.55rem] border border-slate-200 bg-white shadow-2xl shadow-blue-950/8 dark:border-white/10 dark:bg-white/[0.04]">
-        <div className="border-b border-slate-200 p-5 dark:border-white/10">
+      <div className="min-w-0 rounded-[1.25rem] border border-slate-200 bg-white shadow-2xl shadow-blue-950/8 sm:rounded-[1.55rem] dark:border-white/10 dark:bg-white/[0.04]">
+        <div className="border-b border-slate-200 p-4 sm:p-5 dark:border-white/10">
           <button
             type="button"
             onClick={onBack}
@@ -1559,23 +1559,23 @@ function EditorStage({
             <ArrowLeft className="size-4" aria-hidden="true" />
             Back to build method
           </button>
-          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div className="mt-4 flex min-w-0 flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <div className="text-xs font-black uppercase tracking-[0.18em] text-primary">AI resume editor</div>
-              <h2 className="mt-2 font-heading text-3xl font-semibold text-slate-950 dark:text-white">
+              <h2 className="mt-2 text-pretty font-heading text-3xl font-semibold leading-tight text-slate-950 dark:text-white">
                 Write stronger sections with AI
               </h2>
               <p className="mt-2 max-w-2xl text-sm font-semibold leading-6 text-slate-500 dark:text-slate-300">
                 Use AI prompts to draft, improve, and polish the six ATS-friendly resume sections.
               </p>
             </div>
-            <div className="inline-flex rounded-full border border-slate-200 bg-slate-50 p-1 dark:border-white/10 dark:bg-white/[0.04]">
-              {sectionNav.slice(0, 3).map(({ key, label }) => (
+            <div className="flex max-w-full overflow-x-auto rounded-full border border-slate-200 bg-slate-50 p-1 dark:border-white/10 dark:bg-white/[0.04]">
+              {sectionNav.map(({ key, label }) => (
                 <button
                   key={key}
                   type="button"
                   onClick={() => onSectionChange(key)}
-                  className={`rounded-full px-3 py-2 text-xs font-black transition ${activeSection === key ? "bg-white text-primary shadow-sm dark:bg-white/10" : "text-slate-500"}`}
+                  className={`shrink-0 rounded-full px-3 py-2 text-xs font-black transition ${activeSection === key ? "bg-white text-primary shadow-sm dark:bg-white/10" : "text-slate-500"}`}
                 >
                   {label}
                 </button>
@@ -1583,7 +1583,7 @@ function EditorStage({
             </div>
           </div>
         </div>
-        <div className="p-5">
+        <div className="p-4 sm:p-5">
           <SectionEditor
             resume={resume}
             activeSection={activeSection}
@@ -1594,7 +1594,7 @@ function EditorStage({
         </div>
       </div>
 
-      <div className="min-w-0 rounded-[1.55rem] border border-slate-200 bg-white p-4 shadow-2xl shadow-blue-950/8 dark:border-white/10 dark:bg-white/[0.04]">
+      <div className="min-w-0 rounded-[1.25rem] border border-slate-200 bg-white p-3 shadow-2xl shadow-blue-950/8 sm:rounded-[1.55rem] sm:p-4 dark:border-white/10 dark:bg-white/[0.04]">
         <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <div className="text-xs font-black uppercase tracking-[0.18em] text-primary">Live preview</div>
@@ -1623,10 +1623,10 @@ function EditorStage({
           </button>
         ) : null}
 
-        <div className="sticky top-[12.6rem]">
-          <div className="overflow-hidden rounded-[1.2rem] border border-slate-200 bg-slate-100 p-4 dark:border-white/10 dark:bg-slate-900">
-            <div className="mx-auto max-w-[48rem]">
-          <ResumePreview resume={resume} template={selectedTemplate.id} layout={selectedTemplate.layout} accentTheme={accentTheme} />
+        <div className="xl:sticky xl:top-[12.6rem]">
+          <div className="overflow-x-auto overflow-y-hidden rounded-[1rem] border border-slate-200 bg-slate-100 p-2 sm:rounded-[1.2rem] sm:p-4 dark:border-white/10 dark:bg-slate-900">
+            <div className="mx-auto w-full min-w-[38rem] max-w-[48rem] sm:min-w-0">
+              <ResumePreview resume={resume} template={selectedTemplate.id} layout={selectedTemplate.layout} accentTheme={accentTheme} />
             </div>
           </div>
           {resumeStarted ? (
