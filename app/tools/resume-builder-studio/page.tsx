@@ -283,6 +283,8 @@ export default function ResumeBuilderStudioPage() {
           { href: "/tools/resume-ats-checker", label: "AI Resume ATS Checker" },
           { href: "/tools/ai-resume-builder", label: "AI Resume Builder" },
           { href: "/tools/final-year-project-kit-generator", label: "AI Final Year Project Kit" },
+          { href: "/tools/study-timetable-generator", label: "Study Timetable Generator" },
+          { href: "/tools/gpa-calculator", label: "GPA Calculator" },
         ]}
       />
     </main>

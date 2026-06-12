@@ -293,6 +293,7 @@ export default function AiResumeBuilderPage() {
           { href: "/tools/resume-builder-studio", label: "Free Resume Builder" },
           { href: "/tools/final-year-project-kit-generator", label: "AI Final Year Project Kit" },
           { href: "/tools/study-timetable-generator", label: "Study Timetable Generator" },
+          { href: "/tools/gpa-calculator", label: "GPA Calculator" },
         ]}
       />
     </div>
