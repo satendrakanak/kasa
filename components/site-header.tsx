@@ -8,9 +8,9 @@ import {
   BookOpenCheck,
   ChevronDown,
   GraduationCap,
+  Mail,
   Menu,
   MessageCircle,
-  Phone,
   Sparkles,
   X,
 } from "lucide-react";
@@ -209,9 +209,9 @@ const primaryNav: NavItem[] = [
         description: "Talk to the KASA team about your academy rollout.",
       },
       {
-        label: "Customer stories",
+        label: "Use cases",
         href: "/testimonials",
-        description: "Read how academy teams use KASA for growth.",
+        description: "Explore practical KASA workflows for academy teams.",
       },
       {
         label: "FAQ",
@@ -268,11 +268,11 @@ export default function SiteHeader() {
               Built for institutes, trainers, and EdTech teams
             </span>
             <a
-              href="tel:+918979791615"
+              href="mailto:getkasalms@gmail.com"
               className="hidden cursor-pointer items-center gap-2 text-[var(--topbar-foreground)] transition hover:opacity-80 lg:inline-flex"
             >
-              <Phone className="size-3.5" aria-hidden="true" />
-              +91 8979 791615
+              <Mail className="size-3.5" aria-hidden="true" />
+              getkasalms@gmail.com
             </a>
           </div>
         </div>

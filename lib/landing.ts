@@ -294,51 +294,51 @@ export const faqs = [
 
 export const testimonials = [
   {
-    name: "Aarav Mehta",
-    role: "Director, GrowthBridge Academy",
+    name: "Course selling flow",
+    role: "Common academy workflow",
     quote:
-      "The biggest win was clarity. Our website, course sales, live classes, and learner support finally started feeling like one system instead of four separate tools.",
+      "Connect course pages, checkout, learner access, batches, and certificates so students are not sent across disconnected tools.",
     image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80",
+      "/feature-course-selling-vector.png",
   },
   {
-    name: "Ritika Saini",
-    role: "Founder, SkillOrbit Institute",
+    name: "Learner experience",
+    role: "Common academy workflow",
     quote:
-      "We stopped sending students across random apps. KASA gave us a cleaner learner journey and our team stopped wasting time explaining where everything lives.",
+      "Give learners one place for purchased courses, live classes, replays, assignments, certificates, and progress.",
     image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=240&q=80",
+      "/academy-online-student.jpg",
   },
   {
-    name: "Nitin Verma",
-    role: "Operations Lead, PrimeEdge Classes",
+    name: "Admissions and payments",
+    role: "Common academy workflow",
     quote:
-      "For our team, the CRM and payments layer mattered as much as the LMS. Admissions follow-up, fee status, and batch operations now feel much more controlled.",
+      "Track enquiries, fee status, course access, and batch allocation from a single operations layer.",
     image:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=240&q=80",
+      "/feature-crm-dashboard.png",
   },
   {
-    name: "Sana Kapoor",
-    role: "Academic Head, CodeSprint Academy",
+    name: "Faculty workflows",
+    role: "Common academy workflow",
     quote:
-      "The faculty side is what sold us. Sessions, reminders, assignments, and learners are no longer spread across spreadsheets and chat threads.",
+      "Help faculty manage assigned courses, sessions, reminders, assignments, learner activity, and academic follow-ups.",
     image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=240&q=80",
+      "/feature-online-faculty.png",
   },
   {
-    name: "Harsh Rajput",
-    role: "Co-founder, MentorLoop Learning",
+    name: "Branded academy website",
+    role: "Common academy workflow",
     quote:
-      "We needed a product that looked premium before login and stayed practical after login. KASA handled both sides better than we expected.",
+      "Create a professional public academy presence and connect it with the LMS, course catalogue, and learner journey.",
     image:
-      "https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=240&q=80",
+      "/academy-students-learning-card.webp",
   },
   {
-    name: "Devika Malhotra",
-    role: "Program Lead, NorthStar Academy",
+    name: "Launch support",
+    role: "Common academy workflow",
     quote:
-      "Our launch went live faster because we were not building everything from scratch. That alone saved us weeks of back and forth.",
+      "Plan domain, AWS, payments, email, course uploads, and admin setup without building a custom LMS from scratch.",
     image:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=240&q=80",
+      "/feature-team-meeting.jpg",
   },
 ];

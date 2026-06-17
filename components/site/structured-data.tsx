@@ -26,8 +26,7 @@ export function SiteStructuredData() {
           name: "KASA",
           url: SITE_URL,
           logo: `${SITE_URL}/kasa-logo-light.png`,
-          email: "support@getkasa.in",
-          telephone: "+91 8979 791615",
+          email: "getkasalms@gmail.com",
           sameAs: [
             "https://www.instagram.com/getkasalms",
             "https://www.youtube.com/@codewithkasa751",
