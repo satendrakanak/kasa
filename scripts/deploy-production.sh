@@ -80,7 +80,15 @@ fi
 
 DATABASE_URL="$DATABASE_URL" npx prisma migrate deploy
 
-CURRENT_PORT="$(sudo sed -n 's/.*proxy_pass http:\/\/127\.0\.0\.1:\([0-9][0-9]*\);.*/\1/p' "$NGINX_SITE" | head -1)"
+CURRENT_PORT="$(
+  sudo sed -n \
+    '/server_name getkasa\.in www\.getkasa\.in;/,/^}/ { s/.*proxy_pass http:\/\/127\.0\.0\.1:\([0-9][0-9]*\);.*/\1/p; }' \
+    "$NGINX_SITE" | head -1
+)"
+if [[ -z "$CURRENT_PORT" ]]; then
+  echo "Could not identify the getkasa.in nginx upstream port." >&2
+  exit 1
+fi
 if [[ "$CURRENT_PORT" == "3011" ]]; then
   CANDIDATE_PORT="3012"
 else
