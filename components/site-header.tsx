@@ -12,6 +12,7 @@ import {
   LogOut,
   Mail,
   Menu,
+  MessageCircle,
   Sparkles,
   UserRound,
   X,
