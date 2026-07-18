@@ -81,10 +81,10 @@ fi
 DATABASE_URL="$DATABASE_URL" npx prisma migrate deploy
 
 CURRENT_PORT="$(sudo sed -n 's/.*proxy_pass http:\/\/127\.0\.0\.1:\([0-9][0-9]*\);.*/\1/p' "$NGINX_SITE" | head -1)"
-if [[ "$CURRENT_PORT" == "3001" ]]; then
-  CANDIDATE_PORT="3002"
+if [[ "$CURRENT_PORT" == "3011" ]]; then
+  CANDIDATE_PORT="3012"
 else
-  CANDIDATE_PORT="3001"
+  CANDIDATE_PORT="3011"
 fi
 CANDIDATE_NAME="kasa-site-${CANDIDATE_PORT}"
 
@@ -123,9 +123,10 @@ trap - ERR
 
 if [[ "$CURRENT_PORT" == "3001" ]]; then
   pm2 delete kasa-site >/dev/null 2>&1 || true
-  pm2 delete kasa-site-3001 >/dev/null 2>&1 || true
+elif [[ "$CURRENT_PORT" == "3011" ]]; then
+  pm2 delete kasa-site-3011 >/dev/null 2>&1 || true
 else
-  pm2 delete kasa-site-3002 >/dev/null 2>&1 || true
+  pm2 delete kasa-site-3012 >/dev/null 2>&1 || true
 fi
 
 pm2 save
