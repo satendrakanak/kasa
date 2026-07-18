@@ -2,11 +2,15 @@ import { execFileSync } from "node:child_process";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-const legacyUrl = process.env.LEGACY_DATABASE_URL;
+const legacyUrlValue = process.env.LEGACY_DATABASE_URL;
 
-if (!legacyUrl) {
+if (!legacyUrlValue) {
   throw new Error("LEGACY_DATABASE_URL is required.");
 }
+
+const legacyDatabaseUrl = new URL(legacyUrlValue);
+legacyDatabaseUrl.searchParams.delete("schema");
+const legacyUrl = legacyDatabaseUrl.toString();
 
 function legacyRows(table) {
   const sql = `SELECT COALESCE(json_agg(row_to_json(t))::text, '[]') FROM (SELECT * FROM "${table}") t`;
