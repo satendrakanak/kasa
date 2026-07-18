@@ -172,8 +172,7 @@ export function FeaturesSection() {
 }
 
 export async function PricingSection() {
-  const leadsEndpoint =
-    process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
+  const leadsEndpoint = "/api/leads";
   const pricing = await getWebsitePricingPlans();
 
   return (
@@ -369,16 +368,16 @@ export function TestimonialsSection() {
     >
       <div className="mx-auto max-w-3xl text-center">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
-          Client testimonials
+          Use cases
         </p>
         <h2 className="mt-3 font-heading text-3xl font-semibold leading-[1.2] tracking-normal sm:text-5xl sm:leading-tight">
           Teams choose KASA when they want the full learner journey to feel
           cleaner and easier to run.
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-muted sm:text-base">
-          These are the kinds of outcomes serious institutes expect when their
-          website, delivery flow, payments, and learner support finally start
-          working together.
+          These are the operational workflows institutes can bring together
+          when website, delivery flow, payments, and learner support start
+          working from one platform.
         </p>
       </div>
 
@@ -405,7 +404,7 @@ export function TestimonialsSection() {
               </div>
             </div>
             <p className="mt-5 text-sm leading-7 text-slate-300">
-              “{testimonial.quote}”
+              {testimonial.quote}
             </p>
           </article>
         ))}
@@ -415,8 +414,7 @@ export function TestimonialsSection() {
 }
 
 export function SiteFooter() {
-  const leadsEndpoint =
-    process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
+  const leadsEndpoint = "/api/leads";
 
   return (
     <footer className="border-t border-border bg-background px-4 py-10 text-foreground sm:px-6 lg:px-8">

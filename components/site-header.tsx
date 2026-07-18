@@ -8,17 +8,17 @@ import {
   BookOpenCheck,
   ChevronDown,
   GraduationCap,
+  LogIn,
+  LogOut,
+  Mail,
   Menu,
-  MessageCircle,
-  Phone,
   Sparkles,
+  UserRound,
   X,
 } from "lucide-react";
-import { LeadCaptureModalTrigger } from "@/components/lead-capture-trigger";
 import { ProductTourTrigger } from "@/components/site/product-tour-trigger";
 import { siteContainerClasses } from "@/components/site/site-container";
-import { siteButtonClasses } from "@/components/site/site-button";
-import ThemeToggle from "@/components/theme-toggle";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type NavChild = {
   label: string;
@@ -40,73 +40,79 @@ type NavItem =
 
 const primaryNav: NavItem[] = [
   {
-    label: "Features",
-    href: "/features",
+    label: "Students",
+    href: "/students",
     items: [
       {
-        label: "Course selling platform",
-        href: "/features/course-selling-platform",
-        description: "Course pages, checkout, coupons, invoices, and access.",
+        label: "Student hub",
+        href: "/students",
+        description: "Resume tools, ATS checker, project kit, interview Q&A, and study calculators.",
       },
       {
-        label: "Live class management",
-        href: "/features/live-class-management",
-        description: "Batches, calendars, replays, attendance, and reminders.",
+        label: "Resume builder",
+        href: "/tools/resume-builder-studio",
+        description: "Build an ATS-friendly student resume with templates and live editing.",
       },
       {
-        label: "Assessment and certificates",
-        href: "/features/exams-assignments-certificates",
-        description: "Quizzes, assignments, results, and certificate rules.",
+        label: "ATS checker",
+        href: "/tools/resume-ats-checker",
+        description: "Check resume score, keyword gaps, rejection risks, and next steps.",
       },
       {
-        label: "Learner dashboard",
-        href: "/features/student-faculty-management",
-        description: "Student, trainer, and admin workspaces in one LMS.",
+        label: "Project kit",
+        href: "/tools/final-year-project-kit-generator",
+        description: "Generate final year project ideas, docs, viva questions, and starter kits.",
       },
       {
-        label: "Education CRM",
-        href: "/features/education-crm-leads",
-        description: "Lead capture, follow-ups, fees, and learner records.",
+        label: "Career roadmap",
+        href: "/tools/ai-career-roadmap",
+        description: "Get a role-wise plan with skills, projects, weekly tasks, and interview prep.",
       },
       {
-        label: "Admin reporting",
-        href: "/features/admin-dashboard-reporting",
-        description: "Revenue, progress, course, and operation reports.",
+        label: "Interview questions",
+        href: "/students/interview-questions",
+        description: "Practice HR, technical, project, and CS fundamentals questions.",
       },
     ],
   },
   {
-    label: "Solutions",
-    href: "/solutions",
+    label: "LMS",
+    href: "/features",
     items: [
+      {
+        label: "Features",
+        href: "/features",
+        description: "Explore course selling, live classes, exams, certificates, CRM, and reports.",
+      },
       {
         label: "Coaching institutes",
         href: "/solutions/coaching-institutes",
-        description: "Run courses, batches, fees, and learner operations.",
+        description: "Run courses, batches, fees, students, and institute operations.",
       },
       {
         label: "Online academies",
         href: "/solutions/online-academies",
-        description: "Launch a branded academy with recorded and live programs.",
+        description: "Launch a branded academy with recorded courses and live programs.",
       },
       {
-        label: "Trainers and creators",
-        href: "/solutions/trainers-creators",
-        description: "Sell courses, host sessions, and track student progress.",
+        label: "Course selling",
+        href: "/features/course-selling-platform",
+        description: "Course pages, checkout, coupons, invoices, and access.",
       },
       {
-        label: "EdTech startups",
-        href: "/solutions/edtech-startups",
-        description: "Ship a production-ready LMS without rebuilding core infra.",
+        label: "Live classes",
+        href: "/features/live-class-management",
+        description: "Batches, calendars, replays, attendance, and reminders.",
       },
       {
-        label: "Skill development centres",
-        href: "/solutions/skill-development-centres",
-        description: "Manage training, batches, attendance, and certificates.",
+        label: "Exams and certificates",
+        href: "/features/exams-assignments-certificates",
+        description: "Quizzes, assignments, results, and certificate rules.",
       },
     ],
   },
   { label: "Pricing", href: "/pricing" },
+  { label: "Blog", href: "/blog" },
   {
     label: "Resources",
     href: "/resources",
@@ -127,9 +133,9 @@ const primaryNav: NavItem[] = [
         description: "How to run live online classes with batches, replays, and student tracking.",
       },
       {
-        label: "Academy website SEO",
+        label: "Academy growth guide",
         href: "/resources/lms-seo-for-academies",
-        description: "SEO strategy for online academies and coaching institute websites.",
+        description: "How academies can bring more students through their own website.",
       },
       {
         label: "Course certificates",
@@ -144,18 +150,13 @@ const primaryNav: NavItem[] = [
     ],
   },
   {
-    label: "AI Tools",
+    label: "Tools",
     href: "/tools",
     items: [
       {
-        label: "AI Resume ATS Checker",
+        label: "ATS checker",
         href: "/tools/resume-ats-checker",
-        description: "Upload a resume and get ATS score, missing skills, roadmap, and PDF report.",
-      },
-      {
-        label: "AI Resume Builder",
-        href: "/tools/ai-resume-builder",
-        description: "Build a clean ATS-friendly resume with AI templates and smart bullets.",
+        description: "Upload a resume and get ATS score, missing skills, next steps, and PDF report.",
       },
       {
         label: "Free Resume Builder",
@@ -163,29 +164,24 @@ const primaryNav: NavItem[] = [
         description: "Create a free ATS-friendly resume online with templates, live editing, and PDF-ready export.",
       },
       {
-        label: "AI Final Year Project Kit",
+        label: "Project kit",
         href: "/tools/final-year-project-kit-generator",
-        description: "Generate project ideas, architecture, docs, viva questions, and starter ZIP.",
+        description: "Generate project ideas, system plan, docs, viva questions, and starter ZIP.",
       },
       {
-        label: "AI Question Paper Generator",
-        href: "/tools/question-paper-generator",
-        description: "Create class-wise question papers with sections, marks, and teacher hints.",
+        label: "Career roadmap",
+        href: "/tools/ai-career-roadmap",
+        description: "Create a role-wise plan with skills, projects, weekly tasks, and interview prep.",
       },
       {
-        label: "AI Quiz Generator",
-        href: "/tools/quiz-generator",
-        description: "Build MCQ, true false, and short-answer quizzes for classroom practice.",
+        label: "Attendance calculator",
+        href: "/tools/attendance-calculator",
+        description: "Calculate attendance percentage, safe bunks, and classes needed for 75%.",
       },
       {
-        label: "AI Lesson Plan Generator",
-        href: "/tools/lesson-plan-generator",
-        description: "Plan class objectives, activities, resources, assessment, and homework.",
-      },
-      {
-        label: "AI Worksheet Generator",
-        href: "/tools/worksheet-generator",
-        description: "Generate printable worksheets for practice, homework, and revision.",
+        label: "All tools",
+        href: "/tools",
+        description: "Browse calculators, resume tools, project tools, and teacher generators.",
       },
     ],
   },
@@ -209,9 +205,9 @@ const primaryNav: NavItem[] = [
         description: "Talk to the KASA team about your academy rollout.",
       },
       {
-        label: "Customer stories",
+        label: "Use cases",
         href: "/testimonials",
-        description: "Read how academy teams use KASA for growth.",
+        description: "Explore practical KASA workflows for academy teams.",
       },
       {
         label: "FAQ",
@@ -224,17 +220,93 @@ const primaryNav: NavItem[] = [
 
 const menuIcons = [BookOpenCheck, GraduationCap, Sparkles];
 
+type SiteHeaderUser = {
+  name: string;
+  email: string;
+  image?: string;
+} | null;
+
 function hasChildren(item: NavItem): item is Extract<NavItem, { items: NavChild[] }> {
   return Array.isArray(item.items);
+}
+
+function initials(name: string, email: string) {
+  const source = name || email || "KASA";
+  return source
+    .split(/\s+/)
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
+function HeaderUserMenu({ user, callbackUrl }: { user: SiteHeaderUser; callbackUrl: string }) {
+  if (!user) {
+    return (
+      <Link
+        href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`}
+        className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-full border border-blue-950/10 bg-white px-4 text-sm font-semibold text-slate-900 shadow-sm shadow-blue-950/8 transition hover:border-primary/30 hover:text-primary dark:border-white/10 dark:bg-white/8 dark:text-white dark:hover:text-emerald-200"
+      >
+        <LogIn className="size-4" aria-hidden="true" />
+        Login
+      </Link>
+    );
+  }
+
+  return (
+    <div className="group relative">
+      <button
+        type="button"
+        className="grid size-11 cursor-pointer place-items-center rounded-full border border-blue-950/10 bg-white p-1 text-slate-900 shadow-sm shadow-blue-950/8 transition hover:border-primary/30 dark:border-white/10 dark:bg-white/8 dark:text-white"
+        aria-label="Open account menu"
+      >
+        <Avatar className="size-8">
+          {user.image ? <AvatarImage src={user.image} alt={user.name} /> : null}
+          <AvatarFallback className="bg-blue-50 text-xs font-bold text-primary dark:bg-emerald-300 dark:text-slate-950">
+            {initials(user.name, user.email)}
+          </AvatarFallback>
+        </Avatar>
+      </button>
+      <div className="invisible absolute right-0 top-full z-20 w-64 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100">
+        <div className="rounded-2xl border border-blue-950/10 bg-white p-3 shadow-2xl shadow-blue-950/14 dark:border-white/10 dark:bg-surface">
+          <div className="flex items-center gap-3 border-b border-blue-950/10 pb-3 dark:border-white/10">
+            <Avatar className="size-10">
+              {user.image ? <AvatarImage src={user.image} alt={user.name} /> : null}
+              <AvatarFallback className="bg-blue-50 font-bold text-primary dark:bg-emerald-300 dark:text-slate-950">
+                {initials(user.name, user.email)}
+              </AvatarFallback>
+            </Avatar>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold text-slate-950 dark:text-white">{user.name}</p>
+              <p className="truncate text-xs text-slate-500 dark:text-slate-300">{user.email}</p>
+            </div>
+          </div>
+          <Link
+            href="/students/interview-questions#ask"
+            className="mt-2 flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-blue-50 hover:text-primary dark:text-slate-200 dark:hover:bg-white/7"
+          >
+            <UserRound className="size-4" aria-hidden="true" />
+            Ask a question
+          </Link>
+          <Link
+            href="/logout"
+            className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-rose-50 hover:text-rose-600 dark:text-slate-200 dark:hover:bg-white/7"
+          >
+            <LogOut className="size-4" aria-hidden="true" />
+            Logout
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [user, setUser] = useState<SiteHeaderUser>(null);
   const pathname = usePathname();
-  const isResumeBuilderStudio = pathname === "/tools/resume-builder-studio";
-  const leadsEndpoint =
-    process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
+  const currentPath = pathname || "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -243,7 +315,36 @@ export default function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  if (pathname?.startsWith("/cwk") || pathname?.startsWith("/landing")) {
+  useEffect(() => {
+    let isMounted = true;
+
+    fetch("/api/auth/session", { credentials: "same-origin" })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((session) => {
+        if (!isMounted || !session?.user?.id) return;
+        setUser({
+          name: session.user.name || "KASA member",
+          email: session.user.email || "",
+          image: session.user.image || "",
+        });
+      })
+      .catch(() => {
+        if (isMounted) setUser(null);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  if (
+    pathname?.startsWith("/cwk") ||
+    pathname?.startsWith("/landing") ||
+    pathname?.startsWith("/admin") ||
+    pathname?.startsWith("/auth") ||
+    pathname?.startsWith("/login") ||
+    pathname?.startsWith("/signup")
+  ) {
     return null;
   }
 
@@ -268,11 +369,11 @@ export default function SiteHeader() {
               Built for institutes, trainers, and EdTech teams
             </span>
             <a
-              href="tel:+918979791615"
+              href="mailto:getkasalms@gmail.com"
               className="hidden cursor-pointer items-center gap-2 text-[var(--topbar-foreground)] transition hover:opacity-80 lg:inline-flex"
             >
-              <Phone className="size-3.5" aria-hidden="true" />
-              +91 8979 791615
+              <Mail className="size-3.5" aria-hidden="true" />
+              getkasalms@gmail.com
             </a>
           </div>
         </div>
@@ -303,22 +404,22 @@ export default function SiteHeader() {
           />
         </Link>
 
-        <nav className="hidden h-full items-center gap-1 lg:flex">
+        <nav className="hidden h-full items-center gap-1 xl:flex">
           {primaryNav.map((item) =>
             hasChildren(item) ? (
               <div key={item.label} className="group relative flex h-full items-center">
                 <Link
                   href={item.href}
-                  className="inline-flex h-10 cursor-pointer items-center gap-1 px-4 text-sm font-semibold text-slate-900 transition hover:text-primary dark:font-medium dark:text-white/78 dark:hover:text-white"
+                  className="inline-flex h-10 cursor-pointer items-center gap-1 px-3 text-sm font-semibold text-slate-900 transition hover:text-primary dark:font-medium dark:text-white/78 dark:hover:text-white"
                 >
-                  {item.label === "AI Tools" ? <Sparkles className="size-3.5 animate-pulse text-primary dark:text-emerald-200" aria-hidden="true" /> : null}
+                  {item.label === "Tools" ? <Sparkles className="size-3.5 animate-pulse text-primary dark:text-emerald-200" aria-hidden="true" /> : null}
                   {item.label}
                   <ChevronDown className="size-3.5" aria-hidden="true" />
                 </Link>
                 <div
                   className={[
-                    "invisible absolute top-full w-[min(48rem,calc(100vw-2rem))] opacity-0 transition group-hover:visible group-hover:opacity-100",
-                    item.label === "Features"
+                    "invisible absolute top-full w-[min(42rem,calc(100vw-2rem))] opacity-0 transition group-hover:visible group-hover:opacity-100",
+                    item.label === "Students" || item.label === "LMS"
                       ? "left-0"
                       : item.label === "Company"
                         ? "right-0"
@@ -328,14 +429,14 @@ export default function SiteHeader() {
                   <div className="overflow-hidden rounded-b-[1.6rem] border border-blue-950/10 bg-white shadow-2xl shadow-blue-950/12 dark:border-white/10 dark:bg-surface dark:shadow-black/30">
                     <div className="site-topbar border-b border-white/15 px-6 py-3 text-center">
                       <p className="font-heading text-sm font-semibold text-[var(--topbar-foreground)]">
-                        {item.label === "Features"
-                          ? "Products and platform modules"
-                          : item.label === "Solutions"
-                            ? "Solutions by team type"
+                        {item.label === "Students"
+                            ? "College resources and career tools"
+                          : item.label === "LMS"
+                            ? "KASA LMS for academies and trainers"
                             : item.label === "Resources"
                               ? "Guides for academy growth"
-                              : item.label === "AI Tools"
-                                ? "Popular AI tools for students and teachers"
+                              : item.label === "Tools"
+                                ? "Popular tools for students and teachers"
                               : "Company pages"}
                       </p>
                     </div>
@@ -372,35 +473,22 @@ export default function SiteHeader() {
                 href={item.href}
                 className="inline-flex h-10 cursor-pointer items-center gap-1.5 px-4 text-sm font-semibold text-slate-900 transition hover:text-primary dark:font-medium dark:text-white/78 dark:hover:text-white"
               >
-                {item.label === "AI Tools" ? <Sparkles className="size-3.5 animate-pulse text-primary dark:text-emerald-200" aria-hidden="true" /> : null}
+                {item.label === "Tools" ? <Sparkles className="size-3.5 animate-pulse text-primary dark:text-emerald-200" aria-hidden="true" /> : null}
                 {item.label}
               </Link>
             ),
           )}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          {isResumeBuilderStudio ? null : <ThemeToggle />}
+        <div className="hidden items-center gap-3 xl:flex">
           <ProductTourTrigger className="h-11 px-5" />
-          <LeadCaptureModalTrigger
-            endpoint={leadsEndpoint}
-            source="header-enquiry-modal"
-            leadType="enquiry"
-            buttonLabel="Enquire Now"
-            modalTitle="Tell us about your academy"
-            modalEyebrow="Enquiry request"
-            icon={<MessageCircle className="size-4" aria-hidden="true" />}
-            buttonClassName={siteButtonClasses({
-              size: "sm",
-              className: "h-11 px-5",
-            })}
-          />
+          <HeaderUserMenu user={user} callbackUrl={currentPath} />
         </div>
 
         <button
           type="button"
           onClick={() => setOpen((current) => !current)}
-          className="grid size-10 cursor-pointer place-items-center rounded-full border border-blue-950/10 bg-white text-slate-900 shadow-sm shadow-blue-950/8 dark:border-white/10 dark:bg-white/8 dark:text-white dark:shadow-none lg:hidden"
+          className="grid size-10 cursor-pointer place-items-center rounded-full border border-blue-950/10 bg-white text-slate-900 shadow-sm shadow-blue-950/8 dark:border-white/10 dark:bg-white/8 dark:text-white dark:shadow-none xl:hidden"
           aria-label="Toggle navigation"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -408,7 +496,7 @@ export default function SiteHeader() {
       </header>
 
       {open ? (
-        <div className="fixed inset-0 z-[60] bg-slate-950/45 backdrop-blur-sm lg:hidden" onClick={() => setOpen(false)}>
+        <div className="fixed inset-0 z-[60] bg-slate-950/45 backdrop-blur-sm xl:hidden" onClick={() => setOpen(false)}>
           <aside
             className="ml-auto flex h-dvh w-[min(22rem,88vw)] flex-col border-l border-blue-950/10 bg-white p-4 shadow-2xl shadow-blue-950/20 dark:border-white/10 dark:bg-surface"
             onClick={(event) => event.stopPropagation()}
@@ -445,7 +533,7 @@ export default function SiteHeader() {
                       className="flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-white dark:text-white dark:hover:bg-white/7"
                     >
                       <span className="inline-flex items-center gap-2">
-                        {item.label === "AI Tools" ? <Sparkles className="size-4 animate-pulse text-primary dark:text-emerald-200" aria-hidden="true" /> : null}
+                        {item.label === "Tools" ? <Sparkles className="size-4 animate-pulse text-primary dark:text-emerald-200" aria-hidden="true" /> : null}
                         {item.label}
                       </span>
                       {hasChildren(item) ? <ChevronDown className="size-3.5" /> : null}
@@ -470,12 +558,7 @@ export default function SiteHeader() {
             </div>
 
             <div className="mt-4 shrink-0 space-y-3 border-t border-blue-950/10 pt-4 dark:border-white/10">
-              {isResumeBuilderStudio ? null : (
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-slate-700 dark:text-muted">Theme</span>
-                  <ThemeToggle />
-                </div>
-              )}
+              <HeaderUserMenu user={user} callbackUrl={currentPath} />
               <ProductTourTrigger className="w-full justify-center" />
             </div>
           </aside>

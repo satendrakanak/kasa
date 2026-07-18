@@ -1,0 +1,142 @@
+model Product {
+  id          String         @id @default(cuid())
+  name        String
+  slug        String         @unique
+  description String?
+  status      ProductStatus  @default(ACTIVE)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  prices      ProductPrice[]
+  licenses    License[]
+}
+
+model ProductPrice {
+  id             String      @id @default(cuid())
+  productId      String
+  product        Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  edition        KasaEdition
+  plan           PlanType
+  currency       String      @default("INR")
+  amount         Decimal     @db.Decimal(12, 2)
+  maxActivations Int         @default(1)
+  userLimit      Int?
+  courseLimit    Int?
+  facultyLimit   Int?
+  features       Json?
+  rules          Json?
+  envatoItemId   String?     @unique
+  isActive       Boolean     @default(true)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  licenses       License[]
+
+  @@unique([productId, edition, plan, currency])
+  @@index([productId, isActive])
+  @@index([envatoItemId])
+  @@index([edition, plan, currency])
+}
+
+model AdminSetting {
+  key       String   @id
+  value     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model License {
+  id                     String                @id @default(cuid())
+  productId              String
+  product                Product               @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productPriceId         String?
+  productPrice           ProductPrice?         @relation(fields: [productPriceId], references: [id], onDelete: SetNull)
+  keyHash                String                @unique
+  keyPreview             String
+  keyEncrypted           String?
+  buyerName              String?
+  buyerEmail             String
+  platform               String                @default("manual")
+  purchaseRef            String?
+  saleAmount             Decimal               @default(0) @db.Decimal(12, 2)
+  saleCurrency           String                @default("INR")
+  saleChannel            String                @default("direct")
+  marketingSource        String?
+  soldAt                 DateTime              @default(now())
+  edition                KasaEdition           @default(ENTERPRISE)
+  plan                   PlanType              @default(LIFETIME)
+  expiresAt              DateTime?
+  renewalUrl             String?
+  expiryNoticeLastSentAt DateTime?
+  expiryNoticeCount      Int                   @default(0)
+  maxActivations         Int                   @default(1)
+  userLimit              Int?
+  courseLimit            Int?
+  facultyLimit           Int?
+  status                 LicenseStatus         @default(ACTIVE)
+  notes                  String?
+  createdAt              DateTime              @default(now())
+  updatedAt              DateTime              @updatedAt
+  activations            LicenseActivation[]
+  audits                 AuditLog[]
+  marketplacePurchases   MarketplacePurchase[]
+
+  @@index([buyerEmail])
+  @@index([productPriceId])
+  @@index([productId, status])
+  @@index([edition, status])
+  @@index([expiresAt, status])
+  @@index([saleChannel, soldAt])
+  @@index([marketingSource, soldAt])
+  @@index([soldAt])
+}
+
+model MarketplacePurchase {
+  id                  String      @id @default(cuid())
+  marketplace         Marketplace
+  purchaseCodeHash    String      @unique
+  purchaseCodePreview String
+  externalItemId      String
+  externalItemName    String?
+  buyerUsername       String?
+  buyerEmail          String?
+  soldAt              DateTime?
+  supportedUntil      DateTime?
+  licenseId           String
+  license             License     @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+  rawSummary          Json?
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+
+  @@index([marketplace, externalItemId])
+  @@index([licenseId])
+}
+
+model LicenseActivation {
+  id             String           @id @default(cuid())
+  licenseId      String
+  license        License          @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+  instanceIdHash String
+  instanceLabel  String?
+  productVersion String?
+  metadata       Json?
+  status         ActivationStatus @default(ACTIVE)
+  activatedAt    DateTime         @default(now())
+  lastSeenAt     DateTime         @default(now())
+  deactivatedAt  DateTime?
+
+  @@unique([licenseId, instanceIdHash])
+  @@index([instanceIdHash])
+  @@index([licenseId, status])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  licenseId String?
+  license   License? @relation(fields: [licenseId], references: [id], onDelete: SetNull)
+  action    String
+  actor     String?
+  details   Json?
+  createdAt DateTime @default(now())
+
+  @@index([licenseId])
+  @@index([action])
+}

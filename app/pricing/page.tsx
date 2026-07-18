@@ -22,8 +22,7 @@ export const metadata: Metadata = {
 
 export default async function PricingPage() {
   const plans = await getWebsitePricingPlans();
-  const leadsEndpoint =
-    process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
+  const leadsEndpoint = "/api/leads";
   const featureRows = [
     "Branded academy website and course storefront",
     "Live classes, batches, and faculty workflows",

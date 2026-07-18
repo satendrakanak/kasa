@@ -37,8 +37,7 @@ const floatingCards = [
 ];
 
 export default function LandingHero() {
-  const leadsEndpoint =
-    process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
+  const leadsEndpoint = "/api/leads";
   const demoAppUrl =
     process.env.NEXT_PUBLIC_DEMO_APP_URL ?? "http://localhost:3000";
 

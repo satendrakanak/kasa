@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { ArrowUp } from "lucide-react";
+import ThemeToggle from "@/components/theme-toggle";
 
 function isModifiedClick(event: MouseEvent) {
   return (
@@ -16,6 +17,11 @@ function isModifiedClick(event: MouseEvent) {
 
 export function PageUxControls() {
   const pathname = usePathname();
+  const isAdminPath =
+    pathname?.startsWith("/admin") ||
+    pathname?.startsWith("/auth") ||
+    pathname?.startsWith("/login") ||
+    pathname?.startsWith("/signup");
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [loaderProgress, setLoaderProgress] = useState(0);
@@ -59,6 +65,8 @@ export function PageUxControls() {
   }, [clearLoaderTimer]);
 
   useEffect(() => {
+    if (isAdminPath) return;
+
     const updateScrollProgress = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const scrollHeight =
@@ -80,9 +88,11 @@ export function PageUxControls() {
       window.removeEventListener("scroll", updateScrollProgress);
       window.removeEventListener("resize", updateScrollProgress);
     };
-  }, []);
+  }, [isAdminPath]);
 
   useEffect(() => {
+    if (isAdminPath) return;
+
     const handleDocumentClick = (event: MouseEvent) => {
       if (event.defaultPrevented || isModifiedClick(event)) return;
 
@@ -127,14 +137,20 @@ export function PageUxControls() {
       clearLoaderTimer();
       if (hideTimerRef.current) window.clearTimeout(hideTimerRef.current);
     };
-  }, [clearLoaderTimer, finishLoader, startLoader]);
+  }, [clearLoaderTimer, finishLoader, isAdminPath, startLoader]);
 
   useEffect(() => {
+    if (isAdminPath) return;
+
     if (lastPathRef.current !== pathname) {
       lastPathRef.current = pathname;
       finishLoader();
     }
-  }, [finishLoader, pathname]);
+  }, [finishLoader, isAdminPath, pathname]);
+
+  if (isAdminPath) {
+    return null;
+  }
 
   return (
     <>
@@ -165,6 +181,10 @@ export function PageUxControls() {
           <ArrowUp className="size-5" aria-hidden="true" />
         </span>
       </button>
+
+      <div className="fixed bottom-20 left-4 z-40 sm:bottom-24 sm:left-5">
+        <ThemeToggle />
+      </div>
     </>
   );
 }

@@ -178,6 +178,9 @@ export function LeadCaptureModalTrigger({
                       pageUrl: window.location.href,
                     }),
                     source,
+                    leadType,
+                    ctaLabel: ctaLabel || buttonLabel,
+                    pageUrl: window.location.href,
                   }),
                 });
 

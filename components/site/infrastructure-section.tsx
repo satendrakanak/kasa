@@ -251,7 +251,7 @@ export function InfrastructureSection() {
                   type="button"
                   onClick={() => setActiveId(tab.id)}
                   className={[
-                    "group flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-left shadow-sm transition duration-200 lg:w-full lg:gap-4 lg:rounded-[1.25rem] lg:p-4",
+                    "infrastructure-tab group flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-left shadow-sm transition duration-200 lg:w-full lg:gap-4 lg:rounded-[1.25rem] lg:p-4",
                     isActive
                       ? "border-primary/60 bg-white shadow-xl shadow-blue-950/8 dark:border-primary/50 dark:bg-white/10"
                       : "border-blue-950/10 bg-white/65 hover:-translate-y-0.5 hover:border-primary/35 hover:bg-white dark:border-white/10 dark:bg-white/[0.04] dark:hover:bg-white/8",
@@ -259,10 +259,10 @@ export function InfrastructureSection() {
                 >
                   <span
                     className={[
-                      "grid size-9 shrink-0 place-items-center rounded-full transition lg:size-12 lg:rounded-2xl",
+                      "infrastructure-tab-icon grid size-9 shrink-0 place-items-center rounded-full transition lg:size-12 lg:rounded-2xl",
                       isActive
                         ? "bg-[image:var(--button-solid)] !text-white"
-                        : "bg-primary/8 text-primary group-hover:bg-primary group-hover:text-white dark:bg-white/8 dark:text-emerald-200",
+                        : "bg-primary/8 text-primary group-hover:bg-primary group-hover:![color:#fff] dark:bg-white/8 dark:text-emerald-200",
                     ].join(" ")}
                   >
                     <Icon className="size-4 lg:size-5" aria-hidden="true" />

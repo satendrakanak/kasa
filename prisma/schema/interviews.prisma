@@ -1,0 +1,170 @@
+model InterviewRole {
+  id          String                @id @default(cuid())
+  title       String
+  slug        String                @unique
+  aliases     String[]              @default([])
+  description String?
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+  questions   InterviewQuestion[]
+  collections InterviewCollection[]
+
+  @@index([slug])
+}
+
+model InterviewTopic {
+  id          String                @id @default(cuid())
+  title       String
+  slug        String                @unique
+  group       String?
+  description String?
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+  questions   InterviewQuestion[]
+  collections InterviewCollection[]
+
+  @@index([slug])
+  @@index([group])
+}
+
+model InterviewQuestion {
+  id             String              @id @default(cuid())
+  slug           String              @unique
+  question       String
+  context        String?
+  shortAnswer    String?
+  answer         String
+  expectedPoints String[]            @default([])
+  commonMistakes String[]            @default([])
+  followUps      String[]            @default([])
+  roleId         String?
+  role           InterviewRole?      @relation(fields: [roleId], references: [id], onDelete: SetNull)
+  topicId        String?
+  topic          InterviewTopic?     @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  difficulty     InterviewDifficulty @default(INTERMEDIATE)
+  experienceMin  Int                 @default(0)
+  experienceMax  Int?
+  tags           String[]            @default([])
+  status         InterviewStatus     @default(DRAFT)
+  seoTitle       String?
+  seoDescription String?
+  sourceNote     String?
+  authorName     String?
+  authorEmail    String?
+  isCommunity    Boolean             @default(false)
+  viewCount      Int                 @default(0)
+  voteScore      Int                 @default(0)
+  createdById    String?
+  createdBy      User?               @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  publishedAt    DateTime?
+  answers        InterviewAnswer[]
+  comments       InterviewComment[]
+  votes          InterviewVote[]
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  @@index([status, publishedAt])
+  @@index([roleId, status])
+  @@index([topicId, status])
+  @@index([difficulty, status])
+  @@index([experienceMin, experienceMax])
+  @@index([isCommunity, status])
+  @@index([voteScore])
+}
+
+model InterviewAnswer {
+  id          String           @id @default(cuid())
+  questionId  String
+  question    InterviewQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  body        String
+  authorName  String?
+  authorEmail String?
+  userId      String?
+  user        User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  status      InterviewStatus  @default(REVIEW)
+  isAccepted  Boolean          @default(false)
+  voteScore   Int              @default(0)
+  sourceNote  String?
+  publishedAt DateTime?
+  comments    InterviewComment[]
+  votes       InterviewVote[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@index([questionId, status, voteScore])
+  @@index([userId])
+  @@index([status, createdAt])
+}
+
+model InterviewComment {
+  id          String             @id @default(cuid())
+  questionId  String?
+  question    InterviewQuestion? @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  answerId    String?
+  answer      InterviewAnswer?   @relation(fields: [answerId], references: [id], onDelete: Cascade)
+  body        String
+  authorName  String?
+  authorEmail String?
+  userId      String?
+  user        User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+  status      InterviewStatus    @default(REVIEW)
+  voteScore   Int                @default(0)
+  publishedAt DateTime?
+  votes       InterviewVote[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@index([questionId, status])
+  @@index([answerId, status])
+  @@index([userId])
+  @@index([status, createdAt])
+}
+
+model InterviewVote {
+  id         String              @id @default(cuid())
+  target     InterviewVoteTarget
+  value      Int
+  voterKey   String
+  userId     String?
+  user       User?               @relation(fields: [userId], references: [id], onDelete: SetNull)
+  questionId String?
+  question   InterviewQuestion?  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  answerId   String?
+  answer     InterviewAnswer?    @relation(fields: [answerId], references: [id], onDelete: Cascade)
+  commentId  String?
+  comment    InterviewComment?   @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @updatedAt
+
+  @@unique([target, questionId, voterKey])
+  @@unique([target, answerId, voterKey])
+  @@unique([target, commentId, voterKey])
+  @@index([userId])
+  @@index([questionId])
+  @@index([answerId])
+  @@index([commentId])
+}
+
+model InterviewCollection {
+  id             String               @id @default(cuid())
+  title          String
+  slug           String               @unique
+  intro          String?
+  roleId         String?
+  role           InterviewRole?       @relation(fields: [roleId], references: [id], onDelete: SetNull)
+  topicId        String?
+  topic          InterviewTopic?      @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  difficulty     InterviewDifficulty?
+  experienceMin  Int?
+  experienceMax  Int?
+  tags           String[]             @default([])
+  status         InterviewStatus      @default(DRAFT)
+  seoTitle       String?
+  seoDescription String?
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+
+  @@index([status])
+  @@index([roleId, status])
+  @@index([topicId, status])
+}

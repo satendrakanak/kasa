@@ -1,0 +1,76 @@
+enum ProductStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+enum LicenseStatus {
+  ACTIVE
+  SUSPENDED
+  EXPIRED
+  REVOKED
+  REFUNDED
+}
+
+enum PlanType {
+  LIFETIME
+  SIX_MONTHS
+  TWELVE_MONTHS
+  CUSTOM
+}
+
+enum KasaEdition {
+  STARTER
+  PLUS
+  ENTERPRISE
+}
+
+enum ActivationStatus {
+  ACTIVE
+  DEACTIVATED
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  WON
+  CLOSED
+}
+
+enum Marketplace {
+  ENVATO
+}
+
+enum InterviewDifficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  SYSTEM_DESIGN
+}
+
+enum InterviewStatus {
+  DRAFT
+  REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum InterviewVoteTarget {
+  QUESTION
+  ANSWER
+  COMMENT
+}
+
+enum UserRole {
+  ADMIN
+  USER
+  STUDENT
+}
+
+enum ArticleStatus {
+  DRAFT
+  REVIEW
+  SCHEDULED
+  PUBLISHED
+  ARCHIVED
+}

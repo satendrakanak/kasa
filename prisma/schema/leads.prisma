@@ -1,0 +1,44 @@
+model Lead {
+  id            String         @id @default(cuid())
+  name          String
+  email         String
+  institute     String?
+  phone         String?
+  message       String
+  source        String         @default("marketing-site")
+  leadType      String         @default("enquiry")
+  ctaLabel      String?
+  pageUrl       String?
+  demoUrl       String?
+  demoExpiresAt DateTime?
+  status        LeadStatus     @default(NEW)
+  assignedToId  String?
+  assignedTo    User?          @relation("LeadAssignee", fields: [assignedToId], references: [id], onDelete: SetNull)
+  activities    LeadActivity[]
+  notes         String?
+  emailedAt     DateTime?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([email])
+  @@index([status])
+  @@index([assignedToId])
+  @@index([createdAt])
+}
+
+model LeadActivity {
+  id            String     @id @default(cuid())
+  leadId        String
+  lead          Lead       @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  status        LeadStatus
+  contactMethod String
+  note          String
+  occurredAt    DateTime   @default(now())
+  createdById   String?
+  createdBy     User?      @relation("LeadActivityAuthor", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt     DateTime   @default(now())
+
+  @@index([leadId, occurredAt])
+  @@index([status])
+  @@index([createdById])
+}

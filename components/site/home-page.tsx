@@ -11,8 +11,7 @@ import { TrustedLogoStrip } from "@/components/site/trusted-logo-strip";
 import { WhyKasaSection } from "@/components/site/why-kasa-section";
 
 export function HomePage() {
-  const leadsEndpoint =
-    process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
+  const leadsEndpoint = "/api/leads";
 
   return (
     <>

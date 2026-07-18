@@ -673,11 +673,11 @@ export const resourcePages: PageSummary[] = [
   {
     slug: "lms-seo-for-academies",
     eyebrow: "Guide",
-    title: "SEO strategy for online academies and coaching institute websites.",
+    title: "How academies can bring more students from their own website.",
     description:
-      "Learn how online academies can use feature pages, course pages, solution pages, and resource pages to rank for high-intent education keywords.",
-    keywords: ["SEO for online academy", "coaching institute website SEO", "LMS SEO strategy"],
-    heroPoints: ["Keyword pages", "Internal linking", "Course SEO"],
+      "Learn how online academies can use course pages, solution pages, useful guides, and clear website structure to reach students who are already searching online.",
+    keywords: ["online academy website growth", "coaching institute website", "academy website guide"],
+    heroPoints: ["Course pages", "Helpful guides", "Clear structure"],
     outcomes: [
       "Use separate pages for separate search intent.",
       "Build internal links between features, solutions, resources, and pricing.",

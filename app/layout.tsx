@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter, Poppins, Geist } from "next/font/google";
 import Script from "next/script";
 import SiteHeader from "@/components/site-header";
 import { ThemeInitializer } from "@/components/site/theme-initializer";
 import { SiteFooter } from "@/components/site/site-footer";
 import { PageUxControls } from "@/components/site/page-ux-controls";
 import { SiteStructuredData } from "@/components/site/structured-data";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -92,7 +96,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${poppins.variable} h-full scroll-smooth antialiased`}
+      className={cn("h-full", "scroll-smooth", "antialiased", inter.variable, poppins.variable, "font-sans", geist.variable)}
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col font-sans">
@@ -122,6 +127,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <SiteFooter />
         <PageUxControls />
+        <Toaster />
       </body>
     </html>
   );

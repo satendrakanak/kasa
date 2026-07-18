@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateGeminiContent } from "@/lib/gemini";
+import { generateAiContent } from "@/lib/ai/gateway";
 
 type TemplateSuggestion = {
   name: string;
@@ -58,7 +58,6 @@ function fallbackTemplates(): TemplateSuggestion[] {
 }
 
 export async function POST(request: NextRequest) {
-  const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
   let existingTemplates: string[] = [];
   let accent = "Blue";
 
@@ -72,9 +71,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ templates: fallbackTemplates(), source: "fallback" });
   }
 
-  if (!apiKey) {
-    return NextResponse.json({ templates: fallbackTemplates(), source: "fallback" });
-  }
 
   const prompt = [
     "Create fresh resume template ideas for a resume builder.",
@@ -85,7 +81,7 @@ export async function POST(request: NextRequest) {
     `Existing templates: ${existingTemplates.join(", ") || "None"}`,
   ].join("\n");
 
-  const result = await generateGeminiContent(apiKey, {
+  const result = await generateAiContent({
     contents: [{ parts: [{ text: prompt }] }],
     generationConfig: {
       temperature: 0.75,

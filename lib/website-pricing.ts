@@ -1,33 +1,7 @@
+import { KasaEdition, PlanType } from "@prisma/client";
+import { prisma } from "@/lib/admin/prisma";
+import { normalizeFeatures, normalizeRules } from "@/lib/admin/kasa-modules";
 import { pricing as fallbackPricing } from "@/lib/landing";
-
-const DEFAULT_ADMIN_URL = "https://admin.getkasa.in";
-
-type WebsitePricingApiPlan = {
-  product?: {
-    name?: string | null;
-    description?: string | null;
-  };
-  edition: "STARTER" | "PLUS" | "ENTERPRISE";
-  plan: string;
-  planLabel: string;
-  currency: string;
-  amount: number;
-  maxActivations: number;
-  userLimit: number | null;
-  courseLimit: number | null;
-  facultyLimit: number | null;
-  features: string[];
-  rules?: {
-    certificateRule?: "lecture_completion" | "exam_pass";
-    allowedCourseModes?: string[];
-  } | null;
-  highlighted?: boolean;
-};
-
-type WebsitePricingApiResponse = {
-  ok?: boolean;
-  plans?: WebsitePricingApiPlan[];
-};
 
 export type WebsitePricingPlan = {
   name: string;
@@ -39,13 +13,13 @@ export type WebsitePricingPlan = {
   bestFor: string;
 };
 
-const editionNames: Record<WebsitePricingApiPlan["edition"], string> = {
+const editionNames: Record<KasaEdition, string> = {
   STARTER: "Starter",
   PLUS: "Plus",
   ENTERPRISE: "Enterprise",
 };
 
-const editionNotes: Record<WebsitePricingApiPlan["edition"], string> = {
+const editionNotes: Record<KasaEdition, string> = {
   STARTER:
     "For new academies launching a branded course website with self-paced learning.",
   PLUS:
@@ -54,37 +28,17 @@ const editionNotes: Record<WebsitePricingApiPlan["edition"], string> = {
     "For larger teams that need every module, advanced controls, and rollout support.",
 };
 
-const editionBestFor: Record<WebsitePricingApiPlan["edition"], string> = {
+const editionBestFor: Record<KasaEdition, string> = {
   STARTER: "Best for solo trainers and small teams starting their first academy.",
   PLUS: "Best for institutes already selling, teaching, and managing active cohorts.",
   ENTERPRISE: "Best for multi-team institutes that need deeper operations control.",
 };
 
-const priorityFeatures: Record<WebsitePricingApiPlan["edition"], string[]> = {
-  STARTER: [
-    "Branded academy website and course storefront",
-    "Self-paced course delivery and learner progress",
-    "Certificates based on lecture completion",
-  ],
-  PLUS: [
-    "Everything in Starter",
-    "Faculty workspace, live classes, and batches",
-    "Exams, assignments, coupons, refunds, and email templates",
-  ],
-  ENTERPRISE: [
-    "Everything in Plus",
-    "All KASA modules enabled",
-    "Priority support, advanced settings, and complete branding control",
-  ],
+const editionOrder: Record<KasaEdition, number> = {
+  STARTER: 1,
+  PLUS: 2,
+  ENTERPRISE: 3,
 };
-
-function getAdminUrl() {
-  return (
-    process.env.KASA_ADMIN_URL?.trim() ||
-    process.env.NEXT_PUBLIC_KASA_ADMIN_URL?.trim() ||
-    DEFAULT_ADMIN_URL
-  ).replace(/\/$/, "");
-}
 
 function formatCurrency(currency: string, amount: number) {
   if (amount <= 0) return "Custom";
@@ -95,46 +49,80 @@ function formatCurrency(currency: string, amount: number) {
   })}`;
 }
 
+function formatPlanType(plan: PlanType) {
+  const labels: Record<PlanType, string> = {
+    LIFETIME: "Lifetime",
+    SIX_MONTHS: "6 months",
+    TWELVE_MONTHS: "12 months",
+    CUSTOM: "Custom",
+  };
+
+  return labels[plan];
+}
+
 function formatLimit(label: string, value: number | null) {
   return `${value ?? "Unlimited"} ${label}`;
 }
 
-function formatCertificateRule(rule?: WebsitePricingApiPlan["rules"]) {
-  if (!rule?.certificateRule) return null;
+function uniqueFeatures(features: Array<string | null | undefined>) {
+  return [...new Set(features.filter(Boolean) as string[])].slice(0, 9);
+}
 
-  return rule.certificateRule === "exam_pass"
+function formatCertificateRule(rule: ReturnType<typeof normalizeRules>["certificateRule"]) {
+  return rule === "exam_pass"
     ? "Certificate after exam pass"
     : "Certificate after lecture completion";
 }
 
-function uniqueFeatures(features: Array<string | null | undefined>) {
-  return [...new Set(features.filter(Boolean) as string[])].slice(0, 8);
-}
-
-function mapPlan(plan: WebsitePricingApiPlan): WebsitePricingPlan {
-  const name = editionNames[plan.edition];
-  const price = formatCurrency(plan.currency, plan.amount);
-  const limitFeatures = [
-    formatLimit("users", plan.userLimit),
-    formatLimit("courses", plan.courseLimit),
-    formatLimit("faculty", plan.facultyLimit),
-    `${plan.maxActivations} installation${plan.maxActivations === 1 ? "" : "s"}`,
-    formatCertificateRule(plan.rules),
+function publicPlanFeatures(
+  edition: KasaEdition,
+  row: {
+    userLimit: number | null;
+    courseLimit: number | null;
+    facultyLimit: number | null;
+    maxActivations: number;
+  },
+  features: ReturnType<typeof normalizeFeatures>,
+  rules: ReturnType<typeof normalizeRules>,
+) {
+  const limits = [
+    formatLimit("users", row.userLimit),
+    formatLimit("courses", row.courseLimit),
+    formatLimit("faculty", row.facultyLimit),
+    `${row.maxActivations} installation${row.maxActivations === 1 ? "" : "s"}`,
+    formatCertificateRule(rules.certificateRule),
   ];
 
-  return {
-    name,
-    eyebrow: `${name} ${plan.planLabel}`,
-    price: plan.plan === "LIFETIME" && price !== "Custom" ? `${price} lifetime` : price,
-    note: plan.product?.description || editionNotes[plan.edition],
-    features: uniqueFeatures([
-      ...priorityFeatures[plan.edition],
-      ...limitFeatures,
-      ...plan.features,
-    ]),
-    highlighted: plan.highlighted ?? plan.edition === "PLUS",
-    bestFor: editionBestFor[plan.edition],
-  };
+  if (edition === "STARTER") {
+    return uniqueFeatures([
+      features.courses ? "Branded academy website and course storefront" : null,
+      "Self-paced course delivery and learner progress",
+      features.certificates ? "Certificates based on lecture completion" : null,
+      ...limits,
+    ]);
+  }
+
+  if (edition === "PLUS") {
+    return uniqueFeatures([
+      "Everything in Starter",
+      features.faculty || features.liveClasses
+        ? "Faculty workspace, live classes, and batches"
+        : null,
+      features.exams || features.assignments || features.coupons || features.refunds || features.emailTemplates
+        ? "Exams, assignments, coupons, refunds, and email templates"
+        : null,
+      ...limits,
+    ]);
+  }
+
+  return uniqueFeatures([
+    "Everything in Plus",
+    Object.values(features).every(Boolean) ? "All KASA modules enabled" : "Advanced KASA modules enabled",
+    features.prioritySupport || features.advancedSettings || features.branding
+      ? "Priority support, advanced settings, and complete branding control"
+      : null,
+    ...limits,
+  ]);
 }
 
 function fallbackPlans(): WebsitePricingPlan[] {
@@ -150,18 +138,54 @@ function fallbackPlans(): WebsitePricingPlan[] {
 }
 
 export async function getWebsitePricingPlans(): Promise<WebsitePricingPlan[]> {
-  try {
-    const response = await fetch(`${getAdminUrl()}/api/v1/website-pricing`, {
-      cache: "no-store",
-    });
+  const rows = await prisma.productPrice.findMany({
+    where: {
+      isActive: true,
+      product: { status: "ACTIVE" },
+    },
+    include: { product: true },
+    orderBy: [{ edition: "asc" }, { amount: "asc" }],
+  });
 
-    if (!response.ok) return fallbackPlans();
+  if (!rows.length) return fallbackPlans();
 
-    const payload = (await response.json()) as WebsitePricingApiResponse;
-    if (!payload.ok || !payload.plans?.length) return fallbackPlans();
+  const bestByEdition = new Map<KasaEdition, (typeof rows)[number]>();
+  for (const row of rows) {
+    const existing = bestByEdition.get(row.edition);
+    if (!existing) {
+      bestByEdition.set(row.edition, row);
+      continue;
+    }
 
-    return payload.plans.map(mapPlan);
-  } catch {
-    return fallbackPlans();
+    if (existing.plan !== "LIFETIME" && row.plan === "LIFETIME") {
+      bestByEdition.set(row.edition, row);
+      continue;
+    }
+
+    if (Number(row.amount) < Number(existing.amount)) {
+      bestByEdition.set(row.edition, row);
+    }
   }
+
+  return [...bestByEdition.values()]
+    .sort((a, b) => editionOrder[a.edition] - editionOrder[b.edition])
+    .map((row) => {
+      const name = editionNames[row.edition];
+      const price = formatCurrency(row.currency, Number(row.amount));
+      const features = normalizeFeatures(row.features, row.edition);
+      const rules = normalizeRules(row.rules, row.edition);
+
+      return {
+        name,
+        eyebrow: `${name} ${formatPlanType(row.plan)}`,
+        price:
+          row.plan === "LIFETIME" && price !== "Custom"
+            ? `${price} lifetime`
+            : `${price} / ${formatPlanType(row.plan)}`,
+        note: row.product.description || editionNotes[row.edition],
+        features: publicPlanFeatures(row.edition, row, features, rules),
+        highlighted: row.edition === "PLUS",
+        bestFor: editionBestFor[row.edition],
+      };
+    });
 }

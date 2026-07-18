@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateGeminiContent } from "@/lib/gemini";
+import { generateAiContent } from "@/lib/ai/gateway";
 
 type ResumeAtsRequest = {
   resumeText: string;
@@ -153,13 +153,6 @@ function normalizeAnalysis(value: Partial<ResumeAtsResponse>): ResumeAtsResponse
 }
 
 export async function POST(request: NextRequest) {
-  const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-  if (!apiKey) {
-    return NextResponse.json(
-      { error: "Gemini API key is not configured. Add GEMINI_API_KEY in the environment." },
-      { status: 503 },
-    );
-  }
 
   const rate = checkRateLimit(getClientKey(request));
   if (!rate.allowed) {
@@ -219,7 +212,7 @@ export async function POST(request: NextRequest) {
     parts.push({ inlineData: { mimeType: payload.fileMimeType, data: payload.fileData } });
   }
 
-  const result = await generateGeminiContent(apiKey, {
+  const result = await generateAiContent({
     contents: [{ parts }],
     generationConfig: {
       temperature: 0.55,

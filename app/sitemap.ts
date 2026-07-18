@@ -1,10 +1,76 @@
 import type { MetadataRoute } from "next";
 import { allSeoPages } from "@/lib/site-content";
+import { prisma } from "@/lib/admin/prisma";
 
 const SITE_URL = "https://www.getkasa.in";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+function absoluteSitemapUrl(value: string | null) {
+  if (!value) return undefined;
+  try {
+    return new URL(value, SITE_URL).toString();
+  } catch {
+    return undefined;
+  }
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
+  const db = prisma;
+  const [blogArticles, interviewQuestions] = await Promise.all([
+    db.article.findMany({
+      where: {
+        status: "PUBLISHED",
+        allowIndexing: true,
+        AND: [
+          {
+            OR: [{ publishedAt: null }, { publishedAt: { lte: lastModified } }],
+          },
+        ],
+      },
+      select: {
+        slug: true,
+        updatedAt: true,
+        featured: true,
+        canonicalUrl: true,
+        ogImage: true,
+        coverImage: true,
+      },
+      orderBy: [{ publishedAt: "desc" }, { updatedAt: "desc" }],
+      take: 500,
+    }).catch(() => []),
+    db.interviewQuestion.findMany({
+      where: { status: "PUBLISHED" },
+      select: {
+        slug: true,
+        question: true,
+        isCommunity: true,
+        publishedAt: true,
+        updatedAt: true,
+        answers: {
+          where: { status: "PUBLISHED" },
+          orderBy: { updatedAt: "desc" },
+          take: 1,
+          select: { updatedAt: true },
+        },
+        comments: {
+          where: { status: "PUBLISHED" },
+          orderBy: { updatedAt: "desc" },
+          take: 1,
+          select: { updatedAt: true },
+        },
+      },
+      orderBy: [{ isCommunity: "asc" }, { publishedAt: "desc" }, { updatedAt: "desc" }],
+      take: 5000,
+    }).catch(() => []),
+  ]);
+  const seenQuestions = new Set<string>();
+  const canonicalInterviewQuestions = interviewQuestions.filter((question) => {
+    const key = question.question.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+    if (seenQuestions.has(key)) return false;
+    seenQuestions.add(key);
+    return true;
+  });
+
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: `${SITE_URL}/`,
@@ -37,7 +103,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.86,
     },
     {
+      url: `${SITE_URL}/blog`,
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.88,
+    },
+    {
       url: `${SITE_URL}/tools`,
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/students`,
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/students/interview-questions`,
       lastModified,
       changeFrequency: "weekly",
       priority: 0.9,
@@ -56,6 +140,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${SITE_URL}/tools/ai-resume-builder`,
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/tools/ai-career-roadmap`,
       lastModified,
       changeFrequency: "weekly",
       priority: 0.9,
@@ -274,5 +364,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: page.group === "Resources" ? "monthly" : "weekly",
       priority: page.group === "Features" || page.group === "Solutions" ? 0.88 : 0.78,
     }) satisfies MetadataRoute.Sitemap[number]),
+    ...blogArticles
+      .filter((article) => {
+        if (!article.canonicalUrl) return true;
+        try {
+          const canonical = new URL(article.canonicalUrl, SITE_URL).toString().replace(/\/$/, "");
+          return canonical === `${SITE_URL}/blog/${article.slug}`;
+        } catch {
+          return false;
+        }
+      })
+      .map((article) => {
+        const image = absoluteSitemapUrl(article.ogImage || article.coverImage);
+        return {
+          url: `${SITE_URL}/blog/${article.slug}`,
+          lastModified: article.updatedAt,
+          changeFrequency: "weekly",
+          priority: article.featured ? 0.8 : 0.74,
+          images: image ? [image] : undefined,
+        } satisfies MetadataRoute.Sitemap[number];
+      }),
+    ...canonicalInterviewQuestions.map((question) => {
+      const updateDates = [
+        question.updatedAt,
+        question.publishedAt,
+        question.answers[0]?.updatedAt,
+        question.comments[0]?.updatedAt,
+      ].filter((date): date is Date => Boolean(date));
+
+      return {
+        url: `${SITE_URL}/students/interview-questions/${question.slug}`,
+        lastModified: new Date(Math.max(...updateDates.map((date) => date.getTime()))),
+        changeFrequency: "weekly",
+        priority: 0.72,
+      } satisfies MetadataRoute.Sitemap[number];
+    }),
   ];
 }

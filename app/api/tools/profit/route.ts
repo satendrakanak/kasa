@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { generateAiContent } from "@/lib/ai/gateway";
 
 type ProfitRequest = {
   students: number;
@@ -130,13 +131,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-  if (!apiKey) {
-    return NextResponse.json(
-      { strategy: buildFallbackStrategy(payload), fallback: true, notice: "Gemini API key is not configured, so a smart profit strategy was generated from your calculator numbers." },
-      { status: 200 },
-    );
-  }
 
   const rate = checkRateLimit(getClientKey(request));
   if (!rate.allowed) {
@@ -167,12 +161,7 @@ export async function POST(request: NextRequest) {
     `Break-even students: ${payload.breakEvenStudents}`,
   ].join("\n");
 
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+  const result = await generateAiContent({
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
           temperature: 0.68,
@@ -189,23 +178,21 @@ export async function POST(request: NextRequest) {
             required: ["summary", "profitMoves", "costWarnings", "growthIdeas", "ownerNote"],
           },
         },
-      }),
-    },
-  );
+      });
 
-  if (!response.ok) {
+  if (!result.ok) {
     return NextResponse.json({
       strategy: buildFallbackStrategy(payload),
       remaining: rate.remaining,
       fallback: true,
       notice:
-        response.status === 429 || response.status === 503
-          ? "Gemini is busy or quota-limited right now, so a smart profit strategy was generated from your calculator numbers."
+        result.status === 429 || result.status === 503
+          ? "The selected AI provider is busy right now, so a smart profit strategy was generated from your calculator numbers."
           : "AI profit strategy could not be generated right now, so a smart strategy was generated from your calculator numbers.",
     });
   }
 
-  const data = await response.json();
+  const data = result.data;
   const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
   if (typeof rawText !== "string") {
     return NextResponse.json({ strategy: buildFallbackStrategy(payload), remaining: rate.remaining, fallback: true, notice: "AI returned an empty response, so a smart profit strategy was generated from your numbers." });

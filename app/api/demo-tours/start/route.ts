@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createPublicLead } from "@/lib/admin/lead-capture";
 
 const DEFAULT_DEMO_APP_URL = "http://localhost:3000";
-const DEFAULT_LEADS_API_URL = "http://localhost:5000/api/v1/leads";
 const DEMO_TOUR_START_PATH = "/api/demo-tours/start";
 
 type DemoTourPayload = {
@@ -127,10 +127,6 @@ async function captureDemoLead(
 ) {
   if (!payload?.email) return;
 
-  const leadsUrl =
-    process.env.LEADS_API_URL?.trim() ||
-    process.env.NEXT_PUBLIC_LEADS_API_URL?.trim() ||
-    DEFAULT_LEADS_API_URL;
   const name = [payload.firstName, payload.lastName].filter(Boolean).join(" ").trim();
   const useCase = payload.useCase?.trim();
   const message =
@@ -149,28 +145,19 @@ async function captureDemoLead(
       .filter(Boolean)
       .join("\n");
 
-  const response = await fetch(leadsUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: name || payload.email,
-      email: payload.email,
-      institute: payload.businessName || undefined,
-      phone: payload.phoneNumber || undefined,
-      message,
-      source: "demo-tour",
-    }),
-    cache: "no-store",
+  await createPublicLead({
+    name: name || payload.email,
+    email: payload.email,
+    institute: payload.businessName || "",
+    phone: payload.phoneNumber || "",
+    message,
+    source: "demo-tour",
+    leadType: payload.leadType || "demo",
+    ctaLabel: payload.ctaLabel || "Take a Tour",
+    pageUrl: payload.pageUrl || "",
+    demoUrl: context.demoUrl || "",
+    demoExpiresAt: context.demoExpiresAt || "",
   });
-
-  if (!response.ok) {
-    const body = await response.text().catch(() => "");
-    console.warn("[demo-tour] lead capture failed", {
-      status: response.status,
-      leadsUrl,
-      body,
-    });
-  }
 }
 
 export async function POST(request: NextRequest) {

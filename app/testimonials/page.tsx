@@ -7,9 +7,9 @@ import {
 } from "@/components/site/structured-data";
 
 export const metadata: Metadata = {
-  title: "KASA Customer Stories | LMS Testimonials for Coaching Institutes",
+  title: "KASA LMS Use Cases for Coaching Institutes and Academies",
   description:
-    "Read KASA customer stories from coaching institutes, online academies, trainers, and EdTech teams using one LMS for courses, live classes, payments, learners, and certificates.",
+    "Explore KASA LMS use cases for coaching institutes, online academies, trainers, and EdTech teams managing courses, live classes, payments, learners, and certificates.",
   alternates: {
     canonical: "/testimonials",
   },
@@ -21,19 +21,19 @@ export default function TestimonialsPage() {
       <BreadcrumbStructuredData
         items={[
           { name: "Home", href: "/" },
-          { name: "Customer stories", href: "/testimonials" },
+          { name: "Use cases", href: "/testimonials" },
         ]}
       />
       <WebPageStructuredData
-        name="KASA Customer Stories"
-        description="Customer stories from academy teams using KASA to sell courses, run live batches, manage learners, and issue certificates."
+        name="KASA LMS Use Cases"
+        description="Use cases for academy teams using KASA to sell courses, run live batches, manage learners, and issue certificates."
         href="/testimonials"
         pageType="WebPage"
       />
       <PageHero
-        eyebrow="Customer stories"
-        title="Academy teams use KASA to run cleaner, faster learning businesses."
-        description="See how coaching institutes, trainers, and EdTech teams move from scattered course links, payment follow-ups, and manual learner tracking to one branded LMS workspace."
+        eyebrow="Use cases"
+        title="Academy teams can use KASA to run cleaner, faster learning operations."
+        description="See how coaching institutes, trainers, and EdTech teams can move from scattered course links, payment follow-ups, and manual learner tracking to one branded LMS workspace."
         points={[
           "Course storefront, checkout, and learner access work together",
           "Live batches, replays, reminders, and certificates stay connected",
@@ -43,7 +43,7 @@ export default function TestimonialsPage() {
         variant="solution"
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "Customer stories" },
+          { label: "Use cases" },
         ]}
       />
       <TestimonialsSection />

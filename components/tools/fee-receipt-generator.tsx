@@ -423,7 +423,7 @@ export function FeeReceiptGenerator() {
 
         <div className="rounded-[1.25rem] border border-blue-950/10 bg-white/94 p-5 shadow-2xl shadow-blue-950/12 backdrop-blur dark:border-white/10 dark:bg-surface/92 sm:p-7">
           <div className="overflow-hidden rounded-[1.15rem] border border-blue-950/10 bg-white shadow-sm shadow-blue-950/5 dark:border-white/10 dark:bg-white/[0.04]">
-            <div className="relative overflow-hidden bg-[image:var(--button-solid)] p-5 text-white">
+            <div className="relative overflow-hidden bg-[image:var(--button-solid)] p-5 !text-white">
               <div className="pointer-events-none absolute -right-12 -top-16 size-44 rounded-full bg-white/14" />
               <div className="pointer-events-none absolute bottom-0 right-16 h-24 w-40 rounded-t-full bg-white/8" />
               <div className="relative flex flex-wrap items-start justify-between gap-4">

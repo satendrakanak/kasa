@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { generateAiContent } from "@/lib/ai/gateway";
 
 type LessonPlanRequest = {
   selectedClass: string;
@@ -108,13 +109,6 @@ function normalizePlan(input: unknown): LessonPlan | null {
 }
 
 export async function POST(request: NextRequest) {
-  const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-  if (!apiKey) {
-    return NextResponse.json(
-      { error: "Gemini API key is not configured. Add GEMINI_API_KEY in the environment." },
-      { status: 503 },
-    );
-  }
 
   const rate = checkRateLimit(getClientKey(request));
   if (!rate.allowed) {
@@ -149,12 +143,7 @@ export async function POST(request: NextRequest) {
     `Class level: ${payload.classLevel}`,
   ].join("\n");
 
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+  const result = await generateAiContent({
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
           temperature: 0.72,
@@ -189,18 +178,16 @@ export async function POST(request: NextRequest) {
             required: ["title", "overview", "objectives", "materials", "warmUp", "steps", "assessment", "homework", "differentiation", "closure"],
           },
         },
-      }),
-    },
-  );
+      });
 
-  if (!response.ok) {
+  if (!result.ok) {
     return NextResponse.json(
       { error: "AI lesson plan generation failed. Please try again in a few minutes." },
-      { status: response.status },
+      { status: result.status },
     );
   }
 
-  const data = await response.json();
+  const data = result.data;
   const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
   if (typeof rawText !== "string") {
     return NextResponse.json({ error: "AI returned an empty response." }, { status: 502 });

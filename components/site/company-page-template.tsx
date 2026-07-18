@@ -6,7 +6,6 @@ import {
   Globe2,
   Mail,
   MapPin,
-  Phone,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
@@ -46,8 +45,7 @@ export function CompanyPageTemplate({
   contactMode = false,
   pathname,
 }: CompanyPageTemplateProps) {
-  const leadsEndpoint =
-    process.env.NEXT_PUBLIC_LEADS_API_URL ?? "http://localhost:5000/api/v1/leads";
+  const leadsEndpoint = "/api/leads";
 
   return (
     <>
@@ -193,13 +191,13 @@ export function CompanyPageTemplate({
                 team context is clear.
               </p>
               <div className="grid gap-3 text-sm text-slate-700 dark:text-slate-200">
-                <a href="mailto:support@getkasa.in" className="mt-5 flex items-center gap-3 rounded-2xl bg-slate-50 p-3 dark:bg-white/[0.05]">
+                <a href="mailto:getkasalms@gmail.com" className="mt-5 flex items-center gap-3 rounded-2xl bg-slate-50 p-3 dark:bg-white/[0.05]">
                   <Mail className="size-4 text-primary" aria-hidden="true" />
-                  support@getkasa.in
+                  getkasalms@gmail.com
                 </a>
-                <a href="tel:+918979791615" className="flex items-center gap-3 rounded-2xl bg-slate-50 p-3 dark:bg-white/[0.05]">
-                  <Phone className="size-4 text-primary" aria-hidden="true" />
-                  +91 8979 791615
+                <a href="mailto:getkasalms@gmail.com" className="flex items-center gap-3 rounded-2xl bg-slate-50 p-3 dark:bg-white/[0.05]">
+                  <Mail className="size-4 text-primary" aria-hidden="true" />
+                  Demo and support email
                 </a>
                 <div className="flex items-center gap-3 rounded-2xl bg-slate-50 p-3 dark:bg-white/[0.05]">
                   <MapPin className="size-4 text-primary" aria-hidden="true" />

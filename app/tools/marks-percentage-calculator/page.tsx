@@ -389,7 +389,7 @@ function MarksPercentageSeoContent() {
           </div>
 
           <aside className="rounded-[1.25rem] border border-blue-950/10 bg-white/80 p-5 shadow-xl shadow-blue-950/8 dark:border-white/10 dark:bg-white/[0.06]">
-            <div className="inline-flex size-11 items-center justify-center rounded-2xl bg-[image:var(--button-solid)] text-white">
+            <div className="inline-flex size-11 items-center justify-center rounded-2xl bg-[image:var(--button-solid)] !text-white">
               <Lightbulb className="size-5 !text-white [stroke:white]" aria-hidden="true" />
             </div>
             <h3 className="mt-4 font-heading text-xl font-semibold text-slate-950 dark:text-white">

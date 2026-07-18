@@ -16,6 +16,7 @@ import {
   Percent,
   PiggyBank,
   ReceiptText,
+  Route,
   Target,
   Trophy,
   TrendingUp,
@@ -40,7 +41,7 @@ export const tools: ToolItem[] = [
   {
     title: "AI Final Year Project Kit Generator",
     slug: "final-year-project-kit-generator",
-    description: "Generate final year project ideas, architecture, documentation, viva questions, resume bullets, and starter ZIP.",
+    description: "Generate final year project ideas, system design, documentation, viva questions, resume bullets, and starter ZIP.",
     category: "Students",
     isAi: true,
     icon: Archive,
@@ -62,6 +63,15 @@ export const tools: ToolItem[] = [
     category: "Students",
     isAi: true,
     icon: FileUser,
+    status: "Live",
+  },
+  {
+    title: "AI Career Roadmap Generator",
+    slug: "ai-career-roadmap",
+    description: "Create a role-wise career roadmap with skills, weekly tasks, project ideas, interview prep, and job search actions.",
+    category: "Students",
+    isAi: true,
+    icon: Route,
     status: "Live",
   },
   {

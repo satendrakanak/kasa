@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronRight, Mail, MapPin, Phone, ShieldCheck } from "lucide-react";
+import { ChevronRight, Mail, MapPin, ShieldCheck } from "lucide-react";
 import { ProductTourTrigger } from "@/components/site/product-tour-trigger";
 
 type FooterLink = {
@@ -49,7 +49,7 @@ const featureLinks: FooterLink[] = [
     label: "Assessment and certificate software",
     href: "/features/exams-assignments-certificates",
   },
-  { label: "Payments and orders", href: "/features/payments-orders-coupons" },
+  { label: "Payments and orders", href: "/features/payments-coupons-orders" },
   {
     label: "Student and faculty management",
     href: "/features/student-faculty-management",
@@ -64,7 +64,7 @@ const featureLinks: FooterLink[] = [
     href: "/features/admin-dashboard-reporting",
   },
   { label: "White label LMS", href: "/features/white-label-lms" },
-  { label: "Learner dashboard", href: "/features/learner-dashboard" },
+  { label: "Learner dashboard", href: "/features/learner-dashboard-progress" },
 ];
 
 const solutionLinks: FooterLink[] = [
@@ -105,19 +105,28 @@ const industryLinks: FooterLink[] = [
   { label: "NEET coaching LMS", href: "/solutions/neet-coaching-lms" },
   { label: "UPSC coaching LMS", href: "/solutions/upsc-coaching-lms" },
   { label: "CA coaching LMS", href: "/solutions/ca-coaching-lms" },
-  { label: "Spoken English LMS", href: "/solutions/spoken-english-lms" },
+  {
+    label: "Spoken English LMS",
+    href: "/solutions/spoken-english-classes-lms",
+  },
   { label: "Yoga academy LMS", href: "/solutions/yoga-academy-lms" },
   { label: "Dance academy LMS", href: "/solutions/dance-academy-lms" },
   { label: "Music classes LMS", href: "/solutions/music-classes-lms" },
   { label: "Coding bootcamp LMS", href: "/solutions/coding-bootcamp-lms" },
-  { label: "Digital marketing LMS", href: "/solutions/digital-marketing-lms" },
-  { label: "Tuition class LMS", href: "/solutions/tuition-class-lms" },
+  {
+    label: "Digital marketing LMS",
+    href: "/solutions/digital-marketing-course-lms",
+  },
+  { label: "Tuition class LMS", href: "/solutions/school-tuition-lms" },
   { label: "Teacher training LMS", href: "/solutions/teacher-training-lms" },
   {
     label: "Corporate training LMS",
     href: "/solutions/corporate-training-lms",
   },
-  { label: "Nursing institute LMS", href: "/solutions/nursing-institute-lms" },
+  {
+    label: "Nursing institute LMS",
+    href: "/solutions/nursing-paramedical-institute-lms",
+  },
   {
     label: "Computer institute LMS",
     href: "/solutions/computer-institute-lms",
@@ -128,7 +137,10 @@ const industryLinks: FooterLink[] = [
     href: "/solutions/financial-education-lms",
   },
   { label: "Language academy LMS", href: "/solutions/language-academy-lms" },
-  { label: "Competitive exam LMS", href: "/solutions/competitive-exam-lms" },
+  {
+    label: "Competitive exam LMS",
+    href: "/solutions/competitive-exam-coaching-lms",
+  },
   {
     label: "Coaching franchise LMS",
     href: "/solutions/coaching-franchise-lms",
@@ -151,7 +163,7 @@ const resourceLinks: FooterLink[] = [
     href: "/resources/run-live-online-classes",
   },
   {
-    label: "SEO strategy for online academies and coaching institute websites",
+    label: "How academies can bring more students from their own website",
     href: "/resources/lms-seo-for-academies",
   },
   {
@@ -188,7 +200,7 @@ const companyLinks: FooterLink[] = [
   { label: "Why KASA?", href: "/why-kasa" },
   { label: "About KASA", href: "/about" },
   { label: "Contact", href: "/contact" },
-  { label: "Customer stories", href: "/testimonials" },
+  { label: "Use cases", href: "/testimonials" },
   { label: "FAQ", href: "/faq" },
   { label: "Feature index", href: "/features" },
   { label: "Solution index", href: "/solutions" },
@@ -221,9 +233,6 @@ const socialLinks = [
     icon: "x",
   },
 ];
-
-const whatsappHref =
-  "https://wa.me/918979791615?text=I%20want%20to%20know%20more%20about%20KASA%20LMS";
 
 type SocialIconName = (typeof socialLinks)[number]["icon"];
 
@@ -276,19 +285,6 @@ function SocialIcon({
   return (
     <svg {...commonProps}>
       <path d="M15.14 10.24 21.3 3h-1.46l-5.35 6.29L10.22 3H5.3l6.46 9.51L5.3 20.1h1.46l5.65-6.64 4.51 6.64h4.92l-6.7-9.86Zm-2 2.35-.66-.94-5.2-7.52h2.24l4.2 6.07.65.94 5.46 7.89h-2.24l-4.45-6.44Z" />
-    </svg>
-  );
-}
-
-function WhatsAppIcon({ className = "size-7" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-      aria-hidden="true"
-    >
-      <path d="M20.52 3.48A11.81 11.81 0 0 0 12.1 0C5.55 0 .22 5.33.22 11.89c0 2.1.55 4.14 1.6 5.95L.1 24l6.32-1.66a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.88-5.33 11.88-11.89 0-3.18-1.23-6.16-3.47-8.42ZM12.1 21.78h-.01a9.86 9.86 0 0 1-5.03-1.38l-.36-.22-3.75.98 1-3.65-.24-.38a9.86 9.86 0 0 1-1.51-5.24c0-5.45 4.44-9.89 9.9-9.89a9.82 9.82 0 0 1 6.99 2.9 9.82 9.82 0 0 1 2.9 7c0 5.45-4.44 9.88-9.89 9.88Zm5.42-7.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.88.12.57-.09 1.76-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35Z" />
     </svg>
   );
 }
@@ -384,21 +380,26 @@ function FooterMegaColumn({
 
 export function SiteFooter() {
   const pathname = usePathname();
-  if (pathname?.startsWith("/cwk") || pathname?.startsWith("/landing")) {
+  if (
+    pathname?.startsWith("/cwk") ||
+    pathname?.startsWith("/landing") ||
+    pathname?.startsWith("/admin") ||
+    pathname?.startsWith("/auth") ||
+    pathname?.startsWith("/login") ||
+    pathname?.startsWith("/signup")
+  ) {
     return null;
   }
 
   return (
     <>
       <a
-        href={whatsappHref}
-        target="_blank"
-        rel="noopener noreferrer"
+        href="mailto:getkasalms@gmail.com"
         className="fixed bottom-4 right-4 z-40 inline-flex size-13 items-center justify-center rounded-full border border-white/25 bg-[#25D366] text-white shadow-2xl shadow-emerald-950/25 transition hover:-translate-y-0.5 hover:bg-[#20bd5a] focus:outline-none focus:ring-4 focus:ring-emerald-300/35 sm:bottom-5 sm:right-5 md:h-13 md:w-auto md:gap-2.5 md:px-4"
-        aria-label="Contact KASA on WhatsApp"
+        aria-label="Email KASA"
       >
-        <WhatsAppIcon className="size-7" />
-        <span className="hidden text-sm font-bold md:inline">WhatsApp</span>
+        <Mail className="size-6" aria-hidden="true" />
+        <span className="hidden text-sm font-bold md:inline">Email</span>
       </a>
 
       <footer className="site-footer relative overflow-hidden bg-[#101b31] text-white">
@@ -427,18 +428,18 @@ export function SiteFooter() {
 
               <div className="mt-6 grid gap-3 text-sm text-slate-300">
                 <a
-                  href="mailto:support@getkasa.in"
+                  href="mailto:getkasalms@gmail.com"
                   className="inline-flex items-center gap-3 transition hover:text-white"
                 >
                   <Mail className="size-4 text-emerald-300" />
-                  support@getkasa.in
+                  getkasalms@gmail.com
                 </a>
                 <a
-                  href="tel:+918979791615"
+                  href="mailto:getkasalms@gmail.com"
                   className="inline-flex items-center gap-3 transition hover:text-white"
                 >
-                  <Phone className="size-4 text-emerald-300" />
-                  +91 8979 791615
+                  <Mail className="size-4 text-emerald-300" />
+                  Demo and support email
                 </a>
                 <span className="inline-flex items-center gap-3">
                   <MapPin className="size-4 text-emerald-300" />
