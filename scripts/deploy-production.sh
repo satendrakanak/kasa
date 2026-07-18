@@ -71,6 +71,13 @@ pg_dump --format=custom --no-owner --no-acl --file="$DB_BACKUP" "$CLEAN_DATABASE
 chmod 600 "$DB_BACKUP"
 sha256sum "$DB_BACKUP"
 
+HAS_PLATFORM_TABLES="$(psql "$CLEAN_DATABASE_URL" -Atqc "SELECT to_regclass('public.\"Article\"') IS NOT NULL")"
+HAS_MIGRATION_HISTORY="$(psql "$CLEAN_DATABASE_URL" -Atqc "SELECT to_regclass('public.\"_prisma_migrations\"') IS NOT NULL")"
+if [[ "$HAS_PLATFORM_TABLES" == "t" && "$HAS_MIGRATION_HISTORY" == "f" ]]; then
+  DATABASE_URL="$DATABASE_URL" npx prisma migrate resolve \
+    --applied 20260718181500_unified_platform_baseline
+fi
+
 DATABASE_URL="$DATABASE_URL" npx prisma migrate deploy
 
 CURRENT_PORT="$(sudo sed -n 's/.*proxy_pass http:\/\/127\.0\.0\.1:\([0-9][0-9]*\);.*/\1/p' "$NGINX_SITE" | head -1)"
