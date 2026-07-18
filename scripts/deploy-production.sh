@@ -45,11 +45,11 @@ if [[ ! -f "$SOURCE_DIR/.env" ]]; then
 fi
 
 ln -s "$SOURCE_DIR/.env" "$RELEASE_DIR/.env"
-mkdir -p "$RELEASE_DIR/public"
+mkdir -p "$RELEASE_DIR/public/uploads"
 if [[ -d "$SOURCE_DIR/public/uploads" && -z "$(find "$SHARED_ROOT/uploads" -mindepth 1 -print -quit)" ]]; then
   rsync -a "$SOURCE_DIR/public/uploads/" "$SHARED_ROOT/uploads/"
 fi
-ln -s "$SHARED_ROOT/uploads" "$RELEASE_DIR/public/uploads"
+rsync -a "$SHARED_ROOT/uploads/" "$RELEASE_DIR/public/uploads/"
 
 cd "$RELEASE_DIR"
 npm ci
@@ -58,6 +58,9 @@ npx prisma validate
 
 export DEPLOYMENT_VERSION="$COMMIT"
 npm run build
+
+rm -rf "$RELEASE_DIR/public/uploads"
+ln -s "$SHARED_ROOT/uploads" "$RELEASE_DIR/public/uploads"
 
 DATABASE_URL="$(node -r dotenv/config -e 'process.stdout.write(process.env.DATABASE_URL || "")')"
 if [[ -z "$DATABASE_URL" ]]; then
