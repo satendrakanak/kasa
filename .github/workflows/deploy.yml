@@ -15,6 +15,9 @@ jobs:
   check:
     name: Check
     runs-on: ubuntu-latest
+    env:
+      # Prisma validates the datasource URL even though CI never connects to it.
+      DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/kasa_ci
     steps:
       - name: Checkout
         uses: actions/checkout@v4
