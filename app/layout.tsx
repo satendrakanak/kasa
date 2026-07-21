@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins, Geist } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import SiteHeader from "@/components/site-header";
 import { ThemeInitializer } from "@/components/site/theme-initializer";
@@ -10,17 +10,38 @@ import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+const geist = localFont({
+  src: "../node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2",
+  variable: "--font-sans",
+  weight: "100 900",
   display: "swap",
 });
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
+const inter = localFont({
+  src: "../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
+  variable: "--font-inter",
+  weight: "100 900",
+  display: "swap",
+});
+
+const poppins = localFont({
+  src: [
+    {
+      path: "../node_modules/@fontsource/poppins/files/poppins-latin-500-normal.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../node_modules/@fontsource/poppins/files/poppins-latin-600-normal.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../node_modules/@fontsource/poppins/files/poppins-latin-700-normal.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
   variable: "--font-poppins",
   display: "swap",
 });

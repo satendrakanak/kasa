@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { publicLoginAction } from "@/actions/auth";
 import { LoginForm } from "@/components/login-form";
+import { safeRelativePath } from "@/lib/auth/redirects";
 
 export const dynamic = "force-dynamic";
 
@@ -9,14 +10,9 @@ type LoginPageProps = {
   searchParams: Promise<{ callbackUrl?: string; error?: string }>;
 };
 
-function safeCallbackUrl(value: string | undefined) {
-  if (!value?.startsWith("/") || value.startsWith("//")) return "/";
-  return value;
-}
-
 export default async function LoginPage({ searchParams }: LoginPageProps) {
   const [session, params] = await Promise.all([auth(), searchParams]);
-  const callbackUrl = safeCallbackUrl(params.callbackUrl);
+  const callbackUrl = safeRelativePath(params.callbackUrl);
 
   if (session?.user?.id) redirect(callbackUrl);
 

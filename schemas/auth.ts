@@ -11,7 +11,9 @@ export const setupAdminSchema = z.object({
   password: z.string().min(8),
 });
 
-export const loginSchema = credentialsSchema;
+export const loginSchema = credentialsSchema.extend({
+  callbackUrl: z.string().trim().optional(),
+});
 
 export const publicSignupSchema = z.object({
   name: z.string().trim().min(2).max(80),

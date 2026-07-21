@@ -6,15 +6,11 @@ import { redirect } from "next/navigation";
 import { signIn } from "@/auth";
 import { hasAdminUser, hashPassword } from "@/lib/admin/auth";
 import { prisma } from "@/lib/admin/prisma";
+import { safeRelativePath } from "@/lib/auth/redirects";
 import { loginSchema, publicLoginSchema, publicSignupSchema, setupAdminSchema } from "@/schemas/auth";
 
 function formObject(formData: FormData) {
   return Object.fromEntries(formData.entries());
-}
-
-function safeCallbackUrl(value: string | undefined, fallback: string) {
-  if (!value?.startsWith("/") || value.startsWith("//")) return fallback;
-  return value;
 }
 
 async function seedProducts() {
@@ -63,16 +59,17 @@ export async function setupAdminAction(formData: FormData) {
 
 export async function loginAction(formData: FormData) {
   const parsed = loginSchema.parse(formObject(formData));
+  const redirectTo = safeRelativePath(parsed.callbackUrl, "/admin");
 
   try {
     await signIn("credentials", {
       email: parsed.email.toLowerCase(),
       password: parsed.password,
-      redirectTo: "/admin",
+      redirectTo,
     });
   } catch (error) {
     if (error instanceof AuthError) {
-      redirect("/auth/login?error=invalid");
+      redirect(`/auth/login?error=invalid&callbackUrl=${encodeURIComponent(redirectTo)}`);
     }
 
     throw error;
@@ -81,7 +78,7 @@ export async function loginAction(formData: FormData) {
 
 export async function publicLoginAction(formData: FormData) {
   const parsed = publicLoginSchema.parse(formObject(formData));
-  const redirectTo = safeCallbackUrl(parsed.callbackUrl, "/");
+  const redirectTo = safeRelativePath(parsed.callbackUrl, "/");
 
   try {
     await signIn("credentials", {
@@ -101,7 +98,7 @@ export async function publicLoginAction(formData: FormData) {
 export async function publicSignupAction(formData: FormData) {
   const parsed = publicSignupSchema.parse(formObject(formData));
   const email = parsed.email.toLowerCase();
-  const redirectTo = safeCallbackUrl(parsed.callbackUrl, "/");
+  const redirectTo = safeRelativePath(parsed.callbackUrl, "/");
   const existingUser = await prisma.user.findUnique({ where: { email } });
 
   if (existingUser) {

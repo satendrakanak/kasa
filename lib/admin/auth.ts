@@ -10,11 +10,25 @@ export async function getCurrentUser() {
   const user = session?.user;
   if (!user?.id || !user.email) return null;
 
+  const currentUser = await prisma.user.findFirst({
+    where: {
+      OR: [{ id: user.id }, { email: user.email.toLowerCase() }],
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+    },
+  });
+
+  if (!currentUser?.email) return null;
+
   return {
-    id: user.id,
-    name: user.name || "KASA User",
-    email: user.email,
-    role: user.role,
+    id: currentUser.id,
+    name: currentUser.name || "KASA User",
+    email: currentUser.email,
+    role: currentUser.role,
   };
 }
 

@@ -78,7 +78,7 @@ export function LoginForm({
                 </Field>
               ) : null}
 
-              {isPublic ? <input type="hidden" name="callbackUrl" value={callbackUrl} /> : null}
+              <input type="hidden" name="callbackUrl" value={callbackUrl} />
 
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>

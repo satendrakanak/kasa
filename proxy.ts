@@ -1,9 +1,13 @@
-import { NextRequest, NextResponse } from "next/server";
+import NextAuth from "next-auth";
+import { NextResponse } from "next/server";
+import { authConfig } from "@/auth.config";
 
 const APEX_HOST = "getkasa.in";
 const WWW_HOST = "www.getkasa.in";
 
-export function proxy(request: NextRequest) {
+const { auth } = NextAuth(authConfig);
+
+export const proxy = auth((request) => {
   const host = request.headers.get("host")?.split(":")[0];
 
   if (host !== APEX_HOST) {
@@ -16,8 +20,8 @@ export function proxy(request: NextRequest) {
   redirectUrl.port = "";
 
   return NextResponse.redirect(redirectUrl, 308);
-}
+});
 
 export const config = {
-  matcher: ["/:path*"],
+  matcher: ["/((?!api/auth|_next/static|_next/image|favicon.ico|.*\\..*).*)"],
 };

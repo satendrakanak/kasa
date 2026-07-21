@@ -1,17 +1,14 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { UserRole } from "@prisma/client";
+import { authConfig } from "@/auth.config";
 import { prisma } from "@/lib/admin/prisma";
 import { verifyPassword } from "@/lib/auth/password";
 import { credentialsSchema } from "@/schemas/auth";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   adapter: PrismaAdapter(prisma),
-  session: { strategy: "jwt" },
-  pages: {
-    signIn: "/auth/login",
-  },
   providers: [
     Credentials({
       credentials: {
@@ -44,21 +41,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    jwt({ token, user }) {
-      if (user) {
-        token.role = (user.role as UserRole | undefined) || UserRole.USER;
-      }
-
-      return token;
-    },
-    session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.sub || "";
-        session.user.role = (token.role as UserRole | undefined) || UserRole.USER;
-      }
-
-      return session;
-    },
-  },
 });
