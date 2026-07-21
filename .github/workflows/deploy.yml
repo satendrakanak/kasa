@@ -18,6 +18,11 @@ jobs:
     env:
       # Prisma validates the datasource URL even though CI never connects to it.
       DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/kasa_ci
+      # Auth.js requires a secret during production builds; this CI-only value is
+      # never used outside the isolated check job.
+      AUTH_SECRET: ci-only-auth-secret-for-build-validation
+      AUTH_URL: http://localhost:3000
+      AUTH_TRUST_HOST: "true"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
