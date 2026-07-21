@@ -15,9 +15,22 @@ jobs:
   check:
     name: Check
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: kasa_ci
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d kasa_ci"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     env:
-      # Prisma validates the datasource URL even though CI never connects to it.
-      DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/kasa_ci
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/kasa_ci
       # Auth.js requires a secret during production builds; this CI-only value is
       # never used outside the isolated check job.
       AUTH_SECRET: ci-only-auth-secret-for-build-validation
@@ -37,6 +50,9 @@ jobs:
 
       - name: Validate Prisma schema
         run: npx prisma validate
+
+      - name: Apply CI database migrations
+        run: npx prisma migrate deploy
 
       - name: Lint
         run: npm run lint
