@@ -340,7 +340,9 @@ export default function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    void refreshSession();
+    queueMicrotask(() => {
+      void refreshSession();
+    });
   }, [pathname, refreshSession]);
 
   useEffect(() => {
