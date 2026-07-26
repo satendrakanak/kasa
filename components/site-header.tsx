@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -290,6 +290,7 @@ function HeaderUserMenu({ user, callbackUrl }: { user: SiteHeaderUser; callbackU
           </Link>
           <Link
             href="/logout"
+            prefetch={false}
             className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-rose-50 hover:text-rose-600 dark:text-slate-200 dark:hover:bg-white/7"
           >
             <LogOut className="size-4" aria-hidden="true" />
@@ -308,6 +309,29 @@ export default function SiteHeader() {
   const pathname = usePathname();
   const currentPath = pathname || "/";
 
+  const refreshSession = useCallback(async () => {
+    try {
+      const response = await fetch("/api/auth/session", {
+        cache: "no-store",
+        credentials: "same-origin",
+      });
+      const session = response.ok ? await response.json() : null;
+
+      if (!session?.user?.id) {
+        setUser(null);
+        return;
+      }
+
+      setUser({
+        name: session.user.name || "KASA member",
+        email: session.user.email || "",
+        image: session.user.image || "",
+      });
+    } catch {
+      setUser(null);
+    }
+  }, []);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     onScroll();
@@ -316,26 +340,18 @@ export default function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    let isMounted = true;
+    void refreshSession();
+  }, [pathname, refreshSession]);
 
-    fetch("/api/auth/session", { credentials: "same-origin" })
-      .then((response) => (response.ok ? response.json() : null))
-      .then((session) => {
-        if (!isMounted || !session?.user?.id) return;
-        setUser({
-          name: session.user.name || "KASA member",
-          email: session.user.email || "",
-          image: session.user.image || "",
-        });
-      })
-      .catch(() => {
-        if (isMounted) setUser(null);
-      });
+  useEffect(() => {
+    window.addEventListener("focus", refreshSession);
+    window.addEventListener("pageshow", refreshSession);
 
     return () => {
-      isMounted = false;
+      window.removeEventListener("focus", refreshSession);
+      window.removeEventListener("pageshow", refreshSession);
     };
-  }, []);
+  }, [refreshSession]);
 
   if (
     pathname?.startsWith("/cwk") ||
