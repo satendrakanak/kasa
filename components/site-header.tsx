@@ -289,7 +289,7 @@ function HeaderUserMenu({ user, callbackUrl }: { user: SiteHeaderUser; callbackU
             Ask a question
           </Link>
           <Link
-            href="/logout"
+            href={`/logout?callbackUrl=${encodeURIComponent(callbackUrl)}`}
             prefetch={false}
             className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-rose-50 hover:text-rose-600 dark:text-slate-200 dark:hover:bg-white/7"
           >
