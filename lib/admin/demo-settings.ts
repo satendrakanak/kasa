@@ -18,7 +18,10 @@ function normalizeDemoOperationsSettings(value: unknown): DemoOperationsSettings
   const data = value as Partial<Record<keyof DemoOperationsSettings, unknown>>;
 
   return {
-    demoToursEnabled: Boolean(data.demoToursEnabled),
+    demoToursEnabled:
+      typeof data.demoToursEnabled === "boolean"
+        ? data.demoToursEnabled
+        : defaultDemoOperationsSettings.demoToursEnabled,
     demoResetOnExpiry:
       typeof data.demoResetOnExpiry === "boolean"
         ? data.demoResetOnExpiry

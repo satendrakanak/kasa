@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 export const demoOperationsSchema = z.object({
-  demoToursEnabled: z.coerce.boolean().default(false),
-  demoResetOnExpiry: z.coerce.boolean().default(false),
+  demoToursEnabled: z.coerce.boolean().default(true),
+  demoResetOnExpiry: z.coerce.boolean().default(true),
 });
 
 export const aiProviderSchema = z.object({

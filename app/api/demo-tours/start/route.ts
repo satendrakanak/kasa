@@ -19,6 +19,7 @@ type DemoTourPayload = {
 type DemoLeadContext = {
   demoUrl?: string;
   demoExpiresAt?: string;
+  statusNote?: string;
 };
 
 type DemoStartResponseBody = {
@@ -108,6 +109,30 @@ function extractDemoTokens(responseBody: string) {
   }
 }
 
+function getUpstreamErrorMessage(responseBody: string) {
+  try {
+    const payload = JSON.parse(responseBody) as {
+      error?: unknown;
+      message?: unknown;
+    };
+    const message = Array.isArray(payload.message)
+      ? payload.message.join(", ")
+      : payload.message;
+
+    return typeof message === "string"
+      ? message
+      : typeof payload.error === "string"
+        ? payload.error
+        : "";
+  } catch {
+    return responseBody;
+  }
+}
+
+function isDemoToursDisabled(responseBody: string) {
+  return /demo tours are not enabled/i.test(getUpstreamErrorMessage(responseBody));
+}
+
 function buildUpstreamDemoPayload(payload: DemoTourPayload | null) {
   if (!payload) return null;
 
@@ -141,6 +166,7 @@ async function captureDemoLead(
       payload.pageUrl ? `Page: ${payload.pageUrl}` : null,
       context.demoUrl ? `Demo URL: ${context.demoUrl}` : null,
       context.demoExpiresAt ? `Demo expires at: ${context.demoExpiresAt}` : null,
+      context.statusNote ? `Status: ${context.statusNote}` : null,
     ]
       .filter(Boolean)
       .join("\n");
@@ -199,6 +225,21 @@ export async function POST(request: NextRequest) {
     await captureDemoLead(payload, { demoUrl, demoExpiresAt }).catch((error) => {
       console.warn("[demo-tour] lead capture request failed", error);
     });
+  } else if (isDemoToursDisabled(responseBody)) {
+    await captureDemoLead(payload, {
+      statusNote: "Demo tour request received, but the upstream demo app has demo tours disabled.",
+    }).catch((error) => {
+      console.warn("[demo-tour] lead capture request failed", error);
+    });
+
+    return NextResponse.json(
+      {
+        success: false,
+        message:
+          "Demo tours are temporarily paused while we finish enabling the demo workspace. We saved your request and the KASA team will share access shortly.",
+      },
+      { status: 503 },
+    );
   }
 
   const response = new NextResponse(responseBody, {
