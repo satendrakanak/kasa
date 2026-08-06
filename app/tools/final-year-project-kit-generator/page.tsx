@@ -390,7 +390,7 @@ export default function FinalYearProjectKitGeneratorPage() {
       <ToolSeoSection
         eyebrow="Final year project FAQ"
         title="AI Final Year Project Kit Generator FAQ"
-        description="Use this AI final year project kit generator as a final year project ideas generator, source-code starter, project synopsis generator, project report generator, documentation planner, viva question generator, and resume project helper."
+        description="Learn how to turn the generated kit into a practical build plan, faculty-ready documentation, and confident viva preparation."
         keywords={[
           "final year project generator",
           "final year project ideas",
@@ -438,10 +438,10 @@ function FinalYearProjectSeoContent() {
             </h2>
             <div className="mt-5 space-y-4 text-sm leading-7 text-slate-600 dark:text-slate-300 sm:text-base">
               <p>
-                KASA&apos;s AI Final Year Project Kit Generator helps students move from confusion to a complete project direction in minutes. Instead of searching many sites for final year project ideas, source code, documentation, report format, synopsis, abstract, viva questions, and resume points separately, this tool creates one structured kit. Choose your course, project type, tech stack, domain, difficulty, time left, team size, and goal. The generator then prepares a project title, tagline, abstract, problem statement, objectives, features, architecture, folder structure, database schema, API endpoints, screens, setup steps, documentation files, viva questions, resume bullets, and future scope.
+                KASA&apos;s AI Final Year Project Kit Generator helps students move from confusion to a complete project direction in minutes. Choose your course, project type, tech stack, domain, difficulty, time left, team size, and goal. The generator then prepares a practical kit with a project title, abstract, problem statement, objectives, features, architecture, folder structure, database schema, API endpoints, screen plan, setup steps, documentation outline, viva questions, resume bullets, and future scope.
               </p>
               <p>
-                Student search intent around final year projects is usually urgent and specific. BTech CSE students search for final year project ideas with source code, major project ideas for CSE, AI/ML final year project ideas, MERN stack project ideas, Java Spring Boot project ideas, Python projects for students, and project report with documentation. BCA and MCA students often search for project synopsis, project documentation, mini project source code, project viva questions, and ready project ZIP. This page is built around those real needs: idea selection, implementation planning, documentation, viva preparation, and placement value.
+                The best output depends on your constraint. A student with one week left needs a smaller build with clear modules, screenshots, and a strong explanation. A team with six weeks can choose deeper architecture, authentication, dashboards, APIs, testing, and deployment. The page is designed around those real decisions: selecting an idea, planning implementation, preparing documentation, getting ready for viva, and turning the project into placement value.
               </p>
               <p>
                 A good final year project should be practical, explainable, and finishable. Many students choose a topic that sounds advanced but becomes difficult to complete before submission. This project kit generator balances ambition with time left. If you have only a few days, generate an easy mini project with clear modules. If you have one or two months, choose a major project with better architecture, database design, authentication, dashboard screens, APIs, and future scope. For placement, choose a stack that matches your resume goal and then use the generated resume bullets in the{" "}
@@ -573,28 +573,39 @@ function FinalYearProjectSeoContent() {
 
         <div className="mt-6 rounded-[1.25rem] border border-blue-950/10 bg-white/82 p-5 shadow-xl shadow-blue-950/8 dark:border-white/10 dark:bg-surface/88 sm:p-7">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary dark:text-emerald-200">
-            Student Keyword Paths
+            Choosing Guide
           </p>
           <h2 className="mt-2 font-heading text-3xl font-semibold text-slate-950 dark:text-white">
-            Project topics students commonly search for
+            Pick a project scope that matches your deadline
           </h2>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
             {[
-              "BTech CSE final year project with source code",
-              "BCA final year project with documentation",
-              "MCA major project report and synopsis",
-              "AI/ML final year project ideas with dataset",
-              "MERN stack project ideas for final year",
-              "Python Django project for students",
-              "Java Spring Boot final year project",
-              "IoT final year project with web dashboard",
-              "Cybersecurity project ideas for college",
-              "Mini project source code for CSE",
-              "Major project viva questions and answers",
-              "Final year project resume bullets",
-            ].map((keyword) => (
-              <div key={keyword} className="rounded-[1rem] border border-blue-950/10 bg-blue-50/70 px-4 py-3 text-sm font-semibold text-slate-700 dark:border-white/10 dark:bg-white/[0.05] dark:text-slate-200">
-                {keyword}
+              {
+                title: "Mini project",
+                bestFor: "Few days left, solo work, or first working prototype",
+                includes: "One clear problem, 3-5 modules, simple database, screenshots, and easy viva flow.",
+              },
+              {
+                title: "Major project",
+                bestFor: "Four to eight weeks, team submission, or stronger portfolio value",
+                includes: "Authentication, role-based dashboard, APIs, testing notes, deployment plan, and report chapters.",
+              },
+              {
+                title: "Advanced build",
+                bestFor: "Placement-focused students who can explain architecture confidently",
+                includes: "ML model, IoT data, analytics, security layer, integrations, or performance decisions where relevant.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="rounded-[1rem] border border-blue-950/10 bg-blue-50/70 p-4 dark:border-white/10 dark:bg-white/[0.05]">
+                <h3 className="font-heading text-lg font-semibold text-slate-950 dark:text-white">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-sm font-semibold text-primary dark:text-emerald-200">
+                  {item.bestFor}
+                </p>
+                <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
+                  {item.includes}
+                </p>
               </div>
             ))}
           </div>

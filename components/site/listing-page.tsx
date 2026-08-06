@@ -93,6 +93,7 @@ export function ListingPage({
 }: ListingPageProps) {
   const copy = variantCopy[variant];
   const currentHref = indexHref[variant];
+  const examples = getListingExamples(variant);
 
   return (
     <>
@@ -201,6 +202,42 @@ export function ListingPage({
         className="py-6 sm:py-8"
       />
 
+      <section className="bg-background px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <div className="mx-auto w-full max-w-[108rem]">
+          <div className="grid gap-6 lg:grid-cols-[0.34fr_0.66fr] lg:items-start">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary dark:text-emerald-200">
+                {examples.eyebrow}
+              </p>
+              <h2 className="mt-3 font-heading text-3xl font-semibold leading-tight text-slate-950 dark:text-white">
+                {examples.title}
+              </h2>
+              <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                {examples.description}
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {examples.cards.map((card) => (
+                <article
+                  key={card.title}
+                  className="rounded-[1.5rem] border border-blue-950/10 bg-white p-5 shadow-xl shadow-blue-950/6 dark:border-white/10 dark:bg-white/[0.04]"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary dark:text-emerald-200">
+                    {card.label}
+                  </p>
+                  <h3 className="mt-3 font-heading text-xl font-semibold leading-tight text-slate-950 dark:text-white">
+                    {card.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                    {card.text}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="relative overflow-hidden bg-[linear-gradient(180deg,#eef7ff_0%,#f8fbff_52%,#ffffff_100%)] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 dark:bg-[linear-gradient(180deg,#071126_0%,#0b1833_54%,#061126_100%)]">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(43,168,255,0.16),transparent_30rem),radial-gradient(circle_at_90%_20%,rgba(34,181,115,0.12),transparent_34rem)]" />
         <div className="relative mx-auto grid w-full max-w-[108rem] gap-6 rounded-[2rem] border border-blue-950/10 bg-white/88 p-6 shadow-2xl shadow-blue-950/8 sm:p-8 lg:grid-cols-[0.42fr_0.58fr] lg:items-center dark:border-white/10 dark:bg-surface/88">
@@ -265,4 +302,64 @@ export function ListingPage({
       </section>
     </>
   );
+}
+
+function getListingExamples(variant: NonNullable<ListingPageProps["variant"]>) {
+  if (variant === "feature") {
+    return {
+      eyebrow: "Feature paths",
+      title: "Start with the workflow your team touches every week.",
+      description:
+        "The feature library should not feel like a flat module list. These paths help visitors choose based on the daily job they need KASA to improve.",
+      cards: [
+        { label: "Course sales", title: "Website → checkout → learner access", text: "Use this path when the team needs course pages, payments, coupons, enrolment, and automated access in one flow." },
+        { label: "Teaching ops", title: "Live class → attendance → recordings", text: "Use this path when faculty scheduling, learner reminders, attendance, and class resources are the main pain." },
+        { label: "Assessment", title: "Exams → assignments → certificates", text: "Use this path when outcomes, submissions, report cards, certificates, and academic proof matter more than marketing pages." },
+        { label: "Growth team", title: "CRM → leads → reporting", text: "Use this path when counsellors and admins need follow-ups, source tracking, fee visibility, and conversion reports." },
+      ],
+    };
+  }
+
+  if (variant === "solution") {
+    return {
+      eyebrow: "Business model paths",
+      title: "Different education businesses should not read the same page.",
+      description:
+        "Solution pages need to reflect how each team sells, teaches, supports learners, and measures growth.",
+      cards: [
+        { label: "Coaching institute", title: "Batches, fees, tests, and parent trust", text: "Prioritize batch operations, live teaching, attendance, test series, fee collection, and progress visibility." },
+        { label: "Online academy", title: "Course storefront and learner dashboard", text: "Prioritize branded course pages, checkout, content access, certificates, and student engagement." },
+        { label: "Creator or trainer", title: "Fast launch with simple operations", text: "Prioritize landing pages, pricing, recorded lessons, live workshops, certificates, and low-admin workflows." },
+        { label: "Multi-centre team", title: "Standardized control across locations", text: "Prioritize reporting, permissions, branch visibility, counsellor workflows, and repeatable course templates." },
+      ],
+    };
+  }
+
+  if (variant === "compare") {
+    return {
+      eyebrow: "Comparison shortcuts",
+      title: "Compare by operational tradeoff, not software category.",
+      description:
+        "A useful comparison hub helps teams decide what they gain or lose in speed, ownership, control, maintenance, and learner experience.",
+      cards: [
+        { label: "Custom build", title: "Control versus delivery time", text: "Compare custom development when ownership matters, but maintenance and launch delay are real constraints." },
+        { label: "Marketplace", title: "Discovery versus brand ownership", text: "Compare marketplaces when reach is attractive, but learner data, pricing control, and brand experience matter." },
+        { label: "WordPress LMS", title: "Plugin flexibility versus operations", text: "Compare plugin stacks when setup looks cheaper, but updates, security, integrations, and support create hidden work." },
+        { label: "Ready LMS", title: "Speed versus workflow fit", text: "Compare ready platforms by whether they support your actual teaching, payment, certificate, and reporting workflows." },
+      ],
+    };
+  }
+
+  return {
+    eyebrow: "Planning paths",
+    title: "Use resources when the team is still shaping the decision.",
+    description:
+      "Resource pages should help founders and academy teams turn research into a concrete launch, pricing, teaching, or growth plan.",
+    cards: [
+      { label: "Launch", title: "Start online academy", text: "Clarify learner segment, course outcome, pricing, content format, launch date, and support process." },
+      { label: "Content", title: "Sell recorded courses", text: "Plan modules, access rules, certificates, student communication, and update cadence before publishing." },
+      { label: "Delivery", title: "Run live classes", text: "Plan batch schedule, faculty ownership, reminders, attendance, recordings, and doubt support." },
+      { label: "Growth", title: "Improve academy website", text: "Plan pages, internal links, enquiry forms, testimonials, and conversion paths before buying more ads." },
+    ],
+  };
 }

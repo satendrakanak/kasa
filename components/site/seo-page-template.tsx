@@ -110,6 +110,7 @@ export function SeoPageTemplate({ page }: SeoPageTemplateProps) {
   const variant = pageVariant(page);
   const content = enrichedPages[page.slug];
   const copy = templateCopy[content?.template ?? variant];
+  const playbook = getPagePlaybook(page, content?.template ?? variant);
   const relatedPages = allSeoPages
     .filter((item) => item.slug !== page.slug)
     .filter((item) =>
@@ -244,6 +245,42 @@ export function SeoPageTemplate({ page }: SeoPageTemplateProps) {
                 </p>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[linear-gradient(180deg,#f8fbff_0%,#ffffff_100%)] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 dark:bg-[linear-gradient(180deg,#071126_0%,#061126_100%)]">
+        <div className="mx-auto w-full max-w-[108rem]">
+          <div className="grid gap-6 lg:grid-cols-[0.34fr_0.66fr] lg:items-start">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary dark:text-emerald-200">
+                {playbook.eyebrow}
+              </p>
+              <h2 className="mt-3 font-heading text-3xl font-semibold leading-tight text-slate-950 dark:text-white">
+                {playbook.title}
+              </h2>
+              <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                {playbook.description}
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {playbook.cards.map((card) => (
+                <article
+                  key={card.title}
+                  className="rounded-[1.5rem] border border-blue-950/10 bg-white p-5 shadow-xl shadow-blue-950/6 dark:border-white/10 dark:bg-white/[0.04]"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary dark:text-emerald-200">
+                    {card.label}
+                  </p>
+                  <h3 className="mt-3 font-heading text-xl font-semibold leading-tight text-slate-950 dark:text-white">
+                    {card.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                    {card.text}
+                  </p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -478,4 +515,133 @@ export function SeoPageTemplate({ page }: SeoPageTemplateProps) {
       </section>
     </>
   );
+}
+
+function getPagePlaybook(page: PageSummary, variant: SeoPageContent["template"]) {
+  const primarySection = page.sections[0];
+  const secondarySection = page.sections[1] ?? page.sections[0];
+  const primaryKeyword = page.keywords[0] ?? page.eyebrow.toLowerCase();
+  const secondaryKeyword = page.keywords[1] ?? page.title.toLowerCase();
+
+  if (variant === "solution") {
+    return {
+      eyebrow: "Team-specific playbook",
+      title: `${page.eyebrow} needs a workflow that matches how the team actually teaches.`,
+      description:
+        "This section makes the solution page less generic by tying the page to roles, operating rhythm, and rollout decisions an education business has to make.",
+      cards: [
+        {
+          label: "Best fit",
+          title: page.title,
+          text: `Use this path when ${primaryKeyword} is the main operating model, not just one marketing phrase on the website.`,
+        },
+        {
+          label: "Daily workflow",
+          title: primarySection.title,
+          text: primarySection.body,
+        },
+        {
+          label: "Rollout decision",
+          title: secondarySection.title,
+          text: `Start with the workflow around ${secondaryKeyword}, then connect enrolment, payment, learner access, faculty work, and reporting.`,
+        },
+        {
+          label: "Proof to prepare",
+          title: "Before the demo",
+          text: "Bring current batch size, course formats, fee collection process, learner support gaps, and the one workflow your team wants to fix first.",
+        },
+      ],
+    };
+  }
+
+  if (variant === "feature") {
+    return {
+      eyebrow: "Feature-specific playbook",
+      title: `${page.eyebrow} should solve one operational problem clearly.`,
+      description:
+        "Feature pages now include a practical operating view so the content is not only hero, benefits, feature cards, and FAQ.",
+      cards: [
+        {
+          label: "Where it appears",
+          title: page.title,
+          text: `This feature matters when teams are actively managing ${primaryKeyword} and need it connected to the rest of the academy system.`,
+        },
+        {
+          label: "Admin action",
+          title: primarySection.title,
+          text: primarySection.body,
+        },
+        {
+          label: "Learner impact",
+          title: secondarySection.title,
+          text: `The learner experience should make ${secondaryKeyword} feel simple while admins still keep control of rules and reporting.`,
+        },
+        {
+          label: "Demo check",
+          title: "What to verify",
+          text: "Ask how this feature connects with course access, live classes, payments, certificates, CRM, and analytics before treating it as a standalone module.",
+        },
+      ],
+    };
+  }
+
+  if (variant === "compare") {
+    return {
+      eyebrow: "Decision worksheet",
+      title: "Compare the tradeoff, not only the headline promise.",
+      description:
+        "Comparison pages need stronger decision support, so this block turns the topic into a practical buying checklist.",
+      cards: [
+        {
+          label: "Option being compared",
+          title: page.title,
+          text: `Use this comparison when your team is weighing ${primaryKeyword} against speed, ownership, cost, maintenance, and learner experience.`,
+        },
+        {
+          label: "Operational question",
+          title: primarySection.title,
+          text: primarySection.body,
+        },
+        {
+          label: "Hidden cost",
+          title: secondarySection.title,
+          text: `Check what happens after launch: content updates, payment issues, support tickets, faculty onboarding, reporting, and future course expansion.`,
+        },
+        {
+          label: "Decision evidence",
+          title: "Before choosing",
+          text: "List your launch deadline, technical support capacity, expected enrolments, branding needs, and integrations before comparing platforms.",
+        },
+      ],
+    };
+  }
+
+  return {
+    eyebrow: "Guide worksheet",
+    title: "Turn the guide into an implementation checklist.",
+    description:
+      "Resource pages should educate first, so this block converts broad advice into next actions a founder or academy team can use.",
+    cards: [
+      {
+        label: "Use case",
+        title: page.title,
+        text: `Use this guide when ${primaryKeyword} is an active planning question and the team needs a clearer sequence of decisions.`,
+      },
+      {
+        label: "First step",
+        title: primarySection.title,
+        text: primarySection.body,
+      },
+      {
+        label: "Second step",
+        title: secondarySection.title,
+        text: `After the first decision, connect ${secondaryKeyword} with pricing, content access, learner support, and reporting.`,
+      },
+      {
+        label: "Useful output",
+        title: "What to document",
+        text: "Write down the target learner, course format, price range, launch date, support model, and the metric you will review after launch.",
+      },
+    ],
+  };
 }

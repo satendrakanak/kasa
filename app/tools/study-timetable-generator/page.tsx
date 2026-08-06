@@ -441,12 +441,11 @@ function StudyTimetableSeoContent() {
                 realistic.
               </p>
               <p>
-                Students usually search for a study timetable generator when exams are close and the
-                syllabus feels scattered. A good study schedule maker should not only divide time
-                equally. It should give extra focus to difficult subjects, keep enough space for
-                revision, and avoid long sessions that look impressive but fail in real life. This
-                exam study planner helps you balance hard chapters, easy chapters, sample papers,
-                mock tests, notes, formulas, diagrams, definitions, and previous-year questions.
+                A useful study plan should not only divide time equally. It should give extra focus
+                to difficult subjects, keep enough space for revision, and avoid long sessions that
+                look impressive but fail in real life. This planner helps you balance hard chapters,
+                easier topics, sample papers, mock tests, notes, formulas, diagrams, definitions,
+                and previous-year questions.
               </p>
               <p>
                 The timetable works for Class 10 board exams, Class 12 board exams, NEET, JEE,

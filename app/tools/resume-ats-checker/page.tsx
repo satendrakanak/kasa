@@ -320,7 +320,7 @@ export default function ResumeAtsCheckerPage() {
       <ToolSeoSection
         eyebrow="Resume ATS Checker FAQ"
         title="Free ATS Resume Checker AI FAQ"
-        description="Use this free ATS Resume Checker AI as a resume score checker, resume keyword checker, resume scanner, and Resume Roast AI tool. It helps students, freshers, and experienced professionals find resume rejection risks before they apply."
+        description="Learn how to read the ATS report, improve weak resume sections, and apply only the suggestions that match your real experience."
         keywords={[
           "free ATS resume checker",
           "ATS resume checker free",
@@ -366,16 +366,16 @@ function ResumeAtsSeoContent() {
             </h2>
             <div className="mt-5 space-y-4 text-sm leading-7 text-slate-600 dark:text-slate-300 sm:text-base">
               <p>
-                KASA&apos;s Free ATS Resume Checker AI helps students, freshers, and experienced professionals understand why a resume may not get shortlisted. Upload a PDF, DOC, DOCX, or TXT resume, or paste your resume text directly. Then choose the target role, role family, experience level, current skills, expected package, daily preparation time, and report language. The tool generates an ATS score, role-fit verdict, Resume Roast AI feedback, missing keywords, missing skills, weak areas, improved bullet points, interview questions, recruiter checklist, and a practical career roadmap.
+                KASA&apos;s Free ATS Resume Checker AI helps students, freshers, and experienced professionals understand why a resume may not get shortlisted. Upload a PDF, DOC, DOCX, or TXT resume, or paste your resume text directly. Then choose the target role, role family, experience level, current skills, expected package, daily preparation time, and report language. The tool returns a score, role-fit verdict, plain-English feedback, missing skills, weak areas, stronger bullet examples, interview questions, recruiter checklist, and a practical career roadmap.
               </p>
               <p>
-                Most resumes fail because they are written like a biography instead of a job-matching document. Applicant tracking systems and recruiters look for role-specific keywords, clear skills, measurable achievements, readable formatting, and evidence that the candidate can do the job. A resume may look good visually but still miss phrases like React, SQL, Power BI, stakeholder management, REST APIs, performance optimization, campaign analytics, or any other keywords that matter for the target role. This ATS resume checker works as a resume score checker and resume keyword checker so you can fix those gaps before applying.
+                Most resumes fail because they are written like a biography instead of a job-matching document. Recruiters look for readable sections, relevant skills, measurable achievements, and proof that the candidate can do the work. For example, a frontend resume should show shipped interfaces, APIs, performance work, testing, and collaboration. A data resume should show analysis tools, business questions, dashboards, cleaning steps, and decisions influenced by the work.
               </p>
               <p>
                 For students and freshers, the checker is useful for improving placement resumes, internship applications, project descriptions, and entry-level job profiles. It points out weak project bullets, missing technical skills, unclear tools, and places where achievements should be more specific. For experienced professionals, it helps sharpen leadership impact, domain keywords, team ownership, metrics, seniority signals, and recruiter-facing results. Career switchers can use the report to understand which transferable skills are visible and which new skills or projects should be added.
               </p>
               <p>
-                Use this page before applying to a job, after updating your resume, or when tailoring your resume for a new role. Start with the ATS report, rewrite weak bullets, add missing keywords naturally, remove unrelated filler, and make sure your best projects or achievements appear near the top. If you need to rebuild the resume after the scan, use the{" "}
+                Use this page before applying to a job, after updating your resume, or when tailoring your resume for a new role. Start with the report, rewrite weak bullets, add relevant terms naturally, remove unrelated filler, and make sure your best projects or achievements appear near the top. If you need to rebuild the resume after the scan, use the{" "}
                 <Link href="/tools/ai-resume-builder" className="font-semibold text-primary hover:underline dark:text-emerald-200">
                   AI Resume Builder
                 </Link>

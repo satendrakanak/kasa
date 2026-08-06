@@ -403,14 +403,10 @@ function ScholarshipEligibilitySeoContent() {
                 eligibility estimate, profile match score, marks gap, and income gap.
               </p>
               <p>
-                Students usually search for scholarship eligibility checker, scholarship income
-                limit calculator, scholarship marks eligibility, post-matric scholarship
-                eligibility, merit scholarship eligibility, and scholarship calculator for students
-                when they are unsure whether they should apply. This page is built for that early
-                planning stage. It helps you understand whether your marks, income, category, and
-                course level look aligned with common school, college, undergraduate, postgraduate,
-                professional course, minority, OBC, SC, ST, EWS, and General category scholarship
-                filters.
+                This page is built for the early planning stage, when students are unsure whether an
+                application is worth starting. It helps you compare your marks, income, category,
+                course level, and applicant type against common scholarship screening filters before
+                you spend time collecting documents and filling long forms.
               </p>
               <p>
                 A scholarship form may look simple, but rejection often happens because students

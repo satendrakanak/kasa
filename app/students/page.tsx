@@ -380,8 +380,8 @@ export default function StudentsPage() {
               A better path than opening ten random tabs before every deadline.
             </h2>
             <p className="mt-4 text-base leading-8 text-slate-600 dark:text-slate-300">
-              Students usually search when there is pressure: resume submission, placement drive, final year project review,
-              attendance shortage, exam target, or assignment deadline. These workflows keep that work practical.
+              When deadlines stack up, students need a clear next step: improve the resume, prepare for placements,
+              organize the final year project, protect attendance, plan exam targets, or finish assignments on time.
             </p>
           </div>
 
