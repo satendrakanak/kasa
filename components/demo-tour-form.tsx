@@ -13,7 +13,6 @@ type DemoFormData = {
 };
 
 type DemoTourTriggerProps = {
-  appUrl: string;
   buttonLabel: string;
   buttonClassName?: string;
   icon?: React.ReactNode;
@@ -30,13 +29,6 @@ const initialForm: DemoFormData = {
   phone: "",
   message: "",
 };
-
-const progressSteps = [
-  "Creating your demo account",
-  "Preparing KASA controls",
-  "Adding limited admin access",
-  "Opening your guided tour",
-];
 
 function validateForm(data: DemoFormData) {
   const errors: ValidationErrors = {};
@@ -61,24 +53,7 @@ function splitName(name: string) {
   return { firstName, lastName };
 }
 
-function unwrapDemoResponse(payload: unknown) {
-  if (!payload || typeof payload !== "object") return null;
-
-  const outer = payload as { data?: unknown };
-  const firstData = outer.data;
-
-  if (!firstData || typeof firstData !== "object") return null;
-
-  const maybeNested = firstData as {
-    defaultRedirect?: string;
-    data?: { defaultRedirect?: string };
-  };
-
-  return maybeNested.defaultRedirect ? maybeNested : maybeNested.data || null;
-}
-
 export function DemoTourTrigger({
-  appUrl,
   buttonLabel,
   buttonClassName,
   icon,
@@ -87,9 +62,7 @@ export function DemoTourTrigger({
 }: DemoTourTriggerProps) {
   const [open, setOpen] = useState(autoOpen);
   const [submitting, setSubmitting] = useState(false);
-  const [isPreparing, setIsPreparing] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [activeStep, setActiveStep] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState<DemoFormData>(initialForm);
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [toast, setToast] = useState<string | null>(null);
@@ -117,19 +90,6 @@ export function DemoTourTrigger({
     };
   }, [open, submitting]);
 
-  useEffect(() => {
-    if (!isPreparing) return;
-
-    const interval = window.setInterval(() => {
-      setProgress((current) => Math.min(current + 12, 92));
-      setActiveStep((current) =>
-        current >= progressSteps.length - 1 ? current : current + 1,
-      );
-    }, 650);
-
-    return () => window.clearInterval(interval);
-  }, [isPreparing]);
-
   const modal = useMemo(() => {
     if (!open || typeof document === "undefined") return null;
 
@@ -146,10 +106,10 @@ export function DemoTourTrigger({
           <div className="flex items-start justify-between gap-4 border-b border-blue-950/8 px-4 py-3 dark:border-white/8 sm:px-5">
             <div className="text-left">
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-primary sm:text-xs">
-                Tour access
+                Demo request
               </p>
               <h3 className="mt-1 font-heading text-xl font-semibold leading-tight text-slate-950 dark:text-white sm:text-2xl">
-                Take a guided KASA tour
+                Request a guided KASA demo
               </h3>
             </div>
             <button
@@ -163,29 +123,28 @@ export function DemoTourTrigger({
             </button>
           </div>
 
-          {isPreparing ? (
-            <div className="space-y-4 px-4 py-5 sm:px-5">
-              <div>
-                <div className="mb-3 flex items-center gap-2 text-sm font-medium text-white">
-                  <SpinnerIcon className="size-4 animate-spin text-primary" />
-                  We are preparing KASA for you
-                </div>
-                <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                  <div
-                    className="h-full rounded-full bg-primary transition-all"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
+          {submitted ? (
+            <div className="px-4 py-8 text-center sm:px-8 sm:py-10">
+              <div className="mx-auto grid size-14 place-items-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-400/12 dark:text-emerald-300">
+                <CheckIcon className="size-7" />
               </div>
-              <div className="rounded-[1.1rem] border border-white/10 bg-white/7 p-4">
-                <p className="text-sm font-medium text-white">
-                  {progressSteps[activeStep]}
-                </p>
-                <p className="mt-2 text-sm leading-6 text-white/60">
-                  Your temporary demo will stay active for 1 hour. A live timer
-                  will appear inside the workspace.
-                </p>
-              </div>
+              <h4 className="mt-5 font-heading text-xl font-semibold text-slate-950 dark:text-white sm:text-2xl">
+                Thank you! Your request is received.
+              </h4>
+              <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-slate-600 dark:text-white/65">
+                Our KASA team will contact you shortly to understand your academy
+                requirements and schedule a guided product demo.
+              </p>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className={siteButtonClasses({
+                  size: "sm",
+                  className: "mt-6 h-10 min-w-32",
+                })}
+              >
+                Done
+              </button>
             </div>
           ) : (
             <form
@@ -197,9 +156,6 @@ export function DemoTourTrigger({
                 if (Object.keys(nextErrors).length > 0) return;
 
                 setSubmitting(true);
-                setIsPreparing(true);
-                setProgress(14);
-                setActiveStep(0);
 
                 try {
                   const { firstName, lastName } = splitName(form.name);
@@ -224,28 +180,21 @@ export function DemoTourTrigger({
                     const errorBody = await response.json().catch(() => null);
                     const message =
                       errorBody?.message ||
-                      "Unable to start demo. Please try with another email.";
+                      "Unable to submit your demo request. Please try again.";
                     throw new Error(Array.isArray(message) ? message.join(", ") : message);
                   }
 
-                  const demo = unwrapDemoResponse(await response.json());
-                  if (!demo?.defaultRedirect) {
-                    throw new Error("Demo started but redirect was missing.");
-                  }
-
-                  setProgress(100);
-                  window.setTimeout(() => {
-                    window.location.href = `${appUrl}${demo.defaultRedirect}`;
-                  }, 800);
+                  setForm(initialForm);
+                  setErrors({});
+                  setSubmitted(true);
                 } catch (error) {
-                  setIsPreparing(false);
-                  setProgress(0);
-                  setSubmitting(false);
                   setToast(
                     error instanceof Error
                       ? error.message
-                      : "Unable to start demo. Please try again.",
+                      : "Unable to submit your demo request. Please try again.",
                   );
+                } finally {
+                  setSubmitting(false);
                 }
               }}
             >
@@ -310,7 +259,7 @@ export function DemoTourTrigger({
               />
               <div className="sm:col-span-2">
                 <FormField
-                  label="What do you want to test?"
+                  label="What would you like to explore?"
                   error={errors.message}
                   input={
                     <textarea
@@ -337,7 +286,7 @@ export function DemoTourTrigger({
                     className: "h-10 min-w-40",
                   })}
                 >
-                  {submitting ? "Preparing demo..." : "Start guided tour"}
+                  {submitting ? "Sending request..." : "Request a demo"}
                 </button>
               </div>
             </form>
@@ -346,7 +295,7 @@ export function DemoTourTrigger({
       </div>,
       document.body,
     );
-  }, [appUrl, buttonLabel, errors, form, isPreparing, open, progress, activeStep, submitting]);
+  }, [buttonLabel, errors, form, open, submitted, submitting]);
 
   return (
     <>
@@ -418,14 +367,15 @@ function CloseIcon({ className = "size-5" }: { className?: string }) {
   );
 }
 
-function SpinnerIcon({ className = "size-4" }: { className?: string }) {
+function CheckIcon({ className = "size-5" }: { className?: string }) {
   return (
     <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className={className}>
       <path
-        d="M10 2.5a7.5 7.5 0 1 1-6.65 4.04"
+        d="m5 10.25 3.1 3.1L15.25 6.2"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="1.9"
         strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

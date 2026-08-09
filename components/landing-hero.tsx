@@ -38,8 +38,6 @@ const floatingCards = [
 
 export default function LandingHero() {
   const leadsEndpoint = "/api/leads";
-  const demoAppUrl =
-    process.env.NEXT_PUBLIC_DEMO_APP_URL ?? "http://localhost:3000";
 
   return (
     <section className="relative min-h-screen overflow-x-hidden bg-surface-strong text-foreground">
@@ -126,7 +124,6 @@ export default function LandingHero() {
 
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
             <DemoTourTrigger
-              appUrl={demoAppUrl}
               buttonLabel="Take a Tour"
               icon={<PlayWindowIcon className="size-4" />}
               buttonClassName={siteButtonClasses({

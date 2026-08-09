@@ -3,9 +3,8 @@ import { ArticleAdminHero } from "@/components/admin/articles/article-admin-prim
 import { SettingsSaveToast } from "@/components/admin/settings-save-toast";
 import { Button } from "@/components/ui/button";
 import { requireAdmin } from "@/lib/admin/auth";
-import { getDemoOperationsSettings } from "@/lib/admin/demo-settings";
 import { getAiProviderEnvironmentStatus, getAiProviderSettings, type AiProvider } from "@/lib/ai/settings";
-import { updateAiProviderAction, updateDemoOperationsAction } from "@/actions/admin/settings";
+import { updateAiProviderAction } from "@/actions/admin/settings";
 import {
   BotIcon,
   CheckCircle2Icon,
@@ -13,7 +12,6 @@ import {
   KeyRoundIcon,
   MailCheckIcon,
   PlayCircleIcon,
-  RotateCcwIcon,
   ShieldCheckIcon,
   SparklesIcon,
   ChevronRightIcon,
@@ -28,8 +26,7 @@ type SettingsPageProps = {
 
 export default async function AdminSettingsPage({ searchParams }: SettingsPageProps) {
   const admin = await requireAdmin();
-  const [demoSettings, aiSettings, query] = await Promise.all([
-    getDemoOperationsSettings(),
+  const [aiSettings, query] = await Promise.all([
     getAiProviderSettings(),
     searchParams,
   ]);
@@ -46,7 +43,7 @@ export default async function AdminSettingsPage({ searchParams }: SettingsPagePr
       adminEmail={admin.email}
       pageTitle="Settings"
       pageEyebrow="Admin workspace"
-      pageDescription="Manage AI generation, demo behaviour, and delivery services."
+      pageDescription="Manage AI generation, demo requests, and delivery services."
       showHero={false}
       headerContent={
         <div className="flex min-w-0 items-center gap-2 text-sm font-medium text-muted-foreground">
@@ -158,37 +155,26 @@ export default async function AdminSettingsPage({ searchParams }: SettingsPagePr
         </section>
 
       <section className="rounded-2xl bg-white/90 p-6 shadow-sm shadow-blue-950/5 dark:bg-white/[0.055]">
-        <form action={updateDemoOperationsAction}>
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-start gap-3">
-              <div className="rounded-xl bg-primary/10 p-2.5 text-primary">
-                <PlayCircleIcon className="size-5" />
-              </div>
-              <div>
-                <h2 className="text-lg font-semibold text-card-foreground">Demo experience</h2>
-                <p className="mt-1 text-sm text-muted-foreground">Control temporary product tours used by lead flows.</p>
-              </div>
-            </div>
-            <Button type="submit" variant="outline" className="h-10">Save demo preferences</Button>
+        <div className="flex items-start gap-3">
+          <div className="rounded-xl bg-primary/10 p-2.5 text-primary">
+            <PlayCircleIcon className="size-5" />
           </div>
-
-          <div className="mt-5 grid gap-3">
-            <ToggleSetting
-              name="demoToursEnabled"
-              icon={<PlayCircleIcon className="size-4" />}
-              title="Issue demo tours"
-              description="Allow website visitors to receive temporary demo URLs."
-              defaultChecked={demoSettings.demoToursEnabled}
-            />
-            <ToggleSetting
-              name="demoResetOnExpiry"
-              icon={<RotateCcwIcon className="size-4" />}
-              title="Reset expired demos"
-              description="Clear temporary demo state when visitor access expires."
-              defaultChecked={demoSettings.demoResetOnExpiry}
-            />
+          <div>
+            <h2 className="text-lg font-semibold text-card-foreground">Demo request flow</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Product-tour forms now save a lead instead of issuing temporary demo access.
+            </p>
           </div>
-        </form>
+        </div>
+        <div className="mt-5 rounded-xl bg-blue-50/80 p-4 dark:bg-primary/10">
+          <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+            <CheckCircle2Icon className="size-4 text-primary" />
+            Team follow-up is active
+          </div>
+          <p className="mt-2 text-xs leading-5 text-muted-foreground">
+            Visitors receive a confirmation and the request appears in Leads for your team to contact and schedule a guided demo.
+          </p>
+        </div>
       </section>
       </div>
     </AdminShell>
@@ -240,32 +226,6 @@ function ProviderChoice({
         </span>
         {active ? <span className="rounded-full bg-primary px-2.5 py-1 font-semibold text-primary-foreground">Currently active</span> : null}
       </div>
-    </label>
-  );
-}
-
-function ToggleSetting({
-  name,
-  icon,
-  title,
-  description,
-  defaultChecked,
-}: {
-  name: string;
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  defaultChecked: boolean;
-}) {
-  return (
-    <label className="flex cursor-pointer items-start gap-3 rounded-xl bg-blue-50/75 p-4 transition-all hover:bg-blue-100/70 has-[:checked]:bg-blue-50 dark:bg-white/[0.06] dark:hover:bg-white/[0.09] dark:has-[:checked]:bg-primary/10">
-      <input type="checkbox" name={name} defaultChecked={defaultChecked} className="peer sr-only" />
-      <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg bg-surface-muted text-primary peer-checked:bg-primary/10 peer-checked:text-primary">{icon}</span>
-      <span className="min-w-0 flex-1">
-        <span className="block text-sm font-semibold text-foreground">{title}</span>
-        <span className="mt-1 block text-xs leading-5 text-muted-foreground">{description}</span>
-      </span>
-      <span className="relative mt-1 h-6 w-11 shrink-0 rounded-full bg-primary/20 transition-colors after:absolute after:left-1 after:top-1 after:size-4 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:bg-primary peer-checked:after:translate-x-5" />
     </label>
   );
 }

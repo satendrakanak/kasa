@@ -223,19 +223,26 @@ export function renderLeadConfirmationEmail(input: {
   demoUrl?: string | null;
   demoExpiresAt?: string | null;
 }) {
-  const isDemo = Boolean(input.demoUrl);
+  const hasDemoAccess = Boolean(input.demoUrl);
+  const isDemoRequest = input.leadType === "demo";
 
   return renderKasaEmail({
-    eyebrow: isDemo ? "Demo request received" : "Enquiry received",
+    eyebrow: isDemoRequest ? "Demo request received" : "Enquiry received",
     title: `Thanks, ${input.name}`,
-    intro: isDemo
+    intro: hasDemoAccess
       ? "Your KASA demo request is ready. You can open the demo workspace and explore the admin, course, and learner experience."
+      : isDemoRequest
+        ? "We received your KASA demo request. Our team will contact you shortly to understand your requirements and schedule a guided product demo."
       : "We received your KASA enquiry. Our team will review your details and get back to you shortly.",
-    body: isDemo
+    body: hasDemoAccess
       ? [
           "Use the demo to check how KASA can support courses, payments, learner access, live class workflows, and admin operations.",
           input.demoExpiresAt ? `Demo access expiry: ${input.demoExpiresAt}` : "",
         ].filter(Boolean)
+      : isDemoRequest
+        ? [
+            "Our team will use the details you shared to prepare a relevant walkthrough for your institute, training business, or online academy.",
+          ]
       : [
           "If you shared a requirement, we will use that context to suggest the right KASA setup for your institute, training business, or online academy.",
         ],

@@ -110,7 +110,11 @@ async function sendLeadEmails(input: PublicLeadInput) {
   sent.push(
     await sendEmail({
       to: input.email,
-      subject: input.demoUrl ? "Your KASA demo is ready" : "We received your KASA enquiry",
+      subject: input.demoUrl
+        ? "Your KASA demo is ready"
+        : leadType === "demo"
+          ? "We received your KASA demo request"
+          : "We received your KASA enquiry",
       html: confirmationEmail.html,
       text: confirmationEmail.text,
     }),

@@ -27,8 +27,6 @@ export function ProductTourTrigger({
   showIcon = true,
   onOpen,
 }: ProductTourTriggerProps) {
-  const demoAppUrl =
-    process.env.NEXT_PUBLIC_DEMO_APP_URL ?? "http://localhost:3000";
   const [modalKey, setModalKey] = useState(0);
 
   return (
@@ -51,7 +49,6 @@ export function ProductTourTrigger({
       {modalKey > 0 ? (
         <LazyDemoTourTrigger
           key={modalKey}
-          appUrl={demoAppUrl}
           buttonLabel={label}
           autoOpen
           hideButton

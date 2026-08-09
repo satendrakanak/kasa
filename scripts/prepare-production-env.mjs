@@ -62,11 +62,6 @@ const next = {
   RESEND_API_KEY: firstValue(release.RESEND_API_KEY),
   LEADS_FROM_EMAIL: firstValue(release.LEADS_FROM_EMAIL),
   LEADS_NOTIFICATION_EMAIL: firstValue(release.LEADS_NOTIFICATION_EMAIL),
-  NEXT_PUBLIC_DEMO_APP_URL: firstValue(
-    current.NEXT_PUBLIC_DEMO_APP_URL,
-    release.NEXT_PUBLIC_DEMO_APP_URL,
-    "https://cwk.getkasa.in",
-  ),
 };
 
 const required = [

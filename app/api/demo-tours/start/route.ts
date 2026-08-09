@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { createPublicLead } from "@/lib/admin/lead-capture";
+import { NextResponse } from "next/server";
+import { ZodError } from "zod";
+import { createPublicLead, publicLeadSchema } from "@/lib/admin/lead-capture";
 
-const DEFAULT_DEMO_APP_URL = "http://localhost:3000";
-const DEMO_TOUR_START_PATH = "/api/demo-tours/start";
+export const dynamic = "force-dynamic";
 
 type DemoTourPayload = {
   firstName?: string;
@@ -16,270 +16,63 @@ type DemoTourPayload = {
   pageUrl?: string;
 };
 
-type DemoLeadContext = {
-  demoUrl?: string;
-  demoExpiresAt?: string;
-  statusNote?: string;
-};
-
-type DemoStartResponseBody = {
-  data?: {
-    accessToken?: string;
-    refreshToken?: string;
-    data?: {
-      accessToken?: string;
-      refreshToken?: string;
-    };
-  };
-};
-
-function getSetCookieHeaders(headers: Headers) {
-  const withGetSetCookie = headers as Headers & {
-    getSetCookie?: () => string[];
-  };
-
-  if (typeof withGetSetCookie.getSetCookie === "function") {
-    return withGetSetCookie.getSetCookie();
-  }
-
-  const cookieHeader = headers.get("set-cookie");
-  return cookieHeader ? [cookieHeader] : [];
-}
-
-function getCookieDomain(url: string) {
-  const hostname = new URL(url).hostname;
-
-  if (hostname === "localhost" || hostname === "127.0.0.1") return undefined;
-  if (hostname === "getkasa.in" || hostname.endsWith(".getkasa.in")) {
-    return ".getkasa.in";
-  }
-
-  return undefined;
-}
-
-function splitSetCookieHeaders(cookieHeaders: string[]) {
-  return cookieHeaders.flatMap((header) =>
-    header.split(/,(?=\s*[^;,]+=)/).map((part) => part.trim()),
-  );
-}
-
-function extractCookieValue(cookieHeaders: string[], cookieName: string) {
-  for (const cookie of splitSetCookieHeaders(cookieHeaders)) {
-    if (!cookie.startsWith(`${cookieName}=`)) continue;
-
-    return cookie.slice(cookieName.length + 1).split(";")[0];
-  }
-
-  return undefined;
-}
-
-function parseDemoPayload(requestBody: string): DemoTourPayload | null {
+export async function POST(request: Request) {
   try {
-    const payload = JSON.parse(requestBody) as unknown;
-    return payload && typeof payload === "object"
-      ? (payload as DemoTourPayload)
-      : null;
-  } catch {
-    return null;
-  }
-}
-
-function extractDemoRedirect(responseBody: string) {
-  try {
-    const payload = JSON.parse(responseBody) as {
-      data?: { defaultRedirect?: string; data?: { defaultRedirect?: string } };
-    };
-    return payload.data?.defaultRedirect || payload.data?.data?.defaultRedirect || null;
-  } catch {
-    return null;
-  }
-}
-
-function extractDemoTokens(responseBody: string) {
-  try {
-    const payload = JSON.parse(responseBody) as DemoStartResponseBody;
-    const data = payload.data?.data || payload.data;
-
-    return {
-      accessToken: data?.accessToken,
-      refreshToken: data?.refreshToken,
-    };
-  } catch {
-    return {};
-  }
-}
-
-function getUpstreamErrorMessage(responseBody: string) {
-  try {
-    const payload = JSON.parse(responseBody) as {
-      error?: unknown;
-      message?: unknown;
-    };
-    const message = Array.isArray(payload.message)
-      ? payload.message.join(", ")
-      : payload.message;
-
-    return typeof message === "string"
-      ? message
-      : typeof payload.error === "string"
-        ? payload.error
-        : "";
-  } catch {
-    return responseBody;
-  }
-}
-
-function isDemoToursDisabled(responseBody: string) {
-  return /demo tours are not enabled/i.test(getUpstreamErrorMessage(responseBody));
-}
-
-function buildUpstreamDemoPayload(payload: DemoTourPayload | null) {
-  if (!payload) return null;
-
-  return {
-    firstName: payload.firstName,
-    lastName: payload.lastName,
-    email: payload.email,
-    phoneNumber: payload.phoneNumber,
-    businessName: payload.businessName,
-    useCase: payload.useCase,
-  };
-}
-
-async function captureDemoLead(
-  payload: DemoTourPayload | null,
-  context: DemoLeadContext = {},
-) {
-  if (!payload?.email) return;
-
-  const name = [payload.firstName, payload.lastName].filter(Boolean).join(" ").trim();
-  const useCase = payload.useCase?.trim();
-  const message =
-    [
-      useCase && useCase.length >= 10
-        ? useCase
-        : "Requested a guided KASA demo tour from the marketing site.",
-      useCase && useCase.length < 10 ? `Entered note: ${useCase}` : null,
+    const payload = (await request.json()) as DemoTourPayload;
+    const name = [payload.firstName, payload.lastName]
+      .filter(Boolean)
+      .join(" ")
+      .trim();
+    const useCase = payload.useCase?.trim();
+    const message = [
+      useCase || "Requested a guided KASA product demo.",
       "",
       "Lead type: demo",
       `CTA: ${payload.ctaLabel || "Take a Tour"}`,
       payload.pageUrl ? `Page: ${payload.pageUrl}` : null,
-      context.demoUrl ? `Demo URL: ${context.demoUrl}` : null,
-      context.demoExpiresAt ? `Demo expires at: ${context.demoExpiresAt}` : null,
-      context.statusNote ? `Status: ${context.statusNote}` : null,
+      "Follow-up: Contact the lead to schedule a guided demo.",
     ]
       .filter(Boolean)
       .join("\n");
 
-  await createPublicLead({
-    name: name || payload.email,
-    email: payload.email,
-    institute: payload.businessName || "",
-    phone: payload.phoneNumber || "",
-    message,
-    source: "demo-tour",
-    leadType: payload.leadType || "demo",
-    ctaLabel: payload.ctaLabel || "Take a Tour",
-    pageUrl: payload.pageUrl || "",
-    demoUrl: context.demoUrl || "",
-    demoExpiresAt: context.demoExpiresAt || "",
-  });
-}
+    const lead = await createPublicLead(
+      publicLeadSchema.parse({
+        name,
+        email: payload.email,
+        institute: payload.businessName || "",
+        phone: payload.phoneNumber || "",
+        message,
+        source: "demo-tour",
+        leadType: payload.leadType || "demo",
+        ctaLabel: payload.ctaLabel || "Take a Tour",
+        pageUrl: payload.pageUrl || "",
+      }),
+    );
 
-export async function POST(request: NextRequest) {
-  const appUrl =
-    process.env.NEXT_PUBLIC_DEMO_APP_URL?.trim() || DEFAULT_DEMO_APP_URL;
-  const endpoint = new URL(DEMO_TOUR_START_PATH, appUrl).toString();
-  const requestBody = await request.text();
-  const payload = parseDemoPayload(requestBody);
-  const upstreamPayload = buildUpstreamDemoPayload(payload);
-
-  let upstreamResponse: Response;
-
-  try {
-    upstreamResponse = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(upstreamPayload),
-      cache: "no-store",
+    return NextResponse.json({
+      success: true,
+      id: lead.id,
+      message: "Demo request received. Our team will contact you shortly.",
     });
-  } catch {
+  } catch (error) {
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Please check the form details and try again.",
+          issues: error.issues,
+        },
+        { status: 400 },
+      );
+    }
+
+    console.warn("[demo-tour] lead capture failed", error);
     return NextResponse.json(
       {
         success: false,
-        message: "Demo workspace is not reachable. Please try again shortly.",
+        message: "Unable to submit your demo request right now. Please try again.",
       },
-      { status: 502 },
+      { status: 500 },
     );
   }
-
-  const responseBody = await upstreamResponse.text();
-  if (upstreamResponse.ok) {
-    const redirect = extractDemoRedirect(responseBody);
-    const demoUrl = redirect ? new URL(redirect, appUrl).toString() : undefined;
-    const demoExpiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString();
-
-    await captureDemoLead(payload, { demoUrl, demoExpiresAt }).catch((error) => {
-      console.warn("[demo-tour] lead capture request failed", error);
-    });
-  } else if (isDemoToursDisabled(responseBody)) {
-    await captureDemoLead(payload, {
-      statusNote: "Demo tour request received, but the upstream demo app has demo tours disabled.",
-    }).catch((error) => {
-      console.warn("[demo-tour] lead capture request failed", error);
-    });
-
-    return NextResponse.json(
-      {
-        success: false,
-        message:
-          "Demo tours are temporarily paused while we finish enabling the demo workspace. We saved your request and the KASA team will share access shortly.",
-      },
-      { status: 503 },
-    );
-  }
-
-  const response = new NextResponse(responseBody, {
-    status: upstreamResponse.status,
-    headers: {
-      "content-type":
-        upstreamResponse.headers.get("content-type") ?? "application/json",
-    },
-  });
-
-  const upstreamCookies = getSetCookieHeaders(upstreamResponse.headers);
-
-  for (const cookie of upstreamCookies) {
-    response.headers.append("set-cookie", cookie);
-  }
-
-  if (upstreamResponse.ok) {
-    const bodyTokens = extractDemoTokens(responseBody);
-    const accessToken =
-      bodyTokens.accessToken || extractCookieValue(upstreamCookies, "accessToken");
-    const refreshToken =
-      bodyTokens.refreshToken || extractCookieValue(upstreamCookies, "refreshToken");
-    const cookieDomain = getCookieDomain(appUrl);
-    const cookieOptions = {
-      httpOnly: true,
-      secure: appUrl.startsWith("https://"),
-      sameSite: "lax" as const,
-      path: "/",
-      maxAge: 60 * 60,
-      ...(cookieDomain ? { domain: cookieDomain } : {}),
-    };
-
-    if (accessToken) {
-      response.cookies.set("accessToken", accessToken, cookieOptions);
-    }
-
-    if (refreshToken) {
-      response.cookies.set("refreshToken", refreshToken, cookieOptions);
-    }
-  }
-
-  return response;
 }
